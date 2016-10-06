@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#666664"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="24dp"
+    tools:context="com.kingja.kball.MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_login_logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/ic_launcher" />
+    <com.kingja.ui.SwitchMultiButton
+        android:id="@+id/smb_login_switch"
+        android:layout_margin="12dp"
+        android:layout_gravity="end"
+        android:layout_width="120dp"
+        android:layout_height="24dp"
+        app:strokeRadius="5dp"
+        app:strokeWidth="1dp"
+        app:selectedTab="0"
+        app:selectedColor="#311214"
+        app:textSize="14sp"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/et_login_userName"
+            style="@style/Normal_EditText"
+            android:hint="请输入手机号码" />
+
+        <EditText
+            android:id="@+id/et_login_password"
+            android:layout_marginTop="16dp"
+            style="@style/Normal_EditText"
+            android:hint="请输入密码" />
+
+        <LinearLayout
+            android:id="@+id/ll_login_checkCode"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_login_checkCode"
+                android:hint="请输入验证码"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                style="@style/Normal_EditText" />
+            <Button
+                android:id="@+id/btn_login_checkCode"
+                android:layout_weight="1"
+                android:text="重新获取(20S)"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login_confirm"
+            android:text="登录"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center"
+            android:text="其他登录方式"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginTop="24dp"
+            style="@style/divider_nomal_horizontal"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_login_loginByWX"
+                android:background="@color/gray"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <ImageView
+                android:id="@+id/iv_login_loginByQQ"
+                android:layout_marginLeft="24dp"
+                android:background="@color/gray"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
