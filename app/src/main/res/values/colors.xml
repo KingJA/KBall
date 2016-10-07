@@ -10,4 +10,6 @@
     <color name="gray">#c2b182</color>
 
     <color name="gray_divide">#c7c7c7</color>
+    <color name="main_sel">#eb4f38</color>
+    <color name="main_nor">#a9b7b7</color>
 </resources>
