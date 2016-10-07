@@ -3,9 +3,11 @@ package com.kingja.kball;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
 
+import okhttp3.MultipartBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Part;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,5 +39,8 @@ public class Api {
         return apiService.register(userName,userPassword).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
+    public  Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo){
+        return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

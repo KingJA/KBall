@@ -3,7 +3,7 @@ package com.kingja.kball;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
 
-import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
@@ -29,5 +29,5 @@ public interface ApiService {
 
     @Multipart
     @POST("HeadIconUpload.php")
-    Observable<HttpResult<Object>> uploadHeadIcon(@Part("head_icon") String description, @Part("file\"; filename=\"image.png\"") RequestBody requestBody);
+    Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo);
 }
