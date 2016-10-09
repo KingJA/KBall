@@ -13,7 +13,7 @@ import dagger.Provides;
 @Module
 public class ApiModule {
     @Provides
-    public Api provideDoubanApi() {
+    public Api provideApi() {
         return new Api();
     }
 }
