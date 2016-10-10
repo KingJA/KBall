@@ -1,10 +1,12 @@
 package com.kingja.kball.login;
 
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.kingja.kball.Api;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
+import com.kingja.kball.util.ToastUtil;
 
 import javax.inject.Inject;
 
@@ -30,7 +32,11 @@ public class LoginPresenter implements LoginContract.Presenter {
         api.login(userName,password).subscribe(new Action1<HttpResult<Login>>() {
             @Override
             public void call(HttpResult<Login> loginHttpResult) {
+                if (loginHttpResult.getCode() == 0) {
 
+                }else{
+                    ToastUtil.show(loginHttpResult.getMessage());
+                }
             }
 
         }, new Action1<Throwable>() {

@@ -24,7 +24,7 @@ public class App extends Application {
         appComponent = DaggerAppComponent.create();
     }
 
-    public static App getInstance() {
+    public static App getContext() {
         return sInstance;
     }
 

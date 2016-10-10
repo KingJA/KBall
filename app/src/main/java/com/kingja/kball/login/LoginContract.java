@@ -19,6 +19,10 @@ public interface LoginContract {
 
         void showRegisterError(String errorText);
 
+        void loginSuccess();
+
+        void registerSuccess();
+
     }
 
     interface Presenter extends BasePresenter<View> {
