@@ -3,6 +3,7 @@ package com.kingja.kball;
 import android.support.v4.view.ViewPager;
 import android.widget.RadioButton;
 
+import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.fragment.BaseFragment;
 import com.kingja.kball.fragment.HomeFragment;
 import com.kingja.kball.fragment.MineFragment;
@@ -21,6 +22,11 @@ public class MainActivity extends BaseActivity {
     ViewPager vpMainContent;
     @BindViews({R.id.radio_main_home, R.id.radio_main_rank, R.id.radio_main_team, R.id.radio_main_mine})
     List<RadioButton> radioButtons;
+
+    @Override
+    protected void initInjector() {
+
+    }
 
     @Override
     public void initVariable() {

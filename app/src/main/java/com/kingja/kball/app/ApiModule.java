@@ -1,4 +1,8 @@
-package com.kingja.kball;
+package com.kingja.kball.app;
+
+import com.kingja.kball.Api;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,6 +17,7 @@ import dagger.Provides;
 @Module
 public class ApiModule {
     @Provides
+    @Singleton
     public Api provideApi() {
         return new Api();
     }

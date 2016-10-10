@@ -2,7 +2,6 @@ package com.kingja.kball.app;
 
 
 import com.kingja.kball.Api;
-import com.kingja.kball.ApiModule;
 
 import dagger.Component;
 
@@ -15,5 +14,5 @@ import dagger.Component;
  */
 @Component(modules = {ApiModule.class})
 public interface AppComponent {
-    Api getDoubanApi();
+    Api getApi();
 }

@@ -1,5 +1,6 @@
 package com.kingja.kball.login;
 
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.kingja.kball.Api;
-import com.kingja.kball.BaseActivity;
+import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.R;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
@@ -47,16 +48,23 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     @BindView(R.id.ll_login_checkCode)
     LinearLayout llLoginCheckCode;
     @Inject
-    Api api;
+    LoginPresenter mLoginPresenter;
     private int currentPosition;
 
     @Override
-    public void initVariable() {
+    protected void initInjector() {
         DaggerLoginCompnent.builder()
                 .appComponent(getAppComponent())
                 .activityModule(getActivityModule())
                 .build()
                 .inject(this);
+    }
+
+
+
+    @Override
+    public void initVariable() {
+
     }
 
     @Override
@@ -65,26 +73,11 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     }
 
     @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initEvent() {
-
-    }
-
-    @Override
-    public void initDate() {
+    protected void initViewAndListener() {
         smbLoginSwitch.setText(Arrays.asList("登录", "注册"));
         smbLoginSwitch.setOnSwitchListener(this);
-
     }
 
-    @Override
-    public void setDate() {
-
-    }
 
     @Override
     public void onSwitch(int position, String tabText) {
@@ -97,29 +90,29 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
         String password= etLoginPassword.getText().toString().trim();
 
         if (currentPosition == 0) {
-            api.login(userName,password).subscribe(new Subscriber<HttpResult<Login>>() {
-                @Override
-                public void onCompleted() {
-
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onNext(HttpResult<Login> loginHttpResult) {
-                    Log.e(TAG, "login: "+loginHttpResult.getMessage() );
-                }
-            });
+//            api.login(userName,password).subscribe(new Subscriber<HttpResult<Login>>() {
+//                @Override
+//                public void onCompleted() {
+//
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(HttpResult<Login> loginHttpResult) {
+//                    Log.e(TAG, "login: "+loginHttpResult.getMessage() );
+//                }
+//            });
         }else{
-            api.register(userName,password).subscribe(new Action1<HttpResult<Object>>() {
-                @Override
-                public void call(HttpResult<Object> loginHttpResult) {
-                    Log.e(TAG, "register: "+loginHttpResult.getMessage() );
-                }
-            });
+//            api.register(userName,password).subscribe(new Action1<HttpResult<Object>>() {
+//                @Override
+//                public void call(HttpResult<Object> loginHttpResult) {
+//                    Log.e(TAG, "register: "+loginHttpResult.getMessage() );
+//                }
+//            });
         }
 
     }
