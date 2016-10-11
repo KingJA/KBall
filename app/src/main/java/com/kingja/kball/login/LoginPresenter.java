@@ -1,16 +1,15 @@
 package com.kingja.kball.login;
 
 import android.support.annotation.NonNull;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.kingja.kball.Api;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
-import com.kingja.kball.util.ToastUtil;
 
 import javax.inject.Inject;
 
-import rx.functions.Action1;
+import rx.Subscriber;
 
 /**
  * Description：TODO
@@ -19,42 +18,61 @@ import rx.functions.Action1;
  * Email:kingjavip@gmail.com
  */
 public class LoginPresenter implements LoginContract.Presenter {
-    private Api api;
-    private LoginContract.View view;
+    private Api mApi;
+    private LoginContract.View mView;
 
     @Inject
-    public LoginPresenter(Api api) {
-        this.api = api;
+    public LoginPresenter(Api mApi) {
+        this.mApi = mApi;
     }
 
     @Override
     public void login(String userName, String password) {
-        api.login(userName,password).subscribe(new Action1<HttpResult<Login>>() {
+        mView.showLoading();
+        mApi.login(userName,password).subscribe(new Subscriber<HttpResult<Login>>() {
             @Override
-            public void call(HttpResult<Login> loginHttpResult) {
-                if (loginHttpResult.getCode() == 0) {
-
-                }else{
-                    ToastUtil.show(loginHttpResult.getMessage());
-                }
+            public void onCompleted() {
+                mView.hideLoading();
             }
 
-        }, new Action1<Throwable>() {
             @Override
-            public void call(Throwable throwable) {
+            public void onError(Throwable e) {
+                mView.hideLoading();
+            }
 
+            @Override
+            public void onNext(HttpResult<Login> loginHttpResult) {
+                mView.hideLoading();
+                Log.e("LoginPresenter", "onNext: "+loginHttpResult.getMessage() );
             }
         });
     }
 
     @Override
     public void register(String userName, String password) {
+        mView.showLoading();
+        mApi.register(userName,password).subscribe(new Subscriber<HttpResult<Object>>() {
+            @Override
+            public void onCompleted() {
+                mView.hideLoading();
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                mView.hideLoading();
+            }
+
+            @Override
+            public void onNext(HttpResult<Object> objectHttpResult) {
+                mView.hideLoading();
+                Log.e("LoginPresenter", "onNext: "+objectHttpResult.getMessage() );
+            }
+        });
     }
 
     @Override
     public void attachView(@NonNull LoginContract.View view) {
-        this.view = view;
+        this.mView = view;
     }
 
     @Override
