@@ -10,6 +10,7 @@ import com.kingja.kball.entiy.Login;
 import javax.inject.Inject;
 
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Description：TODO
@@ -20,6 +21,7 @@ import rx.Subscriber;
 public class LoginPresenter implements LoginContract.Presenter {
     private Api mApi;
     private LoginContract.View mView;
+    private Subscription mSubscription;
 
     @Inject
     public LoginPresenter(Api mApi) {
@@ -51,7 +53,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void register(String userName, String password) {
         mView.showLoading();
-        mApi.register(userName,password).subscribe(new Subscriber<HttpResult<Object>>() {
+        mSubscription = mApi.register(userName, password).subscribe(new Subscriber<HttpResult<Object>>() {
             @Override
             public void onCompleted() {
                 mView.hideLoading();
@@ -65,7 +67,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onNext(HttpResult<Object> objectHttpResult) {
                 mView.hideLoading();
-                Log.e("LoginPresenter", "onNext: "+objectHttpResult.getMessage() );
+                Log.e("LoginPresenter", "onNext: " + objectHttpResult.getMessage());
             }
         });
     }
