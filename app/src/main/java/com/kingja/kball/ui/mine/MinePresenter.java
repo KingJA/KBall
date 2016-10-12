@@ -1,18 +1,17 @@
 package com.kingja.kball.ui.mine;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.kingja.kball.base.SubcribePresenter;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.ResultSubscriber;
 import com.kingja.kball.model.entiy.HttpResult;
+import com.kingja.kball.util.ToastUtil;
 import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
 import okhttp3.MultipartBody;
-import rx.Subscriber;
 import rx.Subscription;
 
 /**
@@ -23,6 +22,7 @@ import rx.Subscription;
  */
 public class MinePresenter extends SubcribePresenter implements MineContract.Presenter {
     private Api mApi;
+    private MineContract.View mView;
 
     @Inject
     public MinePresenter(Api mApi) {
@@ -31,10 +31,28 @@ public class MinePresenter extends SubcribePresenter implements MineContract.Pre
 
     @Override
     public void uploadHeadIcon(MultipartBody.Part photo) {
+
         Subscription subscribe = mApi.uploadHeadIcon(photo).subscribe(new ResultSubscriber<Object>() {
             @Override
+            public void onStart() {
+                mView.showLoading();
+            }
+
+            @Override
             protected void onSuccess(HttpResult<Object> httpResult) {
-                Logger.e(httpResult.getMessage());
+                mView.hideLoading();
+                mView.onUploadHeadIconSuccess(httpResult);
+            }
+
+            @Override
+            protected void onError(String errorText) {
+                mView.hideLoading();
+                ToastUtil.showText(errorText);
+            }
+
+            @Override
+            public void onCompleted() {
+                mView.hideLoading();
             }
         });
         addSubscription(subscribe);
@@ -42,7 +60,7 @@ public class MinePresenter extends SubcribePresenter implements MineContract.Pre
 
     @Override
     public void attachView(@NonNull MineContract.View view) {
-
+        mView = view;
     }
 
     @Override

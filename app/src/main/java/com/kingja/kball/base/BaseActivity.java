@@ -28,9 +28,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initCommon();
         addSubscription(subscribeEvents());
         initVariable();
-        initCommon();
         setContentView(getContentId());
         ButterKnife.bind(this);
         initInjector();

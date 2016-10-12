@@ -12,14 +12,11 @@ import rx.Subscriber;
  * Email:kingjavip@gmail.com
  */
 public abstract class ResultSubscriber<T> extends Subscriber<HttpResult<T>> {
-    @Override
-    public void onCompleted() {
-    }
 
 
     @Override
     public void onError(Throwable e) {
-        ToastUtil.showText("网络连接错误");
+        onError("网络连接错误");
     }
 
     @Override
@@ -27,10 +24,19 @@ public abstract class ResultSubscriber<T> extends Subscriber<HttpResult<T>> {
         if (httpResult.getCode() == 0) {
             onSuccess(httpResult);
         } else {
-            ToastUtil.showText(httpResult.getMessage());
+            onError(httpResult.getMessage());
         }
 
     }
 
+    @Override
+    public abstract void onStart();
+
     protected abstract void onSuccess(HttpResult<T> httpResult);
+
+    protected abstract void onError(String errorText);
+
+    @Override
+    public abstract void onCompleted();
+
 }

@@ -2,6 +2,7 @@ package com.kingja.kball.ui.mine;
 
 import com.kingja.kball.base.BasePresenter;
 import com.kingja.kball.base.BaseView;
+import com.kingja.kball.model.entiy.HttpResult;
 
 import okhttp3.MultipartBody;
 
@@ -17,9 +18,7 @@ public interface MineContract {
 
         void hideLoading();
 
-        void onUploadHeadIconSuccess();
-
-
+       void onUploadHeadIconSuccess(HttpResult<Object> httpResult);
     }
 
     interface Presenter extends BasePresenter<View> {

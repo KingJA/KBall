@@ -1,16 +1,13 @@
 package com.kingja.kball.ui.mine;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kingja.kball.base.BaseFragment;
-import com.kingja.kball.model.Api;
 import com.kingja.kball.R;
+import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.model.entiy.HttpResult;
-import com.kingja.kball.ui.login.LoginPresenter;
-import com.orhanobut.logger.Logger;
+import com.kingja.kball.util.ToastUtil;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
@@ -24,7 +21,6 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import rx.Subscriber;
 
 /**
  * Description：TODO
@@ -32,7 +28,7 @@ import rx.Subscriber;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements MineContract.View {
     @BindView(R.id.iv_userPhoto)
     ImageView ivUserPhoto;
     @BindView(R.id.tv_userName)
@@ -61,7 +57,6 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onImagePickComplete(List<ImageItem> items) {
                 if (items != null && items.size() > 0) {
-                    Logger.e(TAG, "=====selected：" + items.get(0).path);
                     File file = new File(items.get(0).path);
                     RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/png"), file);
                     MultipartBody.Part photo = MultipartBody.Part.createFormData("head_icon", "Screenshot_2016-10-07-19-28-49-107_com.tencent.mm.png", photoRequestBody);
@@ -69,5 +64,20 @@ public class MineFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
+
+    @Override
+    public void onUploadHeadIconSuccess(HttpResult<Object> httpResult) {
+        ToastUtil.showText("头像更换成功");
     }
 }

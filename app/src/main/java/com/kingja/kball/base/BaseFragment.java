@@ -1,5 +1,6 @@
 package com.kingja.kball.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,8 +21,7 @@ import rx.subscriptions.CompositeSubscription;
  * Desc: BaseFragment
  */
 public abstract class BaseFragment extends Fragment {
-    protected String TAG=getClass().getSimpleName();
-
+    private ProgressDialog mDialogProgress;
     private CompositeSubscription mSubscriptions;
 
     @Override
@@ -32,9 +32,22 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initCommon();
         addSubscription(subscribeEvents());
         initInjector();
         initViewAndListener();
+    }
+
+    private void initCommon() {
+        mDialogProgress = new ProgressDialog(getActivity());
+    }
+    /*设置圆形进度条*/
+    protected void setProgressShow(boolean ifShow) {
+        if (ifShow) {
+            mDialogProgress.show(getActivity(), "", "加载中", true, true);
+        } else {
+            mDialogProgress.dismiss();
+        }
     }
 
     protected abstract void initInjector();
