@@ -29,27 +29,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void initVariable() {
-
-    }
-
-    @Override
-    public int getContentId() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initEvent() {
-
-    }
-
-    @Override
-    public void initDate() {
+    protected void initViewAndListener() {
         BaseFragment[] fragments = new BaseFragment[4];
         fragments[0] = new HomeFragment();
         fragments[1] = new RankFragment();
@@ -78,9 +58,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void setDate() {
+    public void initVariable() {
 
     }
+
+    @Override
+    public int getContentId() {
+        return R.layout.activity_main;
+    }
+
     @OnCheckedChanged({R.id.radio_main_home, R.id.radio_main_rank, R.id.radio_main_team, R.id.radio_main_mine})
     public void onRadioButtonChecked(RadioButton button, boolean isChecked) {
         if (isChecked) {

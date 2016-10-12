@@ -3,6 +3,8 @@ package com.kingja.kball.app;
 
 import com.kingja.kball.Api;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
@@ -12,6 +14,7 @@ import dagger.Component;
  * 创建时间：2016/6/13 9:42
  * 修改备注：
  */
+@Singleton
 @Component(modules = {ApiModule.class})
 public interface AppComponent {
     Api getApi();

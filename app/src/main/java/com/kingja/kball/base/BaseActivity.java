@@ -1,5 +1,6 @@
 package com.kingja.kball.base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import com.kingja.kball.app.ActivityModule;
 import com.kingja.kball.app.App;
 import com.kingja.kball.app.AppComponent;
 import com.kingja.kball.util.AppManager;
+import com.kingja.ui.DialogProgress;
 
 import butterknife.ButterKnife;
 import rx.Subscription;
@@ -22,6 +24,7 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
     private CompositeSubscription mSubscriptions;
+    private ProgressDialog mDialogProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /*初始化公共组件*/
     private void initCommon() {
+        mDialogProgress = new ProgressDialog(this);
+    }
+
+    protected void setProgressShow(boolean ifShow) {
+        if (ifShow) {
+            mDialogProgress.show(this,"","加载中",true,true);
+        }else{
+            mDialogProgress.dismiss();
+        }
+
     }
 
     /*初始化数据*/
@@ -79,6 +92,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         if (mSubscriptions != null) {
             mSubscriptions.clear();
+        }
+        if (mDialogProgress.isShowing()) {
+            mDialogProgress.dismiss();
+            mDialogProgress=null;
         }
         AppManager.getAppManager().finishActivity(this);
     }

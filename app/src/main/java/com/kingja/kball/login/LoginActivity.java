@@ -1,18 +1,13 @@
 package com.kingja.kball.login;
 
-import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.kingja.kball.Api;
-import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.R;
-import com.kingja.kball.entiy.HttpResult;
-import com.kingja.kball.entiy.Login;
+import com.kingja.kball.base.BaseActivity;
 import com.kingja.ui.SwitchMultiButton;
 
 import java.util.Arrays;
@@ -21,10 +16,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscriber;
-import rx.functions.Action1;
 
-public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnSwitchListener {
+public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnSwitchListener, LoginContract.View {
 
 
     @BindView(R.id.iv_login_logo)
@@ -61,7 +54,6 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     }
 
 
-
     @Override
     public void initVariable() {
 
@@ -74,6 +66,7 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
 
     @Override
     protected void initViewAndListener() {
+        mLoginPresenter.attachView(this);
         smbLoginSwitch.setText(Arrays.asList("登录", "注册"));
         smbLoginSwitch.setOnSwitchListener(this);
     }
@@ -81,40 +74,50 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
 
     @Override
     public void onSwitch(int position, String tabText) {
-        llLoginCheckCode.setVisibility(position==1? View.VISIBLE:View.GONE);
+        llLoginCheckCode.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         currentPosition = position;
     }
+
     @OnClick(R.id.btn_login_confirm)
     public void onLoginOrRegister(View view) {
-        String userName= etLoginUserName.getText().toString().trim();
-        String password= etLoginPassword.getText().toString().trim();
+        String userName = etLoginUserName.getText().toString().trim();
+        String password = etLoginPassword.getText().toString().trim();
 
         if (currentPosition == 0) {
-//            api.login(userName,password).subscribe(new Subscriber<HttpResult<Login>>() {
-//                @Override
-//                public void onCompleted() {
-//
-//                }
-//
-//                @Override
-//                public void onError(Throwable e) {
-//
-//                }
-//
-//                @Override
-//                public void onNext(HttpResult<Login> loginHttpResult) {
-//                    Log.e(TAG, "login: "+loginHttpResult.getMessage() );
-//                }
-//            });
-        }else{
-//            api.register(userName,password).subscribe(new Action1<HttpResult<Object>>() {
-//                @Override
-//                public void call(HttpResult<Object> loginHttpResult) {
-//                    Log.e(TAG, "register: "+loginHttpResult.getMessage() );
-//                }
-//            });
+            mLoginPresenter.login(userName, password);
+        } else {
+            mLoginPresenter.register(userName, password);
         }
 
     }
 
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
+
+    @Override
+    public void onLoginError(String errorText) {
+
+    }
+
+    @Override
+    public void onRegisterError(String errorText) {
+
+    }
+
+    @Override
+    public void onLoginSuccess() {
+
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+
+    }
 }

@@ -16,8 +16,8 @@ import dagger.Provides;
  */
 @Module
 public class ApiModule {
-    @Provides
     @Singleton
+    @Provides
     public Api provideApi() {
         return new Api();
     }

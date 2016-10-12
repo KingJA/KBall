@@ -15,13 +15,13 @@ public interface LoginContract {
 
         void hideLoading();
 
-        void showLoginError(String errorText);
+        void onLoginError(String errorText);
 
-        void showRegisterError(String errorText);
+        void onRegisterError(String errorText);
 
-        void loginSuccess();
+        void onLoginSuccess();
 
-        void registerSuccess();
+        void onRegisterSuccess();
 
     }
 

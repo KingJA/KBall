@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Description：TODO
@@ -21,7 +22,9 @@ import rx.Subscription;
 public class LoginPresenter implements LoginContract.Presenter {
     private Api mApi;
     private LoginContract.View mView;
-    private Subscription mSubscription;
+    private Subscription mRegisterSubscription;
+    private CompositeSubscription mSubscriptions= new CompositeSubscription();
+    private Subscription mLoginSubscription;
 
     @Inject
     public LoginPresenter(Api mApi) {
@@ -31,7 +34,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(String userName, String password) {
         mView.showLoading();
-        mApi.login(userName,password).subscribe(new Subscriber<HttpResult<Login>>() {
+        mLoginSubscription = mApi.login(userName, password).subscribe(new Subscriber<HttpResult<Login>>() {
             @Override
             public void onCompleted() {
                 mView.hideLoading();
@@ -45,15 +48,22 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onNext(HttpResult<Login> loginHttpResult) {
                 mView.hideLoading();
-                Log.e("LoginPresenter", "onNext: "+loginHttpResult.getMessage() );
+                Log.e("LoginPresenter", "onNext: " + loginHttpResult.getMessage());
+                if (loginHttpResult.getCode() == 0) {
+                    mView.onLoginSuccess();
+                }else{
+                    mView.onLoginError(loginHttpResult.getMessage());
+                }
+
             }
         });
+        mSubscriptions.add(mLoginSubscription);
     }
 
     @Override
     public void register(String userName, String password) {
         mView.showLoading();
-        mSubscription = mApi.register(userName, password).subscribe(new Subscriber<HttpResult<Object>>() {
+        mRegisterSubscription = mApi.register(userName, password).subscribe(new Subscriber<HttpResult<Object>>() {
             @Override
             public void onCompleted() {
                 mView.hideLoading();
@@ -66,10 +76,16 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onNext(HttpResult<Object> objectHttpResult) {
-                mView.hideLoading();
                 Log.e("LoginPresenter", "onNext: " + objectHttpResult.getMessage());
+                mView.hideLoading();
+                if (objectHttpResult.getCode() == 0) {
+                    mView.onRegisterSuccess();
+                }else{
+                    mView.onRegisterError(objectHttpResult.getMessage());
+                }
             }
         });
+        mSubscriptions.add(mRegisterSubscription);
     }
 
     @Override
@@ -79,6 +95,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void detachView() {
-
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
     }
 }
