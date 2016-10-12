@@ -10,6 +10,7 @@ import com.kingja.kball.model.Api;
 import com.kingja.kball.R;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.ui.login.LoginPresenter;
+import com.orhanobut.logger.Logger;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
@@ -60,7 +61,7 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onImagePickComplete(List<ImageItem> items) {
                 if (items != null && items.size() > 0) {
-                    Log.e(TAG, "=====selected：" + items.get(0).path);
+                    Logger.e(TAG, "=====selected：" + items.get(0).path);
                     File file = new File(items.get(0).path);
                     RequestBody photoRequestBody = RequestBody.create(MediaType.parse("image/png"), file);
                     MultipartBody.Part photo = MultipartBody.Part.createFormData("head_icon", "Screenshot_2016-10-07-19-28-49-107_com.tencent.mm.png", photoRequestBody);

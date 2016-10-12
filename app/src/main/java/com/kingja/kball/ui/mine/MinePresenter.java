@@ -1,14 +1,19 @@
 package com.kingja.kball.ui.mine;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.kingja.kball.base.SubcribePresenter;
 import com.kingja.kball.model.Api;
+import com.kingja.kball.model.ResultSubscriber;
 import com.kingja.kball.model.entiy.HttpResult;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
 import okhttp3.MultipartBody;
 import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * Description：TODO
@@ -16,8 +21,9 @@ import rx.Subscriber;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MinePresenter implements MineContract.Presenter {
+public class MinePresenter extends SubcribePresenter implements MineContract.Presenter {
     private Api mApi;
+
     @Inject
     public MinePresenter(Api mApi) {
         this.mApi = mApi;
@@ -25,22 +31,13 @@ public class MinePresenter implements MineContract.Presenter {
 
     @Override
     public void uploadHeadIcon(MultipartBody.Part photo) {
-        mApi.uploadHeadIcon(photo).subscribe(new Subscriber<HttpResult<Object>>() {
+        Subscription subscribe = mApi.uploadHeadIcon(photo).subscribe(new ResultSubscriber<Object>() {
             @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(HttpResult<Object> objectHttpResult) {
-
+            protected void onSuccess(HttpResult<Object> httpResult) {
+                Logger.e(httpResult.getMessage());
             }
         });
+        addSubscription(subscribe);
     }
 
     @Override
@@ -50,6 +47,6 @@ public class MinePresenter implements MineContract.Presenter {
 
     @Override
     public void detachView() {
-
+        removeSubscriptions();
     }
 }

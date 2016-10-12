@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.component.DaggerAppComponent;
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -21,6 +23,7 @@ public class App extends Application {
         super.onCreate();
         this.sInstance=this;
         setupComponent();
+        Logger.init().logLevel(LogLevel.FULL);
     }
 
     private void setupComponent() {

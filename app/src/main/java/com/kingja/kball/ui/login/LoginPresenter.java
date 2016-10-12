@@ -7,6 +7,7 @@ import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.util.ToastUtil;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -49,7 +50,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onNext(HttpResult<Login> loginHttpResult) {
                 mView.hideLoading();
-                Log.e("LoginPresenter", "onNext: " + loginHttpResult.getMessage());
+                Logger.e(loginHttpResult.getMessage());
                 if (loginHttpResult.getCode() == 0) {
                     mView.onLoginSuccess();
                 }else{
@@ -77,7 +78,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onNext(HttpResult<Object> objectHttpResult) {
-                Log.e("LoginPresenter", "onNext: " + objectHttpResult.getMessage());
+                Logger.e(objectHttpResult.getMessage());
                 mView.hideLoading();
                 if (objectHttpResult.getCode() == 0) {
                     mView.onRegisterSuccess();
