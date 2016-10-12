@@ -6,6 +6,7 @@ import android.util.Log;
 import com.kingja.kball.Api;
 import com.kingja.kball.entiy.HttpResult;
 import com.kingja.kball.entiy.Login;
+import com.kingja.kball.util.ToastUtil;
 
 import javax.inject.Inject;
 
@@ -52,7 +53,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if (loginHttpResult.getCode() == 0) {
                     mView.onLoginSuccess();
                 }else{
-                    mView.onLoginError(loginHttpResult.getMessage());
+                    ToastUtil.showText(loginHttpResult.getMessage());
                 }
 
             }
@@ -81,7 +82,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 if (objectHttpResult.getCode() == 0) {
                     mView.onRegisterSuccess();
                 }else{
-                    mView.onRegisterError(objectHttpResult.getMessage());
+                    ToastUtil.showText(objectHttpResult.getMessage());
                 }
             }
         });

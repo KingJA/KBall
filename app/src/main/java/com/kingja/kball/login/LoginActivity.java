@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
+import com.kingja.kball.util.ToastUtil;
 import com.kingja.ui.SwitchMultiButton;
 
 import java.util.Arrays;
@@ -99,16 +100,6 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     @Override
     public void hideLoading() {
         setProgressShow(false);
-    }
-
-    @Override
-    public void onLoginError(String errorText) {
-
-    }
-
-    @Override
-    public void onRegisterError(String errorText) {
-
     }
 
     @Override

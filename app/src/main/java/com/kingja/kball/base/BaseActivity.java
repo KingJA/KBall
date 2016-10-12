@@ -9,7 +9,6 @@ import com.kingja.kball.app.ActivityModule;
 import com.kingja.kball.app.App;
 import com.kingja.kball.app.AppComponent;
 import com.kingja.kball.util.AppManager;
-import com.kingja.ui.DialogProgress;
 
 import butterknife.ButterKnife;
 import rx.Subscription;

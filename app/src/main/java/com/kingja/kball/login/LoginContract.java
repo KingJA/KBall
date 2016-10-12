@@ -15,10 +15,6 @@ public interface LoginContract {
 
         void hideLoading();
 
-        void onLoginError(String errorText);
-
-        void onRegisterError(String errorText);
-
         void onLoginSuccess();
 
         void onRegisterSuccess();

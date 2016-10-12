@@ -38,7 +38,7 @@ public class ToastUtil {
         }
     }
 
-    public static void show(String message) {
+    public static void showText(String message) {
         showToast(AppUtil.getContext(), message, Toast.LENGTH_SHORT);
     }
 
@@ -60,7 +60,7 @@ public class ToastUtil {
             @Override
             public void run() {
                 Looper.prepare();
-                ToastUtil.show(msg);
+                ToastUtil.showText(msg);
                 Looper.loop();
             }
         }).start();
