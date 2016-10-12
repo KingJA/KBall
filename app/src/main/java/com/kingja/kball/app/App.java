@@ -2,6 +2,9 @@ package com.kingja.kball.app;
 
 import android.app.Application;
 
+import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.injector.component.DaggerAppComponent;
+
 
 /**
  * Description：App

@@ -1,6 +1,7 @@
 package com.kingja.kball.fragment;
 
 import com.kingja.kball.R;
+import com.kingja.kball.base.BaseFragment;
 
 /**
  * Description：TODO

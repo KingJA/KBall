@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kingja.kball.Api;
+import com.kingja.kball.base.BaseFragment;
+import com.kingja.kball.model.Api;
 import com.kingja.kball.R;
-import com.kingja.kball.entiy.HttpResult;
+import com.kingja.kball.model.entiy.HttpResult;
 import com.pizidea.imagepicker.AndroidImagePicker;
 import com.pizidea.imagepicker.bean.ImageItem;
 
