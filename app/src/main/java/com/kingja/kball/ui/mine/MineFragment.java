@@ -1,4 +1,4 @@
-package com.kingja.kball.fragment;
+package com.kingja.kball.ui.mine;
 
 import android.util.Log;
 import android.view.View;
@@ -33,6 +33,16 @@ public class MineFragment extends BaseFragment {
     ImageView ivUserPhoto;
     @BindView(R.id.tv_userName)
     TextView tvUserName;
+
+    @Override
+    protected void initInjector() {
+
+    }
+
+    @Override
+    protected void initViewAndListener() {
+
+    }
 
     @Override
     protected int getContentId() {

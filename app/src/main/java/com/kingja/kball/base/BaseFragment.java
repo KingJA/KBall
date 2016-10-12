@@ -33,7 +33,13 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addSubscription(subscribeEvents());
+        initInjector();
+        initViewAndListener();
     }
+
+    protected abstract void initInjector();
+
+    protected abstract void initViewAndListener();
 
     @Nullable
     @Override

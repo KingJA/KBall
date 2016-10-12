@@ -19,7 +19,6 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnSwitchListener, LoginContract.View {
 
-
     @BindView(R.id.iv_login_logo)
     ImageView ivLoginLogo;
     @BindView(R.id.smb_login_switch)
@@ -53,10 +52,8 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
                 .inject(this);
     }
 
-
     @Override
     public void initVariable() {
-
     }
 
     @Override
@@ -82,7 +79,6 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     public void onLoginOrRegister(View view) {
         String userName = etLoginUserName.getText().toString().trim();
         String password = etLoginPassword.getText().toString().trim();
-
         if (currentPosition == 0) {
             mLoginPresenter.login(userName, password);
         } else {
@@ -109,5 +105,11 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     @Override
     public void onRegisterSuccess() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLoginPresenter.detachView();
     }
 }

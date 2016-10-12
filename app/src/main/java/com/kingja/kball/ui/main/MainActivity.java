@@ -7,7 +7,7 @@ import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.fragment.HomeFragment;
-import com.kingja.kball.fragment.MineFragment;
+import com.kingja.kball.ui.mine.MineFragment;
 import com.kingja.kball.fragment.RankFragment;
 import com.kingja.kball.fragment.TeamFragment;
 

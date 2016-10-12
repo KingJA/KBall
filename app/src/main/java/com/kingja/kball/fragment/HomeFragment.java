@@ -11,6 +11,16 @@ import com.kingja.kball.base.BaseFragment;
  */
 public class HomeFragment extends BaseFragment {
     @Override
+    protected void initInjector() {
+
+    }
+
+    @Override
+    protected void initViewAndListener() {
+
+    }
+
+    @Override
     protected int getContentId() {
         return R.layout.fragment_home;
     }
