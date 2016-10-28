@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+apply from:"config.gradle"
 buildscript {
     repositories {
-        jcenter()
+        jcenter()// 告诉project 使用jcenter库
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.1.2'// 告诉project使用android提供的2.1.2版本gradle
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        jcenter()//所有的project都是使用jcenter库
     }
 }
 

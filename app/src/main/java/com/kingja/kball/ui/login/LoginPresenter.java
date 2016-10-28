@@ -25,7 +25,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     private Api mApi;
     private LoginContract.View mView;
     private Subscription mRegisterSubscription;
-    private CompositeSubscription mSubscriptions= new CompositeSubscription();
+    private CompositeSubscription mSubscriptions = new CompositeSubscription();
     private Subscription mLoginSubscription;
 
     @Inject
@@ -53,7 +53,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 Logger.e(loginHttpResult.getMessage());
                 if (loginHttpResult.getCode() == 0) {
                     mView.onLoginSuccess();
-                }else{
+                } else {
                     ToastUtil.showText(loginHttpResult.getMessage());
                 }
 
@@ -82,7 +82,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 mView.hideLoading();
                 if (objectHttpResult.getCode() == 0) {
                     mView.onRegisterSuccess();
-                }else{
+                } else {
                     ToastUtil.showText(objectHttpResult.getMessage());
                 }
             }
