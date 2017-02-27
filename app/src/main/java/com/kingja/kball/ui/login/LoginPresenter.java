@@ -1,7 +1,6 @@
 package com.kingja.kball.ui.login;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;

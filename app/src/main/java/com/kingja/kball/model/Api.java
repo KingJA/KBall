@@ -32,15 +32,18 @@ public class Api {
                 .build();
         apiService = retrofit.create(ApiService.class);
     }
+
     public Observable<HttpResult<Login>> login(String userName, String userPassword) {
-        return apiService.login(userName,userPassword).subscribeOn(Schedulers.io())
+        return apiService.login(userName, userPassword).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
     public Observable<HttpResult<Object>> register(String userName, String userPassword) {
-        return apiService.register(userName,userPassword).subscribeOn(Schedulers.io())
+        return apiService.register(userName, userPassword).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-    public  Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo){
+
+    public Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo) {
         return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

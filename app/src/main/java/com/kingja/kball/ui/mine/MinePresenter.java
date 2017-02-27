@@ -7,7 +7,6 @@ import com.kingja.kball.model.Api;
 import com.kingja.kball.model.ResultSubscriber;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.util.ToastUtil;
-import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 

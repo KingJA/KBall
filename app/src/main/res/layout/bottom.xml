@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_home"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/aiv_home"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/svg_home"
+            android:tint="@color/red" />
+
+        <TextView
+            android:id="@+id/tv_home"
+            style="@style/font_red_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="首页" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/aiv_top"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/svg_top"
+            android:tint="@color/font_3" />
+
+        <TextView
+            android:id="@+id/tv_top"
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="排行" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_store"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/aiv_store"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/svg_store"
+            android:tint="@color/font_3" />
+
+        <TextView
+            android:id="@+id/tv_store"
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="商城" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_mine"
+        android:padding="4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/aiv_mine"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/svg_mine"
+            android:tint="@color/font_3" />
+
+        <TextView
+            android:id="@+id/tv_mine"
+            style="@style/font_3_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="我的" />
+    </LinearLayout>
+</LinearLayout>

@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_main_content"
+        android:id="@+id/vp_main"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
     <View style="@style/divider_nomal_horizontal"/>
-    <include layout="@layout/layout_main_bottom" />
+    <include layout="@layout/bottom" />
 </LinearLayout>

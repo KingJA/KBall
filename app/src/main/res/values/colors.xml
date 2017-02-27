@@ -10,6 +10,13 @@
     <color name="gray">#c2b182</color>
 
     <color name="gray_divide">#c7c7c7</color>
-    <color name="main_sel">#eb4f38</color>
+    <color name="red">#eb4f38</color>
     <color name="main_nor">#a9b7b7</color>
+
+
+    <color name="font_3">#333333</color>
+    <color name="font_6">#666666</color>
+    <color name="font_9">#999999</color>
+
+
 </resources>
