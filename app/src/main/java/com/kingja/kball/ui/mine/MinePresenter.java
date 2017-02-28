@@ -2,7 +2,6 @@ package com.kingja.kball.ui.mine;
 
 import android.support.annotation.NonNull;
 
-import com.kingja.kball.base.SubcribePresenter;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.ResultSubscriber;
 import com.kingja.kball.model.entiy.HttpResult;
@@ -11,7 +10,6 @@ import com.kingja.kball.util.ToastUtil;
 import javax.inject.Inject;
 
 import okhttp3.MultipartBody;
-import rx.Subscription;
 
 /**
  * Description：TODO
@@ -19,7 +17,7 @@ import rx.Subscription;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MinePresenter extends SubcribePresenter implements MineContract.Presenter {
+public class MinePresenter   implements MineContract.Presenter {
     private Api mApi;
     private MineContract.View mView;
 
@@ -31,7 +29,7 @@ public class MinePresenter extends SubcribePresenter implements MineContract.Pre
     @Override
     public void uploadHeadIcon(MultipartBody.Part photo) {
 
-        Subscription subscribe = mApi.uploadHeadIcon(photo).subscribe(new ResultSubscriber<Object>() {
+        mApi.uploadHeadIcon(photo).subscribe(new ResultSubscriber<Object>() {
             @Override
             public void onStart() {
                 mView.showLoading();
@@ -54,7 +52,6 @@ public class MinePresenter extends SubcribePresenter implements MineContract.Pre
                 mView.hideLoading();
             }
         });
-        addSubscription(subscribe);
     }
 
     @Override
@@ -64,6 +61,5 @@ public class MinePresenter extends SubcribePresenter implements MineContract.Pre
 
     @Override
     public void detachView() {
-        removeSubscriptions();
     }
 }
