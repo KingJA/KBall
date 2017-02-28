@@ -1,17 +1,17 @@
 package com.kingja.kball.model;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kingja.kball.app.Constans;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Part;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 项目名称：和ApiService相关联
@@ -28,7 +28,7 @@ public class Api {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constans.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
     }

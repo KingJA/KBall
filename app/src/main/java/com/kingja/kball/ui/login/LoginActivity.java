@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
+import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.util.ToastUtil;
 import com.kingja.ui.SwitchMultiButton;
 
 import java.util.Arrays;
@@ -98,8 +100,8 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     }
 
     @Override
-    public void onLoginSuccess() {
-
+    public void onLoginSuccess(Login login) {
+        ToastUtil.showText(login.getName());
     }
 
     @Override

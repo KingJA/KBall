@@ -10,9 +10,9 @@ import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Description：TODO
@@ -23,9 +23,6 @@ import rx.subscriptions.CompositeSubscription;
 public class LoginPresenter implements LoginContract.Presenter {
     private Api mApi;
     private LoginContract.View mView;
-    private Subscription mRegisterSubscription;
-    private CompositeSubscription mSubscriptions = new CompositeSubscription();
-    private Subscription mLoginSubscription;
 
     @Inject
     public LoginPresenter(Api mApi) {
@@ -35,58 +32,59 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(String userName, String password) {
         mView.showLoading();
-        mLoginSubscription = mApi.login(userName, password).subscribe(new Subscriber<HttpResult<Login>>() {
+        mApi.login(userName, password).subscribe(new Observer<HttpResult<Login>>() {
             @Override
-            public void onCompleted() {
-                mView.hideLoading();
-            }
+            public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onError(Throwable e) {
-                mView.hideLoading();
             }
 
             @Override
             public void onNext(HttpResult<Login> loginHttpResult) {
-                mView.hideLoading();
-                Logger.e(loginHttpResult.getMessage());
-                if (loginHttpResult.getCode() == 0) {
-                    mView.onLoginSuccess();
+                Logger.e(loginHttpResult.getResultText());
+                if (loginHttpResult.getResultCode() == 0) {
+                    mView.onLoginSuccess(loginHttpResult.getResultData());
                 } else {
-                    ToastUtil.showText(loginHttpResult.getMessage());
+                    ToastUtil.showText(loginHttpResult.getResultText());
                 }
-
-            }
-        });
-        mSubscriptions.add(mLoginSubscription);
-    }
-
-    @Override
-    public void register(String userName, String password) {
-        mView.showLoading();
-        mRegisterSubscription = mApi.register(userName, password).subscribe(new Subscriber<HttpResult<Object>>() {
-            @Override
-            public void onCompleted() {
-                mView.hideLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-                mView.hideLoading();
+
             }
 
             @Override
-            public void onNext(HttpResult<Object> objectHttpResult) {
-                Logger.e(objectHttpResult.getMessage());
+            public void onComplete() {
                 mView.hideLoading();
-                if (objectHttpResult.getCode() == 0) {
-                    mView.onRegisterSuccess();
-                } else {
-                    ToastUtil.showText(objectHttpResult.getMessage());
-                }
             }
         });
-        mSubscriptions.add(mRegisterSubscription);
+    }
+
+    @Override
+    public void register(String userName, String password) {
+//        mView.showLoading();
+//        mApi.register(userName, password).subscribe(new Observer<HttpResult<Object>>() {
+//            @Override
+//            public void onCompleted() {
+//                mView.hideLoading();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                mView.hideLoading();
+//            }
+//
+//            @Override
+//            public void onNext(HttpResult<Object> objectHttpResult) {
+//                Logger.e(objectHttpResult.getResultText());
+//                mView.hideLoading();
+//                if (objectHttpResult.getResultCode() == 0) {
+//                    mView.onRegisterSuccess();
+//                } else {
+//                    ToastUtil.showText(objectHttpResult.getResultText());
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -96,8 +94,37 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void detachView() {
-        if (mSubscriptions != null) {
-            mSubscriptions.clear();
-        }
+
     }
+
+//    @Override
+//    public void attachView(@NonNull LoginContract.View view) {
+//        this.mView = view;
+//    }
+//
+//    @Override
+//    public void detachView() {
+//    }
+//}
+//    @Override
+//    public void onCompleted() {
+//    }
+//
+//    @Override
+//    public void onError(Throwable e) {
+//        Log.e("LoginPresenter", "onError: ");
+//        mView.hideLoading();
+//    }
+//
+//    @Override
+//    public void onNext(HttpResult<Login> loginHttpResult) {
+//        Log.e("LoginPresenter", "onNext: ");
+//        mView.hideLoading();
+//        Logger.e(loginHttpResult.getResultText());
+//        if (loginHttpResult.getResultCode() == 0) {
+//            mView.onLoginSuccess(loginHttpResult.getResultData());
+//        } else {
+//            ToastUtil.showText(loginHttpResult.getResultText());
+//        }
+//
 }

@@ -3,13 +3,13 @@ package com.kingja.kball.model;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 
+import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import rx.Observable;
 
 /**
  * 项目名称：和Api相关联
@@ -20,8 +20,8 @@ import rx.Observable;
  */
 public interface ApiService {
     @FormUrlEncoded
-    @POST("Login.php")
-    Observable<HttpResult<Login>> login(@Field("user_name") String userName, @Field("user_password") String userPassword);
+    @POST("/mobile/account/doLogin.json")
+    Observable<HttpResult<Login>> login(@Field("name") String userName, @Field("password") String userPassword);
 
     @FormUrlEncoded
     @POST("Register.php")

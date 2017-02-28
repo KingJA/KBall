@@ -8,5 +8,6 @@ package com.kingja.kball.app;
  * 修改备注：
  */
 public class Constans {
-    public static String BASE_URL ="http://192.168.1.107/KingJAStore/app/";
+//    public static String BASE_URL ="http://192.168.1.107/KingJAStore/app/";
+    public static String BASE_URL ="http://192.168.1.111:8070";
 }

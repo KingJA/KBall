@@ -1,17 +1,17 @@
 package com.kingja.kball.base;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.kingja.kball.app.App;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.module.ActivityModule;
 import com.kingja.kball.util.AppManager;
+import com.kingja.ui.DialogProgress;
 
 import butterknife.ButterKnife;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Description：BaseActivity
@@ -21,8 +21,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
-    private CompositeSubscription mSubscriptions;
-    private ProgressDialog mDialogProgress;
+    private DialogProgress mDialogProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +38,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /*初始化公共组件*/
     private void initCommon() {
-        mDialogProgress = new ProgressDialog(this);
+        mDialogProgress = new DialogProgress(this);
     }
 
     /*设置圆形进度条*/
-    protected void setProgressShow(String msg) {
-        mDialogProgress.show(this, "", msg, true, true);
+    protected void setProgressShow(boolean ifShow) {
+        if (ifShow) {
+            Log.e(TAG, "Show: "+mDialogProgress.hashCode());
+            mDialogProgress.show();
+        } else {
+            Log.e(TAG, "dismiss: "+mDialogProgress.hashCode());
+            mDialogProgress.dismiss();
+        }
     }
 
     /*获取初始化数据*/

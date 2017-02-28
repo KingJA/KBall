@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.reactivestreams.Subscription;
+
 import butterknife.ButterKnife;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created with Android Studio.
@@ -22,7 +22,6 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseFragment extends Fragment {
     private ProgressDialog mDialogProgress;
-    private CompositeSubscription mSubscriptions;
 
     @Override
     public void onAttach(Context context) {
@@ -33,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initCommon();
-        addSubscription(subscribeEvents());
         initInjector();
         initViewAndListener();
     }
@@ -68,19 +66,9 @@ public abstract class BaseFragment extends Fragment {
         return null;
     }
 
-    protected void addSubscription(Subscription subscription) {
-        if (subscription == null) return;
-        if (mSubscriptions == null) {
-            mSubscriptions = new CompositeSubscription();
-        }
-        mSubscriptions.add(subscription);
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mSubscriptions != null) {
-            mSubscriptions.clear();
-        }
     }
 }

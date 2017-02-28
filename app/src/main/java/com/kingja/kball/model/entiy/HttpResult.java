@@ -8,33 +8,33 @@ package com.kingja.kball.model.entiy;
  */
 public class HttpResult<T> {
 
-    private int code;
-    private String message;
+    private int resultCode;
+    private String resultText;
 
-    private T data;
+    private T resultData;
 
-    public int getCode() {
-        return code;
+    public int getResultCode() {
+        return resultCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 
-    public String getMessage() {
-        return message;
+    public String getResultText() {
+        return resultText;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setResultText(String resultText) {
+        this.resultText = resultText;
     }
 
-    public T getData() {
-        return data;
+    public T getResultData() {
+        return resultData;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setResultData(T resultData) {
+        this.resultData = resultData;
     }
 
 }

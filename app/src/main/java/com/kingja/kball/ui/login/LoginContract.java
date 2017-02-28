@@ -2,6 +2,7 @@ package com.kingja.kball.ui.login;
 
 import com.kingja.kball.base.BasePresenter;
 import com.kingja.kball.base.BaseView;
+import com.kingja.kball.model.entiy.Login;
 
 /**
  * Description：TODO
@@ -15,7 +16,7 @@ public interface LoginContract {
 
         void hideLoading();
 
-        void onLoginSuccess();
+        void onLoginSuccess(Login login);
 
         void onRegisterSuccess();
 
