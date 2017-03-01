@@ -38,7 +38,6 @@ public class MineFragment extends BaseFragment implements MineContract.View {
 
     @Override
     protected void initInjector() {
-
     }
 
     @Override
