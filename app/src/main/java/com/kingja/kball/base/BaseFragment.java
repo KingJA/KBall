@@ -62,9 +62,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getContentId();
 
-    protected Subscription subscribeEvents() {
-        return null;
-    }
 
 
     @Override
