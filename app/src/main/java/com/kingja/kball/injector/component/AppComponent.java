@@ -2,7 +2,10 @@ package com.kingja.kball.injector.component;
 
 
 import com.kingja.kball.injector.module.ApiModule;
+import com.kingja.kball.injector.module.AppModule;
+import com.kingja.kball.injector.module.SharedPreferencesModule;
 import com.kingja.kball.model.Api;
+import com.kingja.kball.util.SharedPreferencesManager;
 
 import javax.inject.Singleton;
 
@@ -16,7 +19,8 @@ import dagger.Component;
  * 修改备注：
  */
 @Singleton
-@Component(modules = {ApiModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, SharedPreferencesModule.class})
 public interface AppComponent {
     Api getApi();
+    SharedPreferencesManager getSharedPreferencesManager();
 }

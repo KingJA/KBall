@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.ui.SwitchMultiButton;
 
@@ -43,6 +44,9 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     LinearLayout llLoginCheckCode;
     @Inject
     LoginPresenter mLoginPresenter;
+    @Inject
+    SharedPreferencesManager mSharedPreferencesManager;
+
     private int currentPosition;
 
     @Override
@@ -102,6 +106,7 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     @Override
     public void onLoginSuccess(Login login) {
         ToastUtil.showText(login.getName());
+        mSharedPreferencesManager.putName(login.getName());
     }
 
     @Override

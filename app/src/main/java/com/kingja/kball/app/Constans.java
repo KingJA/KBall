@@ -9,5 +9,5 @@ package com.kingja.kball.app;
  */
 public class Constans {
 //    public static String BASE_URL ="http://192.168.1.107/KingJAStore/app/";
-    public static String BASE_URL ="http://192.168.1.111:8070";
+    public static String BASE_URL ="http://10.1.6.186:8070";
 }

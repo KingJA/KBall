@@ -8,6 +8,7 @@ import android.util.Log;
 import com.kingja.kball.app.App;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.module.ActivityModule;
+import com.kingja.kball.injector.module.AppModule;
 import com.kingja.kball.util.AppManager;
 import com.kingja.ui.DialogProgress;
 
@@ -68,6 +69,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     /*提供全局AppComponent*/
     protected AppComponent getAppComponent() {
         return App.getContext().getAppComponent();
+    }
+   /*提供全局AppModule*/
+    protected AppModule getAppModule() {
+        return App.getContext().getAppModule();
     }
 
     /*提供当前ActivityModule*/

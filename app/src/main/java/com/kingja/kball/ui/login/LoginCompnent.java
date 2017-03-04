@@ -3,6 +3,8 @@ package com.kingja.kball.ui.login;
 import com.kingja.kball.injector.annotation.PerActivity;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.module.ActivityModule;
+import com.kingja.kball.injector.module.AppModule;
+import com.kingja.kball.injector.module.SharedPreferencesModule;
 
 import dagger.Component;
 
