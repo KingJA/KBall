@@ -10,7 +10,7 @@ import com.kingja.kball.injector.component.AppComponent;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RankFragment extends BaseFragment {
+public class StoreFragment extends BaseFragment {
     @Override
     protected void initComponent(AppComponent appComponent) {
 

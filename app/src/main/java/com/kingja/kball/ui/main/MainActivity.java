@@ -1,7 +1,7 @@
 package com.kingja.kball.ui.main;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -9,20 +9,13 @@ import android.widget.TextView;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
-import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.fragment.HomeFragment;
-import com.kingja.kball.fragment.RankFragment;
-import com.kingja.kball.fragment.TeamFragment;
-import com.kingja.kball.ui.mine.MineFragment;
+import com.kingja.kball.util.FragmentUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
-    static final int DEFAULT_PAGE_INDEX = 0;
-    @BindView(R.id.vp_main)
-    ViewPager vpMain;
     @BindView(R.id.aiv_home)
     AppCompatImageView aivHome;
     @BindView(R.id.tv_home)
@@ -47,6 +40,9 @@ public class MainActivity extends BaseActivity {
     TextView tvMine;
     @BindView(R.id.ll_mine)
     LinearLayout llMine;
+    private Fragment mCurrentFragment;
+    private int nCurrentPosition = -1;
+    private int mSelectedPosition = -1;
 
     @Override
     protected void initInjector() {
@@ -55,30 +51,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViewAndListener() {
-        BaseFragment[] fragments = new BaseFragment[4];
-        fragments[0] = new HomeFragment();
-        fragments[1] = new RankFragment();
-        fragments[2] = new TeamFragment();
-        fragments[3] = new MineFragment();
-        MainPagerAdapter mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), fragments);
-        vpMain.setAdapter(mMainPagerAdapter);
-        vpMain.setOffscreenPageLimit(mMainPagerAdapter.getCount() - 1);
-        vpMain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // Empty
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                // Empty
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                setStatus(position);
-            }
-        });
+        mCurrentFragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_main, mCurrentFragment).commit();
     }
 
     @Override
@@ -96,16 +70,16 @@ public class MainActivity extends BaseActivity {
 
         switch (view.getId()) {
             case R.id.ll_home:
-                setStatus(0);
+                selectTab(0);
                 break;
             case R.id.ll_top:
-                setStatus(1);
+                selectTab(1);
                 break;
             case R.id.ll_store:
-                setStatus(2);
+                selectTab(2);
                 break;
             case R.id.ll_mine:
-                setStatus(3);
+                selectTab(3);
                 break;
         }
 
@@ -131,7 +105,6 @@ public class MainActivity extends BaseActivity {
                 tvMine.setTextColor(getResources().getColor(R.color.red));
                 break;
         }
-        vpMain.setCurrentItem(index);
     }
 
     private void resetBottom() {
@@ -145,10 +118,19 @@ public class MainActivity extends BaseActivity {
         tvMine.setTextColor(getResources().getColor(R.color.font_3));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    private void selectTab(int position) {
+        mSelectedPosition = position;
+        if (mSelectedPosition == nCurrentPosition) {
+            return;
+        }
+        mCurrentFragment = FragmentUtil.switchFragment(this, mCurrentFragment, FragmentUtil.getFragment(position));
+        nCurrentPosition = mSelectedPosition;
+        setStatus(position);
     }
+
+    //防止Fragment重生重叠
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    }
+
 }

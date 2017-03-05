@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
+import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.util.ToastUtil;
 import com.pizidea.imagepicker.AndroidImagePicker;
@@ -37,7 +38,7 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     MinePresenter mMinePresenter;
 
     @Override
-    protected void initInjector() {
+    protected void initComponent(AppComponent appComponent) {
     }
 
     @Override

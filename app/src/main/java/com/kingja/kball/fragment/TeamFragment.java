@@ -2,6 +2,7 @@ package com.kingja.kball.fragment;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
+import com.kingja.kball.injector.component.AppComponent;
 
 /**
  * Description：TODO
@@ -11,7 +12,7 @@ import com.kingja.kball.base.BaseFragment;
  */
 public class TeamFragment extends BaseFragment {
     @Override
-    protected void initInjector() {
+    protected void initComponent(AppComponent appComponent) {
 
     }
 

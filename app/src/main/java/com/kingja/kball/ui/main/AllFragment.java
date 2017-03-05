@@ -1,4 +1,4 @@
-package com.kingja.kball.fragment;
+package com.kingja.kball.ui.main;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
@@ -10,7 +10,7 @@ import com.kingja.kball.injector.component.AppComponent;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class RankFragment extends BaseFragment {
+public class AllFragment extends BaseFragment {
     @Override
     protected void initComponent(AppComponent appComponent) {
 
@@ -23,6 +23,6 @@ public class RankFragment extends BaseFragment {
 
     @Override
     protected int getContentId() {
-        return R.layout.fragment_rank;
+        return R.layout.fragment_all;
     }
 }

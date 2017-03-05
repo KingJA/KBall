@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.kingja.kball.base.BaseFragment;
+import java.util.List;
 
 /**
  * Description：TODO
@@ -13,11 +13,13 @@ import com.kingja.kball.base.BaseFragment;
  * Email:kingjavip@gmail.com
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
-    private BaseFragment[] fragments;
+    private Fragment[] fragments;
+    private List<String> titles;
 
-    public MainPagerAdapter(FragmentManager fm, BaseFragment[] fragments) {
+    public MainPagerAdapter(FragmentManager fm, Fragment[] fragments, List<String> titles) {
         super(fm);
         this.fragments = fragments;
+        this.titles = titles;
     }
 
     @Override
@@ -28,5 +30,10 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return fragments.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles.get(position);
     }
 }

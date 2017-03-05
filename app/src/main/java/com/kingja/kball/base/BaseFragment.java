@@ -9,7 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.reactivestreams.Subscription;
+import com.kingja.kball.app.App;
+import com.kingja.kball.injector.component.AppComponent;
 
 import butterknife.ButterKnife;
 
@@ -32,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initCommon();
-        initInjector();
+        initComponent(App.getContext().getAppComponent());
         initViewAndListener();
     }
 
@@ -48,7 +49,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    protected abstract void initInjector();
+    protected abstract void initComponent(AppComponent appComponent);
 
     protected abstract void initViewAndListener();
 
