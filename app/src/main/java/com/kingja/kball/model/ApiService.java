@@ -20,12 +20,12 @@ import retrofit2.http.Part;
  */
 public interface ApiService {
     @FormUrlEncoded
-    @POST("/mobile/account/doLogin.json")
+    @POST("/mobile/account/doLogin")
     Observable<HttpResult<Login>> login(@Field("name") String userName, @Field("password") String userPassword);
 
     @FormUrlEncoded
-    @POST("Register.php")
-    Observable<HttpResult<Object>> register(@Field("user_name") String userName, @Field("user_password") String userPassword);
+    @POST("/mobile/question/getQuestions")
+    Observable<HttpResult<Object>> register(@Field("token") String token,@Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
     @Multipart
     @POST("HeadIconUpload.php")

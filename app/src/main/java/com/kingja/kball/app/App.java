@@ -18,6 +18,9 @@ import com.orhanobut.logger.Logger;
  * Create Time：2016/10/14:04
  * Author:KingJA
  * Email:kingjavip@gmail.com
+ *
+ * 1.创建全局AppComponent
+ * 2.对外提供方法获取AppComponent
  */
 public class App extends Application {
     private static App sInstance;

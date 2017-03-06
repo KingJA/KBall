@@ -107,6 +107,7 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     public void onLoginSuccess(Login login) {
         ToastUtil.showText(login.getName());
         mSharedPreferencesManager.putName(login.getName());
+        mSharedPreferencesManager.putToken(login.getToken());
     }
 
     @Override
