@@ -8,7 +8,6 @@ import com.kingja.kball.injector.component.DaggerAppComponent;
 import com.kingja.kball.injector.module.ApiModule;
 import com.kingja.kball.injector.module.AppModule;
 import com.kingja.kball.injector.module.SharedPreferencesModule;
-import com.kingja.kball.util.Constants;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 

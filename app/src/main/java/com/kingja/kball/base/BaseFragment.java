@@ -35,6 +35,7 @@ public abstract class BaseFragment extends Fragment {
         initCommon();
         initComponent(App.getContext().getAppComponent());
         initViewAndListener();
+        initNet();
     }
 
     private void initCommon() {
@@ -52,6 +53,7 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initComponent(AppComponent appComponent);
 
     protected abstract void initViewAndListener();
+    protected abstract void initNet();
 
     @Nullable
     @Override

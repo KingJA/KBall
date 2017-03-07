@@ -1,9 +1,12 @@
 package com.kingja.kball.model;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.kingja.kball.app.Constans;
+import com.kingja.kball.app.Constants;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.model.entiy.Question;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,7 +29,7 @@ public class Api {
 
     public Api() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constans.BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -38,10 +41,11 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<HttpResult<Object>> register(String userName, String userPassword) {
-        return apiService.register(userName, userPassword).subscribeOn(Schedulers.io())
+    public Observable<HttpResult<List<Question>>> getQuestions(String token, int pageIndex, int pageSize, int solved) {
+        return apiService.getQuestions(token, pageIndex, pageSize,solved).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
 
     public Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo) {
         return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())

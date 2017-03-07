@@ -1,6 +1,8 @@
 package com.kingja.kball.injector.component;
 
 
+import android.app.Application;
+
 import com.kingja.kball.injector.module.ApiModule;
 import com.kingja.kball.injector.module.AppModule;
 import com.kingja.kball.injector.module.SharedPreferencesModule;
@@ -23,4 +25,5 @@ import dagger.Component;
 public interface AppComponent {
     Api getApi();
     SharedPreferencesManager getSharedPreferencesManager();
+    Application getApplication();
 }

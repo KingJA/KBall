@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.ui.main.MainActivity;
+import com.kingja.kball.util.GoUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.ui.SwitchMultiButton;
@@ -108,6 +110,7 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
         ToastUtil.showText(login.getName());
         mSharedPreferencesManager.putName(login.getName());
         mSharedPreferencesManager.putToken(login.getToken());
+        GoUtil.goActivityAndFinish(this, MainActivity.class);
     }
 
     @Override

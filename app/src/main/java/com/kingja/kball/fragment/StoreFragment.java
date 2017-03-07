@@ -22,6 +22,11 @@ public class StoreFragment extends BaseFragment {
     }
 
     @Override
+    protected void initNet() {
+
+    }
+
+    @Override
     protected int getContentId() {
         return R.layout.fragment_rank;
     }

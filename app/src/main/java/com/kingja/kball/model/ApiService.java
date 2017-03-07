@@ -2,6 +2,9 @@ package com.kingja.kball.model;
 
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.model.entiy.Question;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -20,12 +23,12 @@ import retrofit2.http.Part;
  */
 public interface ApiService {
     @FormUrlEncoded
-    @POST("/mobile/account/doLogin")
+    @POST("/mobile/account/login")
     Observable<HttpResult<Login>> login(@Field("name") String userName, @Field("password") String userPassword);
 
     @FormUrlEncoded
     @POST("/mobile/question/getQuestions")
-    Observable<HttpResult<Object>> register(@Field("token") String token,@Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+    Observable<HttpResult<List<Question>>> getQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize, @Field("solved") int solved);
 
     @Multipart
     @POST("HeadIconUpload.php")

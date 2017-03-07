@@ -47,6 +47,11 @@ public class MineFragment extends BaseFragment implements MineContract.View {
     }
 
     @Override
+    protected void initNet() {
+
+    }
+
+    @Override
     protected int getContentId() {
         return R.layout.fragment_mine;
     }
