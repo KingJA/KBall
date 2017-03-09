@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
+import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.ui.main.MainActivity;
 import com.kingja.kball.util.GoUtil;
@@ -51,14 +52,6 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
 
     private int currentPosition;
 
-    @Override
-    protected void initInjector() {
-        DaggerLoginCompnent.builder()
-                .appComponent(getAppComponent())
-                .activityModule(getActivityModule())
-                .build()
-                .inject(this);
-    }
 
     @Override
     public void initVariable() {
@@ -70,10 +63,24 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     }
 
     @Override
+    protected void initComponent(AppComponent appComponent) {
+        DaggerLoginCompnent.builder()
+                .appComponent(appComponent)
+                .activityModule(getActivityModule())
+                .build()
+                .inject(this);
+    }
+
+    @Override
     protected void initViewAndListener() {
         mLoginPresenter.attachView(this);
         smbLoginSwitch.setText(Arrays.asList("登录", "注册"));
         smbLoginSwitch.setOnSwitchListener(this);
+    }
+
+    @Override
+    protected void initNet() {
+
     }
 
 

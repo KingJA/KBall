@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.fragment.HomeFragment;
+import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.util.FragmentUtil;
 
 import butterknife.BindView;
@@ -44,15 +45,16 @@ public class MainActivity extends BaseActivity {
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
 
-    @Override
-    protected void initInjector() {
-
-    }
 
     @Override
     protected void initViewAndListener() {
-        mCurrentFragment = new HomeFragment();
+        mCurrentFragment = FragmentUtil.getFragment(0);
         getSupportFragmentManager().beginTransaction().add(R.id.fl_main, mCurrentFragment).commit();
+    }
+
+    @Override
+    protected void initNet() {
+
     }
 
     @Override
@@ -63,6 +65,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getContentId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initComponent(AppComponent appComponent) {
+
     }
 
     @OnClick({R.id.ll_home, R.id.ll_top, R.id.ll_store, R.id.ll_mine})

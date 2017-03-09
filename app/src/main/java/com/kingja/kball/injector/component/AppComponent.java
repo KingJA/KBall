@@ -3,8 +3,10 @@ package com.kingja.kball.injector.component;
 
 import android.app.Application;
 
+import com.kingja.kball.imgaeloader.ImageLoader;
 import com.kingja.kball.injector.module.ApiModule;
 import com.kingja.kball.injector.module.AppModule;
+import com.kingja.kball.injector.module.ImageLoaderModule;
 import com.kingja.kball.injector.module.SharedPreferencesModule;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.util.SharedPreferencesManager;
@@ -21,9 +23,10 @@ import dagger.Component;
  * 修改备注：
  */
 @Singleton
-@Component(modules = {ApiModule.class, AppModule.class, SharedPreferencesModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, SharedPreferencesModule.class,ImageLoaderModule.class})
 public interface AppComponent {
     Api getApi();
     SharedPreferencesManager getSharedPreferencesManager();
     Application getApplication();
+    ImageLoader getImageLoader();
 }

@@ -54,6 +54,7 @@ public class HomeFragment extends BaseFragment {
 
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getFragmentManager(), mFragmentArr,mTabList);
         vpHome.setAdapter(mainPagerAdapter);
+        vpHome .setOffscreenPageLimit(2);
         tlHome.setupWithViewPager(vpHome);
     }
 

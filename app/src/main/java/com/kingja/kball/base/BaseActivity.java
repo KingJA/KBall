@@ -31,8 +31,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         initVariable();
         setContentView(getContentId());
         ButterKnife.bind(this);
-        initInjector();
+        initComponent(App.getContext().getAppComponent());
         initViewAndListener();
+        initNet();
         AppManager.getAppManager().addActivity(this);
     }
 
@@ -60,10 +61,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract int getContentId();
 
     /*依赖注入*/
-    protected abstract void initInjector();
+    protected abstract void initComponent(AppComponent appComponent);
 
     /*初始化界面和事件*/
     protected abstract void initViewAndListener();
+   /*初始化网络数据*/
+    protected abstract void initNet();
 
 
     /*提供全局AppComponent*/

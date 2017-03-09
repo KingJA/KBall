@@ -12,4 +12,6 @@ public class Constants {
     public static String BASE_URL ="http://10.1.6.186:8070";
     public static int PAGE_SIZE =20;
     public static final String APPLICATION_NAME="KingJA_SP";
+    public static final String EXTRA_QUESTION="EXTRA_QUESTION";
+    public static final int GRIDVIEW_COUNT=3;
 }

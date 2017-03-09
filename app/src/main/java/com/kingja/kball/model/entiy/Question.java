@@ -1,12 +1,14 @@
 package com.kingja.kball.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description：TODO
  * Create Time：2017/3/6 17:08
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Question {
+public class Question implements Serializable {
 
     /**
      * name : 乔丹
@@ -28,9 +30,23 @@ public class Question {
     private String imgUrls;
     private int solved;
     private int answerCount;
+
+
+    private int experience;
     private int collectCount;
     private int tagId;
     private String createTime;
+
+    public RankInfo getRankInfo() {
+        return rankInfo;
+    }
+
+    public void setRankInfo(RankInfo rankInfo) {
+        this.rankInfo = rankInfo;
+    }
+
+    private RankInfo rankInfo;
+
 
     public String getName() {
         return name;
@@ -110,5 +126,13 @@ public class Question {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 }

@@ -48,9 +48,11 @@ public class QuestionAdapter extends BaseRvAdaper<Question> {
         Glide.with(context)
                 .load(Constants.BASE_URL + bean.getAvatar())
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher)
+                .placeholder(R.drawable.head_default)
                 .crossFade()
                 .into(holder.iv_headIcon);
+
+
     }
 
     private void setQuestionImg(ImageView iv_img, String imgUrls) {
@@ -62,7 +64,7 @@ public class QuestionAdapter extends BaseRvAdaper<Question> {
         Glide.with(context)
                 .load(Constants.BASE_URL + imgArr[0])
                 .centerCrop()
-                .placeholder(R.drawable.ic_launcher)
+                .placeholder(R.drawable.city)
                 .crossFade()
                 .into(iv_img);
     }

@@ -20,6 +20,7 @@ import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.ui.detail.DetailQuestionActivity;
 import com.kingja.kball.util.AppUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
@@ -118,7 +119,7 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
             @Override
             public void onItemClick(Object object, int position) {
                 Question question= (Question) object;
-                ToastUtil.showText(question.getName()+"  "+position);
+                DetailQuestionActivity.goActivity(getActivity(),question);
             }
         });
     }
@@ -136,13 +137,11 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
                 srl.setRefreshing(false);
                 if (result.getResultCode() == 0) {
                     questionList = result.getResultData();
-                    Logger.e("[加载数据条数]:" + questionList.size());
                     llEmpty.setVisibility(questionList.size() > 0 ? View.GONE : View.VISIBLE);
                     if (pageIndex == 0) {
                         mQuestionAdapter.reset();
                     }
                     hasMore = questionList.size() == Constants.PAGE_SIZE;
-                    Logger.e("[是否还有数据]:" + hasMore);
                     mQuestionAdapter.addData(questionList);
                 } else {
                     Logger.e(result.getResultText());
