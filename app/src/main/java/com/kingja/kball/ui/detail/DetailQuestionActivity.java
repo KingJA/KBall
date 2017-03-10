@@ -15,7 +15,9 @@ import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.imgaeloader.ImageLoader;
 import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.util.SharedPreferencesManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +33,7 @@ import butterknife.ButterKnife;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DetailQuestionActivity extends BaseActivity {
+public class DetailQuestionActivity extends BaseActivity implements DetailQuestionContract.View {
     @BindView(R.id.tv_detail_title)
     TextView tvDetailTitle;
     @BindView(R.id.civ_detail_head)
@@ -44,12 +46,21 @@ public class DetailQuestionActivity extends BaseActivity {
     TextView tvDetailName;
     @BindView(R.id.tv_detail_content)
     TextView tvDetailContent;
-    @BindView(R.id.rv_detail)
-    RecyclerView rvDetail;
+    @BindView(R.id.rv_detail_imgs)
+    RecyclerView rvDetailImgs;
+    @BindView(R.id.tv_detail_answerCount)
+    TextView tvDetailAnswerCount;
+    @BindView(R.id.rv_detail_answers)
+    RecyclerView rvDetailAnswers;
     private Question mQuestion;
 
     @Inject
     ImageLoader imageLoader;
+    @Inject
+    DetailQuestionPresenter detailQuestionPresenter;
+    @Inject
+    SharedPreferencesManager sharedPreferencesManager;
+
 
     @Override
     public void initVariable() {
@@ -72,6 +83,7 @@ public class DetailQuestionActivity extends BaseActivity {
 
     @Override
     protected void initViewAndListener() {
+        detailQuestionPresenter.attachView(this);
         tvDetailTitle.setText(mQuestion.getTitle());
         tvDetailContent.setText(mQuestion.getContent());
         imageLoader.loadImage(this, mQuestion.getAvatar(), 0, civDetailHead);
@@ -79,17 +91,17 @@ public class DetailQuestionActivity extends BaseActivity {
         List<String> imgsList = Arrays.asList(mQuestion.getImgUrls().split("#"));
         DetailImgAdapter mDetailImgAdapter = new DetailImgAdapter(this, imgsList);
         GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
-        rvDetail.addItemDecoration(new DividerItemDecoration(this,
+        rvDetailImgs.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));
-        rvDetail.setLayoutManager(mgr);
-        rvDetail.setHasFixedSize(true);
-        rvDetail.setAdapter(mDetailImgAdapter);
+        rvDetailImgs.setLayoutManager(mgr);
+        rvDetailImgs.setHasFixedSize(true);
+        rvDetailImgs.setAdapter(mDetailImgAdapter);
 
     }
 
     @Override
     protected void initNet() {
-
+        detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId());
     }
 
     public static void goActivity(Context context, Question question) {
@@ -98,10 +110,19 @@ public class DetailQuestionActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void showAnswers(List<Answer> list) {
     }
+
+    @Override
+    public void showLoading() {
+        setProgressShow(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        setProgressShow(false);
+    }
+
 }

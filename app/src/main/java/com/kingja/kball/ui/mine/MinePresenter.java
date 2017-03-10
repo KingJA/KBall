@@ -26,7 +26,7 @@ public class MinePresenter   implements MineContract.Presenter {
     @Override
     public void uploadHeadIcon(MultipartBody.Part photo) {
 
-//        mApi.uploadHeadIcon(photo).subscribe(new ResultSubscriber<Object>() {
+//        mApi.uploadHeadIcon(photo).subscribe(new ResultObserver<Object>() {
 //            @Override
 //            public void onStart() {
 //                mView.showLoading();

@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class Question implements Serializable {
 
+
+
     /**
      * name : 乔丹
      * avatar : /upload/avatar/head_8.jpg
@@ -23,6 +25,7 @@ public class Question implements Serializable {
      * createTime : 2016-11-29 09:38:54
      */
 
+    private long questionId;
     private String name;
     private String avatar;
     private String title;
@@ -46,7 +49,13 @@ public class Question implements Serializable {
     }
 
     private RankInfo rankInfo;
+    public long getQuestionId() {
+        return questionId;
+    }
 
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
+    }
 
     public String getName() {
         return name;

@@ -14,7 +14,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Normal_EditText">
+    <style name="et_white_normal">
+        <item name="android:textColorHint">@color/font_9</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -31,5 +34,14 @@
 
     <style name="notitle">
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="btn_red_normal">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/bg_white</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/sel_btn_red</item>
     </style>
 </resources>

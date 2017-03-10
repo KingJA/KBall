@@ -2,6 +2,7 @@ package com.kingja.kball.model;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kingja.kball.app.Constants;
+import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
@@ -43,6 +44,11 @@ public class Api {
 
     public Observable<HttpResult<List<Question>>> getQuestions(String token, int pageIndex, int pageSize, int solved) {
         return apiService.getQuestions(token, pageIndex, pageSize,solved).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<List<Answer>>> getAnswers(String token, long questionId) {
+        return apiService.getAnswers(token,questionId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

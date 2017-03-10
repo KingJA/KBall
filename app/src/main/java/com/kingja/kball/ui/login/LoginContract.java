@@ -12,10 +12,6 @@ import com.kingja.kball.model.entiy.Login;
  */
 public interface LoginContract {
     interface View extends BaseView {
-        void showLoading();
-
-        void hideLoading();
-
         void onLoginSuccess(Login login);
 
         void onRegisterSuccess();
@@ -24,6 +20,7 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter<View> {
         void login(String userName, String password);
+
         void register(String userName, String password);
 
     }

@@ -1,5 +1,6 @@
 package com.kingja.kball.model;
 
+import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
@@ -29,6 +30,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/mobile/question/getQuestions")
     Observable<HttpResult<List<Question>>> getQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize, @Field("solved") int solved);
+
+    @FormUrlEncoded
+    @POST("/mobile/question/getAnswers")
+    Observable<HttpResult<List<Answer>>> getAnswers(@Field("token") String token, @Field("questionId") long questionId);
 
     @Multipart
     @POST("HeadIconUpload.php")

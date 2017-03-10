@@ -62,29 +62,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void register(String userName, String password) {
-//        mView.showLoading();
-//        mApi.register(userName, password).subscribe(new Observer<HttpResult<Object>>() {
-//            @Override
-//            public void onCompleted() {
-//                mView.hideLoading();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                mView.hideLoading();
-//            }
-//
-//            @Override
-//            public void onNext(HttpResult<Object> objectHttpResult) {
-//                Logger.e(objectHttpResult.getResultText());
-//                mView.hideLoading();
-//                if (objectHttpResult.getResultCode() == 0) {
-//                    mView.onRegisterSuccess();
-//                } else {
-//                    ToastUtil.showText(objectHttpResult.getResultText());
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -94,37 +71,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void detachView() {
-
     }
 
-//    @Override
-//    public void attachView(@NonNull LoginContract.View view) {
-//        this.mView = view;
-//    }
-//
-//    @Override
-//    public void detachView() {
-//    }
-//}
-//    @Override
-//    public void onCompleted() {
-//    }
-//
-//    @Override
-//    public void onError(Throwable e) {
-//        Log.e("LoginPresenter", "onError: ");
-//        mView.hideLoading();
-//    }
-//
-//    @Override
-//    public void onNext(HttpResult<Login> loginHttpResult) {
-//        Log.e("LoginPresenter", "onNext: ");
-//        mView.hideLoading();
-//        Logger.e(loginHttpResult.getResultText());
-//        if (loginHttpResult.getResultCode() == 0) {
-//            mView.onLoginSuccess(loginHttpResult.getResultData());
-//        } else {
-//            ToastUtil.showText(loginHttpResult.getResultText());
-//        }
-//
 }

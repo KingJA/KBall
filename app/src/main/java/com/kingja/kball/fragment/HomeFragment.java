@@ -31,10 +31,8 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.vp_home)
     ViewPager vpHome;
 
-    //
-
     private List<String> mTabList = Arrays.asList("全部", "已解决", "未解决");
-    private Fragment mFragmentArr[]=new Fragment[3];
+    private Fragment mFragmentArr[] = new Fragment[3];
 
     @Override
     protected void initComponent(AppComponent appComponent) {
@@ -48,13 +46,13 @@ public class HomeFragment extends BaseFragment {
         tlHome.addTab(tlHome.newTab().setText(mTabList.get(1)));
         tlHome.addTab(tlHome.newTab().setText(mTabList.get(2)));
 
-        mFragmentArr[0]= QuestionsFragment.newInstance(-1);
-        mFragmentArr[1]= QuestionsFragment.newInstance(1);
-        mFragmentArr[2]= QuestionsFragment.newInstance(0);
+        mFragmentArr[0] = QuestionsFragment.newInstance(-1);
+        mFragmentArr[1] = QuestionsFragment.newInstance(1);
+        mFragmentArr[2] = QuestionsFragment.newInstance(0);
 
-        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getFragmentManager(), mFragmentArr,mTabList);
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getFragmentManager(), mFragmentArr, mTabList);
         vpHome.setAdapter(mainPagerAdapter);
-        vpHome .setOffscreenPageLimit(2);
+        vpHome.setOffscreenPageLimit(2);
         tlHome.setupWithViewPager(vpHome);
     }
 

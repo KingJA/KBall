@@ -7,4 +7,7 @@ package com.kingja.kball.base;
  * Email:kingjavip@gmail.com
  */
 public interface BaseView {
+    void showLoading();
+
+    void hideLoading();
 }

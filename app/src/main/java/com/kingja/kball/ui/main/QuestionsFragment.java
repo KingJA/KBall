@@ -118,8 +118,8 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
         mQuestionAdapter.setOnItemClickListener(new BaseRvAdaper.OnItemClickListener() {
             @Override
             public void onItemClick(Object object, int position) {
-                Question question= (Question) object;
-                DetailQuestionActivity.goActivity(getActivity(),question);
+                Question question = (Question) object;
+                DetailQuestionActivity.goActivity(getActivity(), question);
             }
         });
     }
