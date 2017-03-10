@@ -14,9 +14,19 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="et_white_normal">
+    <style name="et_white_16">
         <item name="android:textColorHint">@color/font_9</item>
         <item name="android:textSize">16dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/et_white_0</item>
+        <item name="android:textCursorDrawable">@drawable/et_cursor</item>
+    </style>
+    <style name="et_white_12">
+        <item name="android:textColorHint">@color/font_9</item>
+        <item name="android:textSize">12dp</item>
         <item name="android:padding">12dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:layout_width">match_parent</item>

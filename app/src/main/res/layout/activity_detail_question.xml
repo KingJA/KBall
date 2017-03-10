@@ -3,106 +3,136 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <LinearLayout
+    <ScrollView
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <TextView
-            android:id="@+id/tv_detail_title"
-            style="@style/font_3_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="伦敦有什么鲜为人知、小众却值得去玩的地方？" />
+        android:layout_height="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:id="@+id/civ_detail_head"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/head_default" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="24dp">
 
+                <TextView
+                    android:id="@+id/tv_detail_title"
+                    style="@style/font_3_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="伦敦有什么鲜为人知、小众却值得去玩的地方？" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_detail_level"
-                        style="@style/font_9_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
-                        android:text="内地专业人士" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical">
 
                     <ImageView
-                        android:id="@+id/iv_detail_level"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/level5" />
+                        android:id="@+id/civ_detail_head"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/head_default" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_detail_level"
+                                style="@style/font_9_12"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="8dp"
+                                android:text="内地专业人士" />
+
+                            <ImageView
+                                android:id="@+id/iv_detail_level"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/level5" />
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_detail_name"
+                            style="@style/font_6_12"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="海边的卡夫卡" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_detail_name"
-                    style="@style/font_6_12"
+                    android:id="@+id/tv_detail_content"
+                    style="@style/font_9_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="海边的卡夫卡" />
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="4dp"
+                    android:lineSpacingMultiplier="1"
+                    android:text="Boundary 是整个伦敦最值得逛的购物天堂， 到高逼格工具店Labor英国独立男装Sunspel到迷死设计师的Aeso生活杂货\绅士理容\艺术影院，你可以轻易的在这里耗掉小半天…" />
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_detail_imgs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/bg_white" />
+
+                <TextView
+                    android:id="@+id/tv_detail_answerCount"
+                    style="@style/font_9_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="回答(52)" />
+
+                <View
+                    style="@style/divider_nomal_horizontal"
+                    android:layout_marginTop="4dp" />
+
+                <com.kingja.kball.widget.FixedRecyclerView
+                    android:id="@+id/rv_detail_answers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/bg_white" />
             </LinearLayout>
 
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_detail_content"
-            style="@style/font_9_16"
+    </ScrollView>
+    <View style="@style/divider_nomal_horizontal"/>
+    <LinearLayout
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:background="@color/bg_gray_kj"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            style="@style/et_white_12"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:lineSpacingExtra="4dp"
-            android:lineSpacingMultiplier="1"
-            android:text="Boundary 是整个伦敦最值得逛的购物天堂， 到高逼格工具店Labor英国独立男装Sunspel到迷死设计师的Aeso生活杂货\绅士理容\艺术影院，你可以轻易的在这里耗掉小半天…" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_detail_imgs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@color/bg_white" />
-
-        <TextView
-            android:id="@+id/tv_detail_answerCount"
-            style="@style/font_9_12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="回答(52)" />
-
-        <View style="@style/divider_nomal_horizontal"
-            android:layout_marginTop="4dp"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_detail_answers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@color/bg_white" />
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-
 </LinearLayout>

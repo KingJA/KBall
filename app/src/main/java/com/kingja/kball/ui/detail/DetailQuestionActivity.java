@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.kball.R;
+import com.kingja.kball.adapter.AnswerAdapter;
 import com.kingja.kball.adapter.DetailImgAdapter;
 import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.app.Constants;
@@ -88,6 +90,8 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         tvDetailContent.setText(mQuestion.getContent());
         imageLoader.loadImage(this, mQuestion.getAvatar(), 0, civDetailHead);
         tvDetailLevel.setText(mQuestion.getRankInfo().getTitle());
+
+
         List<String> imgsList = Arrays.asList(mQuestion.getImgUrls().split("#"));
         DetailImgAdapter mDetailImgAdapter = new DetailImgAdapter(this, imgsList);
         GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
@@ -96,6 +100,9 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         rvDetailImgs.setLayoutManager(mgr);
         rvDetailImgs.setHasFixedSize(true);
         rvDetailImgs.setAdapter(mDetailImgAdapter);
+
+
+
 
     }
 
@@ -113,6 +120,12 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
     @Override
     public void showAnswers(List<Answer> list) {
+        AnswerAdapter mAnswerAdapter = new AnswerAdapter(this, list);
+        rvDetailAnswers.setLayoutManager(new LinearLayoutManager(this));
+        rvDetailAnswers.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+        rvDetailAnswers.setHasFixedSize(true);
+        rvDetailAnswers.setAdapter(mAnswerAdapter);
     }
 
     @Override

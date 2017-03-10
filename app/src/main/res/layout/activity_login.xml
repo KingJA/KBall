@@ -13,12 +13,12 @@
 
         <EditText
             android:id="@+id/et_login_userName"
-            style="@style/et_white_normal"
+            style="@style/et_white_16"
             android:hint="请输入手机号码" />
 
         <EditText
             android:id="@+id/et_login_password"
-            style="@style/et_white_normal"
+            style="@style/et_white_16"
             android:layout_marginTop="16dp"
             android:hint="请输入密码" />
 
