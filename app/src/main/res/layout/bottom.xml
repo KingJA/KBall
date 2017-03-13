@@ -14,8 +14,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/aiv_home"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/svg_home"
             android:tint="@color/red" />
 
@@ -39,8 +39,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/aiv_top"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/svg_top"
             android:tint="@color/font_3" />
 
@@ -64,8 +64,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/aiv_store"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/svg_store"
             android:tint="@color/font_3" />
 
@@ -89,8 +89,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/aiv_mine"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/svg_mine"
             android:tint="@color/font_3" />
 
