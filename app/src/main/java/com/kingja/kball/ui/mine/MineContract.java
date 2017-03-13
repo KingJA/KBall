@@ -14,11 +14,7 @@ import okhttp3.MultipartBody;
  */
 public interface MineContract {
     interface View extends BaseView {
-        void showLoading();
-
-        void hideLoading();
-
-       void onUploadHeadIconSuccess(HttpResult<Object> httpResult);
+        void onUploadHeadIconSuccess(HttpResult<Object> httpResult);
     }
 
     interface Presenter extends BasePresenter<View> {

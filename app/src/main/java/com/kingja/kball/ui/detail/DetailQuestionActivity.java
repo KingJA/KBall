@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.kingja.kball.R;
@@ -28,6 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Description：TODO
@@ -54,6 +58,20 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     TextView tvDetailAnswerCount;
     @BindView(R.id.rv_detail_answers)
     RecyclerView rvDetailAnswers;
+    @BindView(R.id.tv_detail_answer)
+    TextView tvDetailAnswer;
+    @BindView(R.id.ll_detail_goAnswer)
+    LinearLayout llDetailGoAnswer;
+    @BindView(R.id.ll_detail_collect)
+    LinearLayout llDetailCollect;
+    @BindView(R.id.ll_detail_share)
+    LinearLayout llDetailShare;
+    @BindView(R.id.ll_detail_root)
+    LinearLayout llDetailRoot;
+    @BindView(R.id.sv_detail_root)
+    ScrollView svDetailRoot;
+    @BindView(R.id.ll_detail_question)
+    LinearLayout llDetailQuestion;
     private Question mQuestion;
 
     @Inject
@@ -85,6 +103,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
     @Override
     protected void initViewAndListener() {
+        // Init answer imgs RecyclerView,gv type
         detailQuestionPresenter.attachView(this);
         tvDetailTitle.setText(mQuestion.getTitle());
         tvDetailContent.setText(mQuestion.getContent());
@@ -92,6 +111,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         tvDetailLevel.setText(mQuestion.getRankInfo().getTitle());
 
 
+        // Init answers RecyclerView,lv type
         List<String> imgsList = Arrays.asList(mQuestion.getImgUrls().split("#"));
         DetailImgAdapter mDetailImgAdapter = new DetailImgAdapter(this, imgsList);
         GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
@@ -100,8 +120,6 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         rvDetailImgs.setLayoutManager(mgr);
         rvDetailImgs.setHasFixedSize(true);
         rvDetailImgs.setAdapter(mDetailImgAdapter);
-
-
 
 
     }
@@ -138,4 +156,37 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         setProgressShow(false);
     }
 
+    @OnClick({R.id.ll_detail_goAnswer, R.id.ll_detail_collect, R.id.ll_detail_share})
+    public void onSwitch(View view) {
+
+        switch (view.getId()) {
+            case R.id.ll_detail_goAnswer:
+
+                if (llDetailRoot.getMeasuredHeight() > svDetailRoot.getHeight()) {
+                    if ((llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()) > llDetailQuestion.getMeasuredHeight()) {
+                        svDetailRoot.scrollTo(0, llDetailQuestion.getMeasuredHeight());
+                    } else {
+                        svDetailRoot.scrollTo(0, (llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()));
+                    }
+
+                } else {
+
+                }
+
+                break;
+            case R.id.ll_detail_collect:
+                break;
+            case R.id.ll_detail_share:
+                break;
+        }
+
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -1,6 +1,7 @@
 package com.kingja.kball.ui.main;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.TextView;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
-import com.kingja.kball.fragment.HomeFragment;
 import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.ui.publish.PublishActivity;
 import com.kingja.kball.util.FragmentUtil;
+import com.kingja.kball.util.GoUtil;
+import com.kingja.kball.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,10 +44,12 @@ public class MainActivity extends BaseActivity {
     TextView tvMine;
     @BindView(R.id.ll_mine)
     LinearLayout llMine;
+    @BindView(R.id.fab_main)
+    FloatingActionButton fabMain;
     private Fragment mCurrentFragment;
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
-
+    private long mLastTime;
 
     @Override
     protected void initViewAndListener() {
@@ -72,7 +77,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.ll_home, R.id.ll_top, R.id.ll_store, R.id.ll_mine})
+    @OnClick({R.id.ll_home, R.id.ll_top, R.id.ll_store, R.id.ll_mine, R.id.fab_main})
     public void onSwitch(View view) {
 
         switch (view.getId()) {
@@ -87,6 +92,10 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.ll_mine:
                 selectTab(3);
+                break;
+            case R.id.fab_main:
+                GoUtil.goActivity(this, PublishActivity.class);
+                overridePendingTransition(R.anim.translate_up, R.anim.scale_small);
                 break;
         }
 
@@ -140,4 +149,17 @@ public class MainActivity extends BaseActivity {
     protected void onSaveInstanceState(Bundle outState) {
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - mLastTime < 500) {
+            finish();
+        } else {
+            ToastUtil.showText("连续点击退出");
+            mLastTime = currentTime;
+
+        }
+    }
 }

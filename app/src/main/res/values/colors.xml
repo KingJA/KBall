@@ -7,12 +7,14 @@
 
 
     <color name="white">#FFFFFF</color>
-    <color name="gray">#c2b182</color>
+    <color name="gray">#b7b7b7</color>
+    <color name="gray_light">#eeeeee</color>
 
     <color name="gray_divide">#c7c7c7</color>
     <color name="red">#bb2c28</color>
     <color name="d_red">#90201c</color>
     <color name="main_nor">#a9b7b7</color>
+    <color name="c">#2c2c2c</color>
 
 
     <color name="font_3">#333333</color>
