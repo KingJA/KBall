@@ -40,7 +40,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onNext(HttpResult<Login> loginHttpResult) {
-                Logger.e(loginHttpResult.getResultText());
                 if (loginHttpResult.getResultCode() == 0) {
                     mView.onLoginSuccess(loginHttpResult.getResultData());
                 } else {

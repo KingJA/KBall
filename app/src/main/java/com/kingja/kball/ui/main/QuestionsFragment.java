@@ -82,8 +82,8 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
     protected void initViewAndListener() {
         mQuestionAdapter = new QuestionAdapter(getActivity(), questionList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL_LIST));
+//        rv.addItemDecoration(new DividerItemDecoration(getActivity(),
+//                DividerItemDecoration.VERTICAL_LIST));
         rv.setHasFixedSize(true);
         rv.setAdapter(mQuestionAdapter);
         rv.addOnScrollListener(new OnScrollListener() {

@@ -1,5 +1,7 @@
 package com.kingja.kball.model.entiy;
 
+import android.text.format.DateUtils;
+
 import java.io.Serializable;
 
 /**
@@ -33,8 +35,6 @@ public class Question implements Serializable {
     private String imgUrls;
     private int solved;
     private int answerCount;
-
-
     private int experience;
     private int collectCount;
     private int tagId;

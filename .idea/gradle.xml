@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/imagepickerModule" />
             <option value="$PROJECT_DIR$/libk-ui" />
+            <option value="$PROJECT_DIR$/telegramgallery" />
           </set>
         </option>
         <option name="myModules">
@@ -19,6 +20,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/imagepickerModule" />
             <option value="$PROJECT_DIR$/libk-ui" />
+            <option value="$PROJECT_DIR$/telegramgallery" />
           </set>
         </option>
       </GradleProjectSettings>

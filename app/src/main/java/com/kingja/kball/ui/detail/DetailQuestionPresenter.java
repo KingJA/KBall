@@ -26,15 +26,20 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
     }
 
     @Override
-    public void getAnswers(String token, long questionId) {
+    public void getAnswers(String token, long questionId, final int pageIndex, final int pageSize) {
         view.showLoading();
-        api.getAnswers(token, questionId).subscribe(new ResultObserver<List<Answer>>(view) {
+        api.getAnswers(token, questionId, pageIndex, pageSize).subscribe(new ResultObserver<List<Answer>>(view) {
             @Override
             protected void onSuccess(List<Answer> list) {
-                view.showAnswers(list);
+                if (pageIndex == 0) {
+                    view.showAnswers(list, list.size() == pageSize);
+                } else {
+                    view.showMoreAnswers(list, list.size() == pageSize);
+                }
             }
         });
     }
+
 
     @Override
     public void attachView(@NonNull DetailQuestionContract.View view) {

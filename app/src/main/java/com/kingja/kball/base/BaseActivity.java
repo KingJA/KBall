@@ -46,12 +46,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     /*设置圆形进度条*/
     protected void setProgressShow(boolean ifShow) {
         if (ifShow) {
-            Log.e(TAG, "Show: "+mDialogProgress.hashCode());
             mDialogProgress.show();
         } else {
-            Log.e(TAG, "dismiss: "+mDialogProgress.hashCode());
             mDialogProgress.dismiss();
         }
+    }
+
+    protected boolean getProgressShow() {
+       return (mDialogProgress!=null&&mDialogProgress.isShowing());
     }
 
     /*获取初始化数据*/

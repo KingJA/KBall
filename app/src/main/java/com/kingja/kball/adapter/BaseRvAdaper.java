@@ -104,4 +104,7 @@ public abstract class BaseRvAdaper<T> extends RecyclerView.Adapter<BaseRvAdaper.
         this.list.clear();
     }
 
+    public List<T> getData() {
+        return list;
+    }
 }

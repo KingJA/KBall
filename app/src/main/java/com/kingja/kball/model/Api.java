@@ -15,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Part;
 
 /**
@@ -43,15 +44,20 @@ public class Api {
     }
 
     public Observable<HttpResult<List<Question>>> getQuestions(String token, int pageIndex, int pageSize, int solved) {
-        return apiService.getQuestions(token, pageIndex, pageSize,solved).subscribeOn(Schedulers.io())
+        return apiService.getQuestions(token, pageIndex, pageSize, solved).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<HttpResult<List<Answer>>> getAnswers(String token, long questionId) {
-        return apiService.getAnswers(token,questionId).subscribeOn(Schedulers.io())
+    public Observable<HttpResult<List<Answer>>> getAnswers(String token, long questionId, int pageIndex, int pageSize) {
+        return apiService.getAnswers(token, questionId, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+
+    public Observable<HttpResult<Object>> publish(@Body MultipartBody imgs) {
+        return apiService.publish(imgs).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
     public Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo) {
         return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())

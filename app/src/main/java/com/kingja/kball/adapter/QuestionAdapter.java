@@ -40,9 +40,9 @@ public class QuestionAdapter extends BaseRvAdaper<Question> {
         final PersonManagerViewHolder holder = (PersonManagerViewHolder) baseHolder;
         holder.tv_name.setText(bean.getName());
         holder.tv_title.setText(bean.getTitle());
-        holder.tv_pariseCount.setText(bean.getCollectCount() + "");
-        holder.tv_answerCount.setText(bean.getAnswerCount() + "");
-        holder.tv_date.setText(bean.getName());
+        holder.tv_pariseCount.setText(bean.getCollectCount() + " 收藏 • ");
+        holder.tv_answerCount.setText(bean.getAnswerCount() + " 回答 • ");
+        holder.tv_date.setText(bean.getCreateTime());
         holder.iv_img.setVisibility(View.GONE);
         setQuestionImg(holder.iv_img,bean.getImgUrls());
         Glide.with(context)

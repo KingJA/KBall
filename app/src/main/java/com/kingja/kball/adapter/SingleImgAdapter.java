@@ -17,8 +17,8 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DetailImgAdapter extends BaseRvAdaper<String> {
-    public DetailImgAdapter(Context context, List<String> list) {
+public class SingleImgAdapter extends BaseRvAdaper<String> {
+    public SingleImgAdapter(Context context, List<String> list) {
         super(context, list);
     }
 

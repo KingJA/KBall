@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
@@ -33,9 +34,14 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/mobile/question/getAnswers")
-    Observable<HttpResult<List<Answer>>> getAnswers(@Field("token") String token, @Field("questionId") long questionId);
+    Observable<HttpResult<List<Answer>>> getAnswers(@Field("token") String token, @Field("questionId") long questionId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+    @POST("/mobile/question/publish")
+    Observable<HttpResult<Object>> publish(@Body MultipartBody imgs);
 
     @Multipart
     @POST("HeadIconUpload.php")
     Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo);
+
+
 }

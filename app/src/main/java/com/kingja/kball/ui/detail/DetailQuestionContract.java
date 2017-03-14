@@ -15,11 +15,12 @@ import java.util.List;
 public interface DetailQuestionContract {
     interface View extends BaseView {
         //获取问答
-        void showAnswers(List<Answer> list);
+        void showAnswers(List<Answer> list,boolean hasMore);
+        void showMoreAnswers(List<Answer> list,boolean hasMore);
 
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getAnswers(String token,long questionId);
+        void getAnswers(String token,long questionId,int pageIndex,int pageSize);
     }
 }

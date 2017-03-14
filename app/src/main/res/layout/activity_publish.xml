@@ -9,10 +9,10 @@
         android:layout_height="48dp">
 
         <LinearLayout
-            android:background="@drawable/sel_t2g"
             android:id="@+id/ll_publish_close"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@drawable/sel_t2g"
             android:gravity="center">
 
             <ImageView
@@ -25,34 +25,56 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/et_publish_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入问题标题..."
+            android:textColor="@color/font_3"
+            android:textColorHint="@color/font_9"
+            android:textCursorDrawable="@drawable/et_cursor_color"
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/et_publish_content"
-            android:textColorHint="@color/font_9"
-            android:hint="请输入问题内容..."
-            android:textSize="15sp"
-            android:textColor="@color/font_9"
-            android:textCursorDrawable="@drawable/et_cursor_color"
-            android:background="@null"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:hint="请输入问题详细内容..."
+            android:textColor="@color/font_9"
+            android:textColorHint="@color/font_9"
+            android:textCursorDrawable="@drawable/et_cursor_color"
+            android:textSize="15sp" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_publish_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
 
 
     </LinearLayout>
-    <View style="@style/divider_nomal_horizontal"/>
+
+    <View style="@style/divider_nomal_horizontal" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
         <LinearLayout
-            android:background="@drawable/sel_t2g"
             android:id="@+id/ll_publish_img"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@drawable/sel_t2g"
             android:gravity="center">
 
             <ImageView

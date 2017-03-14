@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.kingja.kball.widget.ListeneredScrollView
         android:id="@+id/sv_detail_root"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -95,25 +95,23 @@
                     android:id="@+id/rv_detail_imgs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/bg_white" />
+                    android:layout_marginTop="4dp"/>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:padding="12dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
 
                 <TextView
-                    android:id="@+id/tv_detail_answerCount"
                     style="@style/font_9_12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="回答(52)" />
+                    android:text="回答" />
 
                 <View
                     style="@style/divider_nomal_horizontal"
@@ -125,9 +123,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:background="@color/bg_white" />
+                <include layout="@layout/include_sofa"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.kingja.kball.widget.ListeneredScrollView>
 
     <View style="@style/divider_nomal_horizontal" />
 
@@ -151,18 +150,33 @@
             android:paddingTop="6dp"
             android:text="我来说几句.." />
 
-        <LinearLayout
-            android:id="@+id/ll_detail_goAnswer"
+        <RelativeLayout
+            android:id="@+id/rl_detail_goAnswer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:background="@drawable/svg_b_answer" />
-        </LinearLayout>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_detail_answerCount"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="15dp"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:background="@drawable/sharp_around_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_detail_collect"
