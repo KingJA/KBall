@@ -22,5 +22,10 @@
     <color name="font_9">#999999</color>
     <color name="font_2">#222222</color>
 
+    <color name="bg_press">#ededed</color>
+    <color name="bg_light">#f9f9f9</color>
+    <color name="bg_divider">#CFCFCF</color>
+    <color name="bg_blue">#4285f4</color>
+    <color name="bg_blue_press">#2c6fdf</color>
 
 </resources>

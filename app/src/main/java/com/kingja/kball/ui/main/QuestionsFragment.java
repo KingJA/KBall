@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
+import com.anadeainc.rxbus.BusProvider;
+import com.anadeainc.rxbus.Subscribe;
 import com.kingja.kball.R;
 import com.kingja.kball.adapter.BaseRvAdaper;
 import com.kingja.kball.adapter.DividerItemDecoration;
@@ -20,11 +22,14 @@ import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.rxbus.RefreshQuestionEvent;
 import com.kingja.kball.ui.detail.DetailQuestionActivity;
 import com.kingja.kball.util.AppUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +68,19 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
     private boolean hasMore;
 
     public static QuestionsFragment newInstance(int solved) {
-        QuestionsFragment mQuestionsFragment = new QuestionsFragment();
+        QuestionsFragment mQuestionsFragment=null;
+        switch (solved) {
+            case -1:
+                mQuestionsFragment = new AllQuestionFragment();
+                break;
+            case 0:
+                mQuestionsFragment = new UnsolvedQuestionFragment();
+                break;
+            case 1:
+                mQuestionsFragment = new SolvedQuestionFragment();
+                break;
+
+        }
         Bundle bundle = new Bundle();
         bundle.putInt("SOLVED", solved);
         mQuestionsFragment.setArguments(bundle);
@@ -82,8 +99,6 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
     protected void initViewAndListener() {
         mQuestionAdapter = new QuestionAdapter(getActivity(), questionList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        rv.addItemDecoration(new DividerItemDecoration(getActivity(),
-//                DividerItemDecoration.VERTICAL_LIST));
         rv.setHasFixedSize(true);
         rv.setAdapter(mQuestionAdapter);
         rv.addOnScrollListener(new OnScrollListener() {
@@ -124,9 +139,10 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
         });
     }
 
+
     @Override
     protected void initNet() {
-        loadNet(pageIndex);
+        loadNet(0);
     }
 
     private void loadNet(final int pageIndex) {
@@ -178,4 +194,6 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
         loadNet(pageIndex);
         ToastUtil.showText("刷新数据");
     }
+
+
 }

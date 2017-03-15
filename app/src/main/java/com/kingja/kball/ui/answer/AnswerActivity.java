@@ -1,4 +1,4 @@
-package com.kingja.kball.ui.publish;
+package com.kingja.kball.ui.answer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,9 +17,11 @@ import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.injector.component.DaggerAppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.rxbus.RefreshQuestionEvent;
+import com.kingja.kball.ui.publish.DaggerPublishCompnent;
 import com.kingja.kball.util.CheckUtil;
 import com.kingja.kball.util.DialogUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
@@ -50,7 +52,7 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PublishActivity extends BaseActivity {
+public class AnswerActivity extends BaseActivity {
     @BindView(R.id.ll_publish_close)
     LinearLayout llPublishClose;
     @BindView(R.id.et_publish_content)
@@ -78,12 +80,12 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public int getContentId() {
-        return R.layout.activity_publish;
+        return R.layout.activity_answer;
     }
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-        DaggerPublishCompnent.builder()
+        DaggerAnswerCompnent.builder()
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
@@ -155,7 +157,7 @@ public class PublishActivity extends BaseActivity {
                         .hintOfPick("pictrues must be less than 3")
                         .filterMimeTypes(new String[]{"image/jpeg"})
                         .build();
-                GalleryActivity.openActivity(PublishActivity.this, PIRTURE_PICKER, config);
+                GalleryActivity.openActivity(AnswerActivity.this, PIRTURE_PICKER, config);
 
                 break;
             case R.id.tv_publish_confirm:
