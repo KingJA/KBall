@@ -6,6 +6,7 @@ import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.model.entiy.SingleInt;
 
 import java.util.List;
 
@@ -56,6 +57,15 @@ public class Api {
 
     public Observable<HttpResult<Object>> publish(@Body MultipartBody imgs) {
         return apiService.publish(imgs).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<Object>> answer(@Body MultipartBody answerBody) {
+        return apiService.answer(answerBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+    public Observable<HttpResult<SingleInt>> collect(String token, long questionId,int ifCollect) {
+        return apiService.collect(token,questionId,ifCollect).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

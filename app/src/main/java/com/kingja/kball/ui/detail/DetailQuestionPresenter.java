@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.ResultObserver;
 import com.kingja.kball.model.entiy.Answer;
+import com.kingja.kball.model.entiy.SingleInt;
 
 import java.util.List;
 
@@ -36,6 +37,17 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
                 } else {
                     view.showMoreAnswers(list, list.size() == pageSize);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void collect(String token, long questionId,int ifCollect) {
+        view.showLoading();
+        api.collect(token, questionId,ifCollect).subscribe(new ResultObserver<SingleInt>(view) {
+            @Override
+            protected void onSuccess(SingleInt singleInt) {
+                view.showCollected(singleInt.getResultInt());
             }
         });
     }

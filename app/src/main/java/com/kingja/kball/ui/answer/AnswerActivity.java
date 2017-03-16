@@ -1,6 +1,7 @@
 package com.kingja.kball.ui.answer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.component.DaggerAppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
+import com.kingja.kball.rxbus.RefreshAnswerEvent;
 import com.kingja.kball.rxbus.RefreshQuestionEvent;
 import com.kingja.kball.ui.publish.DaggerPublishCompnent;
 import com.kingja.kball.util.CheckUtil;
@@ -63,8 +65,6 @@ public class AnswerActivity extends BaseActivity {
     TextView tvPublishConfirm;
     @BindView(R.id.rv_publish_imgs)
     RecyclerView rvPublishImgs;
-    @BindView(R.id.et_publish_title)
-    BackEditText etPublishTitle;
     @Inject
     Api api;
     @Inject
@@ -72,10 +72,11 @@ public class AnswerActivity extends BaseActivity {
     private List<String> photoList = new ArrayList<>();
     private CameraImgAdapter mCameraImgAdapter;
     private NormalDialog quitDialog;
+    private long questionId;
 
     @Override
     public void initVariable() {
-
+        questionId = getIntent().getLongExtra("QUESTION_ID", 0L);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class AnswerActivity extends BaseActivity {
                 overridePendingTransition(R.anim.scale_big, R.anim.translate_down);
             }
         });
-        etPublishTitle.setOnBackListener(onBackListener);
+        etPublishContent.setOnBackListener(onBackListener);
     }
 
     private BackEditText.OnBackListener onBackListener = new BackEditText.OnBackListener() {
@@ -125,10 +126,9 @@ public class AnswerActivity extends BaseActivity {
     };
 
     private void checkBackAble() {
-        String title = etPublishTitle.getText().toString().trim();
         String content = etPublishContent.getText().toString().trim();
         List<String> photos = mCameraImgAdapter.getData();
-        if (TextUtils.isEmpty(title) && TextUtils.isEmpty(content) && photos.size() == 0) {
+        if (TextUtils.isEmpty(content) && photos.size() == 0) {
             finish();
             overridePendingTransition(R.anim.scale_big, R.anim.translate_down);
         } else {
@@ -168,17 +168,16 @@ public class AnswerActivity extends BaseActivity {
     }
 
     private void doPublish() {
-        String title = etPublishTitle.getText().toString().trim();
         String content = etPublishContent.getText().toString().trim();
-        if (!(CheckUtil.checkEmpty(title, "请输入标题") && CheckUtil.checkEmpty(content, "请输入详细内容"))) {
+        if (!CheckUtil.checkEmpty(content, "请输入你的回答")) {
             return;
         }
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
         builder.addFormDataPart("token", mSharedPreferencesManager.getToken());
-        builder.addFormDataPart("title", title);
         builder.addFormDataPart("content", content);
+        builder.addFormDataPart("questionId", questionId+"");
 
         //上传图片
         List<String> photos = mCameraImgAdapter.getData();
@@ -191,7 +190,7 @@ public class AnswerActivity extends BaseActivity {
 
         MultipartBody body = builder.build();
         setProgressShow(true);
-        api.publish(body).subscribe(new Observer<HttpResult<Object>>() {
+        api.answer(body).subscribe(new Observer<HttpResult<Object>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
@@ -201,11 +200,12 @@ public class AnswerActivity extends BaseActivity {
             public void onNext(HttpResult<Object> objectHttpResult) {
                 setProgressShow(false);
                 if (objectHttpResult.getResultCode() == 0) {
-                    ToastUtil.showText("发布成功");
-                    EventBus.getDefault().post(new RefreshQuestionEvent());
+                    ToastUtil.showText("感谢你的回答");
+                    EventBus.getDefault().post(new RefreshAnswerEvent());
                     finish();
+                    overridePendingTransition(R.anim.scale_big, R.anim.translate_down);
                 } else {
-                    ToastUtil.showText("发布出现问题,请稍后再试");
+                    ToastUtil.showText("回答出现问题,请稍后再试");
                 }
             }
 
@@ -226,6 +226,13 @@ public class AnswerActivity extends BaseActivity {
             List<String> photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
             mCameraImgAdapter.setData(photos);
         }
+    }
+
+    public static void goActivity(Activity context, long questionId) {
+        Intent intent = new Intent(context, AnswerActivity.class);
+        intent.putExtra("QUESTION_ID",questionId);
+        context.startActivity(intent);
+        context.overridePendingTransition(R.anim.translate_up, R.anim.scale_small);
     }
 
 }

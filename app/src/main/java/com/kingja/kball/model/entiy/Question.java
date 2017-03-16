@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class Question implements Serializable {
 
 
-
     /**
      * name : 乔丹
      * avatar : /upload/avatar/head_8.jpg
@@ -33,12 +32,21 @@ public class Question implements Serializable {
     private String title;
     private String content;
     private String imgUrls;
+    private int isCollected;
     private int solved;
     private int answerCount;
     private int experience;
     private int collectCount;
     private int tagId;
     private String createTime;
+
+    public int getIsCollected() {
+        return isCollected;
+    }
+
+    public void setIsCollected(int isCollected) {
+        this.isCollected = isCollected;
+    }
 
     public RankInfo getRankInfo() {
         return rankInfo;
@@ -49,6 +57,7 @@ public class Question implements Serializable {
     }
 
     private RankInfo rankInfo;
+
     public long getQuestionId() {
         return questionId;
     }

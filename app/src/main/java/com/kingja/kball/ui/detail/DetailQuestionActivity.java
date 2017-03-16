@@ -2,6 +2,7 @@ package com.kingja.kball.ui.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,23 +15,33 @@ import android.widget.TextView;
 
 import com.kingja.kball.R;
 import com.kingja.kball.adapter.AnswerAdapter;
-import com.kingja.kball.adapter.SingleImgAdapter;
 import com.kingja.kball.adapter.DividerItemDecoration;
+import com.kingja.kball.adapter.SingleImgAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.imgaeloader.ImageLoader;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.model.entiy.SingleInt;
+import com.kingja.kball.rxbus.RefreshAnswerEvent;
+import com.kingja.kball.ui.answer.AnswerActivity;
 import com.kingja.kball.util.SharedPreferencesManager;
+import com.kingja.kball.util.ToastUtil;
 import com.kingja.kball.widget.ListeneredScrollView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -75,6 +86,8 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
     @BindView(R.id.ll_sofa)
     LinearLayout llSofa;
+    @BindView(R.id.iv_detail_collect)
+    ImageView ivDetailCollect;
     private Question mQuestion;
 
     @Inject
@@ -86,10 +99,12 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     private int currentPage;
     private boolean hasMore;
     private AnswerAdapter mAnswerAdapter;
+    private int isCollected;
 
 
     @Override
     public void initVariable() {
+        EventBus.getDefault().register(this);
         mQuestion = (Question) getIntent().getSerializableExtra(Constants.EXTRA_QUESTION);
     }
 
@@ -115,11 +130,13 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
             tvDetailAnswerCount.setVisibility(View.VISIBLE);
             tvDetailAnswerCount.setText(mQuestion.getAnswerCount() + "");
         }
-        llSofa.setVisibility(mQuestion.getAnswerCount()>0 ? View.GONE : View.VISIBLE);
+        llSofa.setVisibility(mQuestion.getAnswerCount() > 0 ? View.GONE : View.VISIBLE);
         tvDetailTitle.setText(mQuestion.getTitle());
         tvDetailContent.setText(mQuestion.getContent());
         imageLoader.loadImage(this, mQuestion.getAvatar(), 0, civDetailHead);
         tvDetailLevel.setText(mQuestion.getRankInfo().getTitle());
+        isCollected=mQuestion.getIsCollected();
+        ivDetailCollect.setColorFilter(isCollected ==1?getResources().getColor(R.color.red):getResources().getColor(R.color.c));
 
 
         // Init answers RecyclerView,lv type
@@ -131,6 +148,13 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         rvDetailImgs.setLayoutManager(mgr);
         rvDetailImgs.setHasFixedSize(true);
         rvDetailImgs.setAdapter(mSingleImgAdapter);
+        //init answer
+        mAnswerAdapter = new AnswerAdapter(this, new ArrayList<Answer>());
+        rvDetailAnswers.setLayoutManager(new LinearLayoutManager(this));
+        rvDetailAnswers.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+        rvDetailAnswers.setHasFixedSize(true);
+        rvDetailAnswers.setAdapter(mAnswerAdapter);
 
         svDetailRoot.setOnScrollBottomListener(new ListeneredScrollView.OnScrollBottomListener() {
             @Override
@@ -141,6 +165,13 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
                     currentPage++;
                     detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), currentPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
                 }
+            }
+        });
+
+        mAnswerAdapter.setOnPraiseListener(new AnswerAdapter.OnPraiseListener() {
+            @Override
+            public void onPraise(ImageView iv, TextView tv) {
+
             }
         });
     }
@@ -167,7 +198,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         setProgressShow(false);
     }
 
-    @OnClick({R.id.rl_detail_goAnswer, R.id.ll_detail_collect, R.id.ll_detail_share})
+    @OnClick({R.id.rl_detail_goAnswer, R.id.ll_detail_collect, R.id.ll_detail_share, R.id.tv_detail_answer})
     public void onSwitch(View view) {
 
         switch (view.getId()) {
@@ -186,8 +217,12 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
                 break;
             case R.id.ll_detail_collect:
+                detailQuestionPresenter.collect(sharedPreferencesManager.getToken(),mQuestion.getQuestionId(),isCollected);
                 break;
             case R.id.ll_detail_share:
+                break;
+            case R.id.tv_detail_answer:
+                AnswerActivity.goActivity(this, mQuestion.getQuestionId());
                 break;
         }
 
@@ -197,12 +232,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     @Override
     public void showAnswers(List<Answer> list, boolean hasMore) {
         this.hasMore = hasMore;
-        mAnswerAdapter = new AnswerAdapter(this, list);
-        rvDetailAnswers.setLayoutManager(new LinearLayoutManager(this));
-        rvDetailAnswers.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
-        rvDetailAnswers.setHasFixedSize(true);
-        rvDetailAnswers.setAdapter(mAnswerAdapter);
+        mAnswerAdapter.setData(list);
 
     }
 
@@ -210,6 +240,20 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     public void showMoreAnswers(List<Answer> list, boolean hasMore) {
         this.hasMore = hasMore;
         mAnswerAdapter.addData(list);
+    }
+
+    @Override
+    public void showCollected(int isCollected) {
+        this.isCollected=isCollected;
+       ToastUtil.showText(isCollected==1?"收藏成功":"取消收藏");
+        ivDetailCollect.setColorFilter(isCollected ==1?getResources().getColor(R.color.red):getResources().getColor(R.color.c));
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshAnswerEvent(RefreshAnswerEvent event) {
+        Log.e(TAG, "刷新: ");
+        detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), 0, Constants.PAGE_SIZE);
     }
 
 }

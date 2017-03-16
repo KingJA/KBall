@@ -186,9 +186,10 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_detail_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/svg_b_collect" />
+                android:src="@drawable/svg_b_collect" />
         </LinearLayout>
 
         <LinearLayout

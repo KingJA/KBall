@@ -4,6 +4,7 @@ import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
+import com.kingja.kball.model.entiy.SingleInt;
 
 import java.util.List;
 
@@ -36,8 +37,15 @@ public interface ApiService {
     @POST("/mobile/question/getAnswers")
     Observable<HttpResult<List<Answer>>> getAnswers(@Field("token") String token, @Field("questionId") long questionId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
+   @FormUrlEncoded
+    @POST("/mobile/question/collect")
+    Observable<HttpResult<SingleInt>> collect(@Field("token") String token, @Field("questionId") long questionId, @Field("ifCollect") int ifCollect);
+
     @POST("/mobile/question/publish")
     Observable<HttpResult<Object>> publish(@Body MultipartBody imgs);
+
+    @POST("/mobile/question/answer")
+    Observable<HttpResult<Object>> answer(@Body MultipartBody imgs);
 
     @Multipart
     @POST("HeadIconUpload.php")

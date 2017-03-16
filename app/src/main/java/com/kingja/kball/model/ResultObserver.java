@@ -3,6 +3,7 @@ package com.kingja.kball.model;
 import com.kingja.kball.base.BaseView;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.util.ToastUtil;
+import com.orhanobut.logger.Logger;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -40,10 +41,12 @@ public abstract class ResultObserver<T> implements Observer<HttpResult<T>> {
     @Override
     public void onError(Throwable e) {
         //记录错误
+        Logger.e(e.toString());
         baseView.hideLoading();
     }
 
     @Override
     public void onComplete() {
     }
+
 }

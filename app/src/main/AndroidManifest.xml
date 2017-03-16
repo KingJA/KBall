@@ -23,9 +23,12 @@
         </activity>
         <activity android:name=".ui.main.MainActivity"/>
 
-        <activity android:name=".ui.detail.DetailQuestionActivity"/>
+        <activity android:name=".ui.detail.DetailQuestionActivity"/><!--问题详情页面-->
         <activity android:name=".ui.publish.PublishActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"/><!--发布页面-->
+        <activity
+            android:name=".ui.answer.AnswerActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" /><!--回答页面-->
     </application>
 
 </manifest>

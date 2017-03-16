@@ -16,6 +16,7 @@ public class Answer {
     private String content;//回答内容
     private String createTime;//回答时间
     private int praiseCount;//点赞数
+    private int isPraised;//是否点赞过
 
     public long getQuestionId() {
         return questionId;
@@ -87,5 +88,13 @@ public class Answer {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getIsPraised() {
+        return isPraised;
+    }
+
+    public void setIsPraised(int isPraised) {
+        this.isPraised = isPraised;
     }
 }

@@ -62,8 +62,8 @@
         <ImageView
             android:id="@+id/iv_answer_praise"
             android:background="@drawable/praise_nor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
 
     </LinearLayout>
 
