@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.kingja.kball.R;
 import com.kingja.kball.fragment.HomeFragment;
 import com.kingja.kball.fragment.RankFragment;
-import com.kingja.kball.fragment.StoreFragment;
+import com.kingja.kball.ui.store.StoreFragment;
 import com.kingja.kball.ui.mine.MineFragment;
 
 import java.util.HashMap;

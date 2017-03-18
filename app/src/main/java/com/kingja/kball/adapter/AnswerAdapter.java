@@ -1,7 +1,6 @@
 package com.kingja.kball.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,9 +8,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kingja.kball.R;
 import com.kingja.kball.app.Constants;
-import com.kingja.kball.imgaeloader.ImageLoader;
+import com.kingja.kball.imgaeloader.IImageLoader;
 import com.kingja.kball.model.entiy.Answer;
-import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.util.NoDoubleClickListener;
 import com.kingja.kball.util.ToastUtil;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
  */
 public class AnswerAdapter extends BaseRvAdaper<Answer> {
     @Inject
-    ImageLoader imageLoader;
+    IImageLoader IImageLoader;
     private OnPraiseListener onPraiseListener;
 
     public AnswerAdapter(Context context, List<Answer> list) {
@@ -66,7 +64,7 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
                     ToastUtil.showText("已经点过赞啦");
                 } else {
                     if (onPraiseListener != null) {
-                        onPraiseListener.onPraise(holder.iv_answer_praise, holder.tv_answer_praiseCount);
+                        onPraiseListener.onPraise(bean.getAnswerId(), position);
                     }
                 }
             }
@@ -94,10 +92,16 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
     }
 
     public interface OnPraiseListener {
-        void onPraise(ImageView iv, TextView tv);
+        void onPraise(long answerId, int position);
     }
 
     public void setOnPraiseListener(OnPraiseListener onPraiseListener) {
         this.onPraiseListener = onPraiseListener;
+    }
+
+    public void setPaise(int position) {
+        list.get(position).setIsPraised(1);
+        list.get(position).setPraiseCount(list.get(position).getPraiseCount() + 1);
+        notifyDataSetChanged();
     }
 }

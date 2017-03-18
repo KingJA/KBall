@@ -1,6 +1,7 @@
 package com.kingja.kball.model;
 
 import com.kingja.kball.model.entiy.Answer;
+import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
@@ -37,15 +38,23 @@ public interface ApiService {
     @POST("/mobile/question/getAnswers")
     Observable<HttpResult<List<Answer>>> getAnswers(@Field("token") String token, @Field("questionId") long questionId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
-   @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/mobile/question/collect")
     Observable<HttpResult<SingleInt>> collect(@Field("token") String token, @Field("questionId") long questionId, @Field("ifCollect") int ifCollect);
+
+    @FormUrlEncoded
+    @POST("/mobile/question/praise")
+    Observable<HttpResult<SingleInt>> praise(@Field("token") String token, @Field("answerId") long answerId);
 
     @POST("/mobile/question/publish")
     Observable<HttpResult<Object>> publish(@Body MultipartBody imgs);
 
     @POST("/mobile/question/answer")
     Observable<HttpResult<Object>> answer(@Body MultipartBody imgs);
+
+    @FormUrlEncoded
+    @POST("/mobile/store/getGifts")
+    Observable<HttpResult<List<Gift>>> getGifts(@Field("token") String token);
 
     @Multipart
     @POST("HeadIconUpload.php")

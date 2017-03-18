@@ -1,1 +1,1 @@
-include ':app', ':libk-ui', ':imagepickerModule', ':telegramgallery'
+include ':app', ':libk-ui', ':imagepickerModule', ':telegramgallery', ':mobshare'

@@ -94,8 +94,6 @@ public abstract class BasePopupWindow<T> extends PopupWindow implements OnDismis
         parentView.getLocationOnScreen(location);
         Log.i(TAG, "location[0]: " + location[0] + "location[1]: " + location[1]);
         if (!this.isShowing()) {
-//            setAlpha(activity, 0.7f);
-//            this.showAtLocation(parentView, Gravity.CENTER, 0,0);
             int popHeight = this.getContentView().getMeasuredHeight();
             int popWeight = this.getContentView().getMeasuredHeight();
             Log.i(TAG, "popHeight" + popHeight);

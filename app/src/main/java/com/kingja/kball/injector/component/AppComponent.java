@@ -3,7 +3,7 @@ package com.kingja.kball.injector.component;
 
 import android.app.Application;
 
-import com.kingja.kball.imgaeloader.ImageLoader;
+import com.kingja.kball.imgaeloader.IImageLoader;
 import com.kingja.kball.injector.module.ApiModule;
 import com.kingja.kball.injector.module.AppModule;
 import com.kingja.kball.injector.module.ImageLoaderModule;
@@ -28,5 +28,5 @@ public interface AppComponent {
     Api getApi();
     SharedPreferencesManager getSharedPreferencesManager();
     Application getApplication();
-    ImageLoader getImageLoader();
+    IImageLoader getImageLoader();
 }

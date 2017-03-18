@@ -2,7 +2,6 @@ package com.kingja.kball.ui.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +18,10 @@ import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.adapter.SingleImgAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseActivity;
-import com.kingja.kball.imgaeloader.ImageLoader;
+import com.kingja.kball.imgaeloader.IImageLoader;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Question;
-import com.kingja.kball.model.entiy.SingleInt;
 import com.kingja.kball.rxbus.RefreshAnswerEvent;
 import com.kingja.kball.ui.answer.AnswerActivity;
 import com.kingja.kball.util.SharedPreferencesManager;
@@ -36,13 +34,17 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
 
 /**
  * Description：TODO
@@ -91,7 +93,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     private Question mQuestion;
 
     @Inject
-    ImageLoader imageLoader;
+    IImageLoader IImageLoader;
     @Inject
     DetailQuestionPresenter detailQuestionPresenter;
     @Inject
@@ -133,10 +135,10 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         llSofa.setVisibility(mQuestion.getAnswerCount() > 0 ? View.GONE : View.VISIBLE);
         tvDetailTitle.setText(mQuestion.getTitle());
         tvDetailContent.setText(mQuestion.getContent());
-        imageLoader.loadImage(this, mQuestion.getAvatar(), 0, civDetailHead);
+        IImageLoader.loadImage(this, mQuestion.getAvatar(), 0, civDetailHead);
         tvDetailLevel.setText(mQuestion.getRankInfo().getTitle());
-        isCollected=mQuestion.getIsCollected();
-        ivDetailCollect.setColorFilter(isCollected ==1?getResources().getColor(R.color.red):getResources().getColor(R.color.c));
+        isCollected = mQuestion.getIsCollected();
+        ivDetailCollect.setColorFilter(isCollected == 1 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.c));
 
 
         // Init answers RecyclerView,lv type
@@ -170,11 +172,14 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
         mAnswerAdapter.setOnPraiseListener(new AnswerAdapter.OnPraiseListener() {
             @Override
-            public void onPraise(ImageView iv, TextView tv) {
-
+            public void onPraise(long answerId, int position) {
+                detailQuestionPresenter.praise(sharedPreferencesManager.getToken(), answerId);
+                praisedPosition = position;
             }
         });
     }
+
+    private int praisedPosition;
 
     @Override
     protected void initNet() {
@@ -217,9 +222,36 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
                 break;
             case R.id.ll_detail_collect:
-                detailQuestionPresenter.collect(sharedPreferencesManager.getToken(),mQuestion.getQuestionId(),isCollected);
+                detailQuestionPresenter.collect(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), isCollected);
                 break;
             case R.id.ll_detail_share:
+//                ShareDialog shareDialog = new ShareDialog(this);
+//                shareDialog.show();
+//                ShapePopup shapePopup = new ShapePopup(llDetailRoot,this);
+//                shapePopup.showPopupWindowDown();
+
+                SinaWeibo.ShareParams sp = new SinaWeibo.ShareParams();
+                sp.setText("测试分享的文本");
+//        sp.setImagePath(“/mnt/sdcard/测试分享的图片.jpg”);
+                Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+                weibo.setPlatformActionListener(new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        Log.e(TAG, "onComplete: ");
+                    }
+
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+                        Log.e(TAG, "onError: ");
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+                        Log.e(TAG, "onCancel: ");
+                    }
+                }); // 设置分享事件回调
+// 执行图文分享
+                weibo.share(sp);
                 break;
             case R.id.tv_detail_answer:
                 AnswerActivity.goActivity(this, mQuestion.getQuestionId());
@@ -244,9 +276,14 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
     @Override
     public void showCollected(int isCollected) {
-        this.isCollected=isCollected;
-       ToastUtil.showText(isCollected==1?"收藏成功":"取消收藏");
-        ivDetailCollect.setColorFilter(isCollected ==1?getResources().getColor(R.color.red):getResources().getColor(R.color.c));
+        this.isCollected = isCollected;
+        ToastUtil.showText(isCollected == 1 ? "收藏成功" : "取消收藏");
+        ivDetailCollect.setColorFilter(isCollected == 1 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.c));
+    }
+
+    @Override
+    public void showPraised() {
+        mAnswerAdapter.setPaise(praisedPosition);
     }
 
 

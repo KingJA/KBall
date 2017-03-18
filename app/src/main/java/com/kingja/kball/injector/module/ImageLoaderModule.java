@@ -1,7 +1,7 @@
 package com.kingja.kball.injector.module;
 
 import com.kingja.kball.imgaeloader.GlideLoader;
-import com.kingja.kball.imgaeloader.ImageLoader;
+import com.kingja.kball.imgaeloader.IImageLoader;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,7 +15,7 @@ import dagger.Provides;
 @Module
 public class ImageLoaderModule {
     @Provides
-    public ImageLoader provideImageLoader() {
+    public IImageLoader provideImageLoader() {
         return new GlideLoader();
     }
 }

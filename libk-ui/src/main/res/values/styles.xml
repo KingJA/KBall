@@ -54,6 +54,11 @@
         <!--<item name="android:windowExitAnimation">@anim/pop_exit</item>-->
     </style>
 
+    <style name="PopupBottom2TopAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/menu_up</item>
+        <item name="android:windowExitAnimation">@anim/menu_down</item>
+    </style>
+
     <!-- 进度条对话框样式 -->
     <style name="dialog_progress" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/sharp_progress_dialog</item>

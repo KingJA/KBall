@@ -11,6 +11,8 @@ import com.kingja.kball.injector.module.SharedPreferencesModule;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
+import cn.sharesdk.framework.ShareSDK;
+
 
 /**
  * Description：App
@@ -30,6 +32,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ShareSDK.initSDK(this);
         this.sInstance = this;
         mSharedPreferences = getSharedPreferences(Constants.APPLICATION_NAME, MODE_PRIVATE);
         setupComponent();

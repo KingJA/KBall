@@ -3,6 +3,7 @@ package com.kingja.kball.model;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.model.entiy.Answer;
+import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.Question;
@@ -64,8 +65,19 @@ public class Api {
         return apiService.answer(answerBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-    public Observable<HttpResult<SingleInt>> collect(String token, long questionId,int ifCollect) {
-        return apiService.collect(token,questionId,ifCollect).subscribeOn(Schedulers.io())
+
+    public Observable<HttpResult<SingleInt>> collect(String token, long questionId, int ifCollect) {
+        return apiService.collect(token, questionId, ifCollect).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<SingleInt>> praise(String token, long answerId) {
+        return apiService.praise(token, answerId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<List<Gift>>> getGifts(String token) {
+        return apiService.getGifts(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

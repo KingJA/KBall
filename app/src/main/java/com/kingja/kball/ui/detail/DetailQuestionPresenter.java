@@ -42,12 +42,23 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
     }
 
     @Override
-    public void collect(String token, long questionId,int ifCollect) {
+    public void collect(String token, long questionId, int ifCollect) {
         view.showLoading();
-        api.collect(token, questionId,ifCollect).subscribe(new ResultObserver<SingleInt>(view) {
+        api.collect(token, questionId, ifCollect).subscribe(new ResultObserver<SingleInt>(view) {
             @Override
             protected void onSuccess(SingleInt singleInt) {
                 view.showCollected(singleInt.getResultInt());
+            }
+        });
+    }
+
+    @Override
+    public void praise(String token, long answerId) {
+        view.showLoading();
+        api.praise(token, answerId).subscribe(new ResultObserver<SingleInt>(view) {
+            @Override
+            protected void onSuccess(SingleInt singleInt) {
+                view.showPraised();
             }
         });
     }
