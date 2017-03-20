@@ -50,6 +50,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_buy"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="12dp"
                 android:layout_gravity="end"

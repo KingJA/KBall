@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.design.widget.FloatingActionButton
+       <!-- <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_main"
             app:fabSize="mini"
             app:backgroundTint="@color/red"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true" />-->
     </RelativeLayout>
 
     <View style="@style/divider_nomal_horizontal" />

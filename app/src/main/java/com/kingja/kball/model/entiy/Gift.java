@@ -9,7 +9,18 @@ package com.kingja.kball.model.entiy;
 public class Gift {
     private long giftId;
     private String giftName;
+    private String giftDes;
+    private int giftCost;
+    private int giftCount;
+    private int giftRank;
+    private String giftUrl;
+    public int getGiftCount() {
+        return giftCount;
+    }
 
+    public void setGiftCount(int giftCount) {
+        this.giftCount = giftCount;
+    }
     public String getGiftDes() {
         return giftDes;
     }
@@ -17,12 +28,6 @@ public class Gift {
     public void setGiftDes(String giftDes) {
         this.giftDes = giftDes;
     }
-
-    private String giftDes;
-    private int giftCost;
-    private int giftRank;
-    private String giftUrl;
-
     public long getGiftId() {
         return giftId;
     }

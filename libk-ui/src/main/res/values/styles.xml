@@ -63,5 +63,8 @@
     <style name="dialog_progress" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/sharp_progress_dialog</item>
     </style>
-
+    <!--对话框样式-->
+    <style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>
+    </style>
 </resources>

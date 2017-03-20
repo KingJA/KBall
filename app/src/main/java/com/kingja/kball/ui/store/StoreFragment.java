@@ -1,10 +1,10 @@
 package com.kingja.kball.ui.store;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.kingja.kball.R;
@@ -12,10 +12,10 @@ import com.kingja.kball.adapter.GiftAdapter;
 import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.Gift;
-import com.kingja.kball.ui.detail.DaggerDetailQuestionCompnent;
 import com.kingja.kball.util.AppUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
+import com.kingja.kball.widget.BuyDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class StoreFragment extends BaseFragment implements StoreContract.View ,SwipeRefreshLayout.OnRefreshListener{
+public class StoreFragment extends BaseFragment implements StoreContract.View ,SwipeRefreshLayout.OnRefreshListener,GiftAdapter.OnShowGiftListener {
     @BindView(R.id.iv_store_banner)
     ImageView ivStoreBanner;
     @BindView(R.id.rv_store)
@@ -55,7 +55,6 @@ public class StoreFragment extends BaseFragment implements StoreContract.View ,S
     @Override
     protected void initViewAndListener() {
         mStorePresenter.attachView(this);
-
         mGiftAdapter = new GiftAdapter(getActivity(), mGifts);
         rvStore.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvStore.setHasFixedSize(true);
@@ -63,6 +62,8 @@ public class StoreFragment extends BaseFragment implements StoreContract.View ,S
         srlStore.setColorSchemeResources(R.color.black);
         srlStore.setProgressViewOffset(false, 0, AppUtil.dp2px(24));
         srlStore.setOnRefreshListener(this);
+        mGiftAdapter.setOnShowGiftListener(this);
+
     }
 
     @Override
@@ -82,6 +83,11 @@ public class StoreFragment extends BaseFragment implements StoreContract.View ,S
     }
 
     @Override
+    public void showBuyGiftSuccess() {
+        ToastUtil.showText("购买成功");
+    }
+
+    @Override
     public void showLoading() {
         srlStore.setRefreshing(true);
     }
@@ -94,5 +100,17 @@ public class StoreFragment extends BaseFragment implements StoreContract.View ,S
     @Override
     public void onRefresh() {
         srlStore.setRefreshing(false);
+    }
+
+    @Override
+    public void onShowGiftDialog(Gift gift, Drawable drawable) {
+        BuyDialog buyDialog = new BuyDialog(getActivity(),gift,drawable);
+        buyDialog.setOnGiftBuyListener(new BuyDialog.OnGiftBuyListener() {
+            @Override
+            public void onGiftBuy(long giftId, int giftCount, int giftCost) {
+                mStorePresenter.buyGift(mSharedPreferencesManager.getToken(),giftId,giftCount,giftCost);
+            }
+        });
+        buyDialog.show();
     }
 }

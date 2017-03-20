@@ -37,6 +37,16 @@ public class StorePresenter implements StoreContract.Presenter {
     }
 
     @Override
+    public void buyGift(String token,long giftId, int count, int cost) {
+        api.buyGift(token,giftId, count, cost).subscribe(new ResultObserver<Object>(view) {
+            @Override
+            protected void onSuccess(Object o) {
+                view.showBuyGiftSuccess();
+            }
+        });
+    }
+
+    @Override
     public void attachView(@NonNull StoreContract.View view) {
         this.view = view;
     }

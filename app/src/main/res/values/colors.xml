@@ -11,6 +11,7 @@
     <color name="gray">#b7b7b7</color>
     <color name="green">#147629</color>
     <color name="gray_light">#eeeeee</color>
+    <color name="gray_tran">#33ffffff</color>
 
     <color name="gray_divide">#c7c7c7</color>
     <color name="red">#bb2c28</color>

@@ -81,6 +81,16 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<HttpResult<List<Gift>>> getMyGifts(String token) {
+        return apiService.getMyGifts(token).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<Object>> buyGift(String token, long giftId, int count, int cost) {
+        return apiService.buyGift(token, giftId, count, cost).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo) {
         return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

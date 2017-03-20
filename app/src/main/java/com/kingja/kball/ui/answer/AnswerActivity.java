@@ -1,7 +1,6 @@
 package com.kingja.kball.ui.answer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +17,9 @@ import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.injector.component.AppComponent;
-import com.kingja.kball.injector.component.DaggerAppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.rxbus.RefreshAnswerEvent;
-import com.kingja.kball.rxbus.RefreshQuestionEvent;
-import com.kingja.kball.ui.publish.DaggerPublishCompnent;
 import com.kingja.kball.util.CheckUtil;
 import com.kingja.kball.util.DialogUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
@@ -95,7 +91,7 @@ public class AnswerActivity extends BaseActivity {
     @Override
     protected void initViewAndListener() {
         mCameraImgAdapter = new CameraImgAdapter(this, photoList);
-        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
+        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_IMG_COUNT);
         rvPublishImgs.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));
         rvPublishImgs.setLayoutManager(mgr);

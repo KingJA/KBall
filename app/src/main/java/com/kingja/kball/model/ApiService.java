@@ -56,6 +56,14 @@ public interface ApiService {
     @POST("/mobile/store/getGifts")
     Observable<HttpResult<List<Gift>>> getGifts(@Field("token") String token);
 
+    @FormUrlEncoded
+    @POST("/mobile/store/getMyGifts")
+    Observable<HttpResult<List<Gift>>> getMyGifts(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("/mobile/store/buyGift")
+    Observable<HttpResult<Object>> buyGift(@Field("token") String token, @Field("giftId") long giftId, @Field("count") int count, @Field("cost") int cost);
+
     @Multipart
     @POST("HeadIconUpload.php")
     Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo);

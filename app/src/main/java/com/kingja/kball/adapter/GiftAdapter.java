@@ -1,16 +1,16 @@
 package com.kingja.kball.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.kingja.kball.R;
-import com.kingja.kball.app.Constants;
 import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.imgaeloader.ImageLoader;
+import com.kingja.kball.util.NoDoubleClickListener;
 
 import java.util.List;
 
@@ -21,6 +21,8 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class GiftAdapter extends BaseRvAdaper<Gift> {
+
+    private OnShowGiftListener onShowGiftListener;
 
     public GiftAdapter(Context context, List<Gift> list) {
         super(context, list);
@@ -42,7 +44,16 @@ public class GiftAdapter extends BaseRvAdaper<Gift> {
         holder.tv_gitfName.setText(bean.getGiftName());
         holder.tv_gitfDes.setText(bean.getGiftDes());
         holder.tv_giftCost.setText(bean.getGiftCost()+"");
+
         ImageLoader.getInstance().loadImage(context,bean.getGiftUrl(),R.drawable.gift_cake,holder.iv_giftImg);
+        holder.ll_buy.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                if (onShowGiftListener != null) {
+                    onShowGiftListener.onShowGiftDialog(list.get(position),holder.iv_giftImg.getDrawable());
+                }
+            }
+        });
     }
 
 
@@ -51,6 +62,7 @@ public class GiftAdapter extends BaseRvAdaper<Gift> {
         public TextView tv_gitfDes;
         public TextView tv_giftCost;
         public ImageView iv_giftImg;
+        public LinearLayout ll_buy;
 
         public GiftViewHolder(View itemView) {
             super(itemView);
@@ -58,6 +70,15 @@ public class GiftAdapter extends BaseRvAdaper<Gift> {
             tv_gitfDes = (TextView) itemView.findViewById(R.id.tv_gitfDes);
             tv_giftCost = (TextView) itemView.findViewById(R.id.tv_giftCost);
             iv_giftImg = (ImageView) itemView.findViewById(R.id.iv_giftImg);
+            ll_buy = (LinearLayout) itemView.findViewById(R.id.ll_buy);
         }
+    }
+
+    public interface OnShowGiftListener {
+        void onShowGiftDialog(Gift gift, Drawable drawable);
+    }
+
+    public void setOnShowGiftListener(OnShowGiftListener onShowGiftListener) {
+        this.onShowGiftListener = onShowGiftListener;
     }
 }

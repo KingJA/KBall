@@ -1,4 +1,4 @@
-package com.kingja.kball.ui.store;
+package com.kingja.kball.ui.mygift;
 
 import com.kingja.kball.base.BasePresenter;
 import com.kingja.kball.base.BaseView;
@@ -13,16 +13,13 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface StoreContract {
+public interface MyGiftContract {
     interface View extends BaseView {
-        void setGift(List<Gift>list);
-        void showBuyGiftSuccess();
-
+        void showGifts(List<Gift> list);
 
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getGifts(String token);
-        void buyGift(String token,long giftId,int count,int cost);
+        void getMyGifts(String token);
     }
 }

@@ -92,7 +92,7 @@ public class PublishActivity extends BaseActivity {
     @Override
     protected void initViewAndListener() {
         mCameraImgAdapter = new CameraImgAdapter(this, photoList);
-        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
+        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_IMG_COUNT);
         rvPublishImgs.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));
         rvPublishImgs.setLayoutManager(mgr);

@@ -50,8 +50,7 @@ public class MainActivity extends BaseActivity {
     TextView tvMine;
     @BindView(R.id.ll_mine)
     LinearLayout llMine;
-    @BindView(R.id.fab_main)
-    FloatingActionButton fabMain;
+
     private Fragment mCurrentFragment;
     private int nCurrentPosition = -1;
     private int mSelectedPosition = -1;
@@ -83,7 +82,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.ll_home, R.id.ll_top, R.id.ll_store, R.id.ll_mine, R.id.fab_main})
+    @OnClick({R.id.ll_home, R.id.ll_top, R.id.ll_store, R.id.ll_mine})
     public void onSwitch(View view) {
 
         switch (view.getId()) {
@@ -99,10 +98,7 @@ public class MainActivity extends BaseActivity {
             case R.id.ll_mine:
                 selectTab(3);
                 break;
-            case R.id.fab_main:
-                GoUtil.goActivity(this, PublishActivity.class);
-                overridePendingTransition(R.anim.translate_up, R.anim.scale_small);
-                break;
+
         }
 
     }

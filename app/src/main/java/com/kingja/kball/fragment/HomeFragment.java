@@ -1,8 +1,10 @@
 package com.kingja.kball.fragment;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
@@ -13,11 +15,14 @@ import com.kingja.kball.ui.main.QuestionsFragment;
 import com.kingja.kball.ui.main.MainPagerAdapter;
 import com.kingja.kball.ui.main.SolvedQuestionFragment;
 import com.kingja.kball.ui.main.UnsolvedQuestionFragment;
+import com.kingja.kball.ui.publish.PublishActivity;
+import com.kingja.kball.util.GoUtil;
 
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Description：TODO
@@ -33,7 +38,8 @@ public class HomeFragment extends BaseFragment {
     TabLayout tlHome;
     @BindView(R.id.vp_home)
     ViewPager vpHome;
-
+    @BindView(R.id.fab_main)
+    FloatingActionButton fabMain;
     private List<String> mTabList = Arrays.asList("全部", "已解决", "未解决");
     private Fragment mFragmentArr[] = new Fragment[3];
 
@@ -69,4 +75,10 @@ public class HomeFragment extends BaseFragment {
         return R.layout.fragment_home;
     }
 
+    @OnClick({R.id.fab_main})
+    public void onSwitch(View view) {
+        GoUtil.goActivity(getActivity(), PublishActivity.class);
+        getActivity().overridePendingTransition(R.anim.translate_up, R.anim.scale_small);
+
+    }
 }

@@ -144,7 +144,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         // Init answers RecyclerView,lv type
         List<String> imgsList = Arrays.asList(mQuestion.getImgUrls().split("#"));
         SingleImgAdapter mSingleImgAdapter = new SingleImgAdapter(this, imgsList);
-        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_COUNT);
+        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_IMG_COUNT);
         rvDetailImgs.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));
         rvDetailImgs.setLayoutManager(mgr);
