@@ -38,6 +38,7 @@
         <activity android:name=".ui.mine.ask.MyQuestionsActivity" /><!--我的问题-->
         <activity android:name=".ui.mine.answer.MyAnswersActivity" /><!--我的回答-->
         <activity android:name=".ui.mine.attention.MyAttentionsActivity" /><!--我的关注-->
+        <activity android:name=".ui.mine.collection.MyCollectionsActivity" /><!--我的收藏-->
     </application>
 
 </manifest>

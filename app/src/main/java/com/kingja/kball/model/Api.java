@@ -12,11 +12,13 @@ import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.model.entiy.SingleInt;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
@@ -34,11 +36,19 @@ public class Api {
     private ApiService apiService;
 
     public Api() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
                 .build();
+
+
         apiService = retrofit.create(ApiService.class);
     }
 
@@ -98,11 +108,17 @@ public class Api {
         return apiService.getMyQuestions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-      public Observable<HttpResult<List<MyAnswer>>> getMyAnswers(String token, int pageIndex, int pageSize) {
+    public Observable<HttpResult<List<Question>>> getMyCollections(String token, int pageIndex, int pageSize) {
+        return apiService.getMyCollections(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<HttpResult<List<MyAnswer>>> getMyAnswers(String token, int pageIndex, int pageSize) {
         return apiService.getMyAnswers(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-      public Observable<HttpResult<List<MyAttention>>> getMyAttentions(String token, int pageIndex, int pageSize) {
+
+    public Observable<HttpResult<List<MyAttention>>> getMyAttentions(String token, int pageIndex, int pageSize) {
         return apiService.getMyAttentions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

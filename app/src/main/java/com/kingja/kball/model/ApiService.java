@@ -75,6 +75,11 @@ public interface ApiService {
     @POST("/mobile/mine/getMyQuestions")
     Observable<HttpResult<List<Question>>> getMyQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
+    /*我的收藏*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getMyCollections")
+    Observable<HttpResult<List<Question>>> getMyCollections(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
     /*我的提问*/
     @FormUrlEncoded
     @POST("/mobile/mine/getMyAnswers")
