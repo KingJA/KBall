@@ -6,6 +6,8 @@ import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.model.entiy.MyAnswer;
+import com.kingja.kball.model.entiy.MyAttention;
 import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.model.entiy.SingleInt;
 
@@ -91,8 +93,18 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo) {
-        return apiService.uploadHeadIcon(photo).subscribeOn(Schedulers.io())
+
+    public Observable<HttpResult<List<Question>>> getMyQuestions(String token, int pageIndex, int pageSize) {
+        return apiService.getMyQuestions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+      public Observable<HttpResult<List<MyAnswer>>> getMyAnswers(String token, int pageIndex, int pageSize) {
+        return apiService.getMyAnswers(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+      public Observable<HttpResult<List<MyAttention>>> getMyAttentions(String token, int pageIndex, int pageSize) {
+        return apiService.getMyAttentions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
 }

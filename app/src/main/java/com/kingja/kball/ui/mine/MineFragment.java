@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.ui.mine.answer.MyAnswersActivity;
+import com.kingja.kball.ui.mine.ask.MyQuestionsActivity;
+import com.kingja.kball.ui.mine.attention.MyAttentionsActivity;
 import com.kingja.kball.ui.mygift.MyGiftActivity;
 import com.kingja.kball.util.GoUtil;
 
@@ -70,12 +73,20 @@ public class MineFragment extends BaseFragment {
         return R.layout.fragment_mine;
     }
 
-    @OnClick({R.id.rl_gift})
+    @OnClick({R.id.rl_gift, R.id.rl_question, R.id.rl_answer, R.id.rl_attention})
     public void onSwitch(View view) {
-
         switch (view.getId()) {
             case R.id.rl_gift:
                 GoUtil.goActivity(getActivity(), MyGiftActivity.class);
+                break;
+            case R.id.rl_question:
+                GoUtil.goActivity(getActivity(), MyQuestionsActivity.class);
+                break;
+            case R.id.rl_answer:
+                GoUtil.goActivity(getActivity(), MyAnswersActivity.class);
+                break;
+            case R.id.rl_attention:
+                GoUtil.goActivity(getActivity(), MyAttentionsActivity.class);
                 break;
 
         }

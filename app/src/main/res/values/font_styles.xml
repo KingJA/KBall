@@ -32,6 +32,9 @@
     <style name="font_9_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/font_9</item>
+    </style>   <style name="font_c_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/c</item>
     </style>
 
     <style name="font_9_15">

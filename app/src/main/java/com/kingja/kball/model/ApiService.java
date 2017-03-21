@@ -4,6 +4,8 @@ import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
+import com.kingja.kball.model.entiy.MyAnswer;
+import com.kingja.kball.model.entiy.MyAttention;
 import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.model.entiy.SingleInt;
 
@@ -67,6 +69,21 @@ public interface ApiService {
     @Multipart
     @POST("HeadIconUpload.php")
     Observable<HttpResult<Object>> uploadHeadIcon(@Part MultipartBody.Part photo);
+
+    /*我的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getMyQuestions")
+    Observable<HttpResult<List<Question>>> getMyQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+    /*我的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getMyAnswers")
+    Observable<HttpResult<List<MyAnswer>>> getMyAnswers(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+    /*我的关注*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getMyAttentions")
+    Observable<HttpResult<List<MyAttention>>> getMyAttentions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
 
 }

@@ -153,8 +153,8 @@ public class QuestionsFragment extends BaseFragment implements SwipeRefreshLayou
                 srl.setRefreshing(false);
                 if (result.getResultCode() == 0) {
                     questionList = result.getResultData();
-                    llEmpty.setVisibility(questionList.size() > 0 ? View.GONE : View.VISIBLE);
                     if (pageIndex == 0) {
+                        llEmpty.setVisibility(questionList.size() > 0 ? View.GONE : View.VISIBLE);
                         mQuestionAdapter.reset();
                     }
                     hasMore = questionList.size() == Constants.PAGE_SIZE;

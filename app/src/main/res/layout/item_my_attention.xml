@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/iv_attention_head"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/city" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_attention_name"
+                android:layout_marginRight="4dp"
+                style="@style/font_3_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="海边的卡夫卡" />
+
+            <TextView
+                android:id="@+id/tv_attention_title"
+                android:layout_marginRight="4dp"
+                style="@style/font_9_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专业大师" />
+
+            <ImageView
+                android:id="@+id/iv_attention_level"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/level5" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_attention_des"
+            style="@style/font_9_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="世上程序员千千万，可称得上“伟大的”无二三。" />
+
+    </LinearLayout>
+
+</LinearLayout>

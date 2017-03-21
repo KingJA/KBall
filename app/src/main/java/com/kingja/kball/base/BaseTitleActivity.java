@@ -24,7 +24,10 @@ public abstract class BaseTitleActivity extends BaseActivity {
     @BindView(R.id.fl_content)
     FrameLayout flContent;
 
-    public abstract void initVariable();
+    @Override
+    public void initVariable() {
+
+    }
 
     @Override
     public int getContentId() {

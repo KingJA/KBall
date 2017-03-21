@@ -35,6 +35,9 @@
             android:windowSoftInputMode="stateVisible|adjustResize" /><!--回答页面-->
 
         <activity android:name=".ui.mygift.MyGiftActivity" /><!--我的礼物-->
+        <activity android:name=".ui.mine.ask.MyQuestionsActivity" /><!--我的问题-->
+        <activity android:name=".ui.mine.answer.MyAnswersActivity" /><!--我的回答-->
+        <activity android:name=".ui.mine.attention.MyAttentionsActivity" /><!--我的关注-->
     </application>
 
 </manifest>
