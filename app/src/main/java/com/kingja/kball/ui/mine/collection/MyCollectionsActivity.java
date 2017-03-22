@@ -7,14 +7,10 @@ import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
 import com.kingja.kball.adapter.MyCollectionAdapter;
-import com.kingja.kball.adapter.MyQuestionAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseTitleActivity;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.Question;
-import com.kingja.kball.ui.mine.ask.DaggerMyQuestionsCompnent;
-import com.kingja.kball.ui.mine.ask.MyQuestionsContract;
-import com.kingja.kball.ui.mine.ask.MyQuestionsPresenter;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.kball.widget.PullToBottomRecyclerView;

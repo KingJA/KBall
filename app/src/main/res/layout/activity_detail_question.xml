@@ -30,22 +30,24 @@
                     android:layout_height="wrap_content"
                     android:text="伦敦有什么鲜为人知、小众却值得去玩的地方？" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical">
+                    android:layout_marginTop="20dp">
 
                     <ImageView
                         android:id="@+id/civ_detail_head"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_centerVertical="true"
                         android:src="@drawable/head_default" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/civ_detail_head"
                         android:orientation="vertical">
 
 
@@ -79,7 +81,15 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/tv_detail_attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="关注" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tv_detail_content"
@@ -95,7 +105,7 @@
                     android:id="@+id/rv_detail_imgs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"/>
+                    android:layout_marginTop="4dp" />
 
 
             </LinearLayout>
@@ -123,7 +133,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:background="@color/bg_white" />
-                <include layout="@layout/include_sofa"/>
+
+                <include layout="@layout/include_sofa" />
             </LinearLayout>
         </LinearLayout>
     </com.kingja.kball.widget.ListeneredScrollView>
@@ -161,21 +172,22 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/svg_b_answer" />
+
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_detail_answerCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="8dp"
                 android:layout_marginRight="15dp"
-                android:paddingRight="4dp"
-                android:paddingLeft="4dp"
-                android:paddingTop="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/sharp_around_small"
                 android:paddingBottom="1dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingTop="1dp"
                 android:textColor="@color/white"
                 android:textSize="10sp"
-                android:background="@drawable/sharp_around_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout

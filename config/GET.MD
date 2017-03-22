@@ -2,3 +2,5 @@
 fd9e1dd17cabadb9365f7d564944897f 签名
 
 * Tablayout 和ViewPager绑定要传入标题集合，不然Tablayout不会显示标题
+
+* scrollTo 瞬间， smoothScrollTo平滑

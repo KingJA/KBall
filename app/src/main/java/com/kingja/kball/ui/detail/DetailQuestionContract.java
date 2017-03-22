@@ -20,6 +20,8 @@ public interface DetailQuestionContract {
         void showMoreAnswers(List<Answer> list,boolean hasMore);
         /*收藏问题*/
         void showCollected(int isCollected);
+        /*关注用户*/
+        void showAttention(int isAttentioned);
         /*点赞成功*/
         void showPraised();
 
@@ -29,6 +31,8 @@ public interface DetailQuestionContract {
         void getAnswers(String token,long questionId,int pageIndex,int pageSize);
         /*收藏问题*/
         void collect(String token,long questionId,int ifCollect);
+        /*关注用户*/
+        void attention(String token,long otherAccountId,int ifAttention);
         /*点赞*/
         void praise(String token,long answerId);
     }

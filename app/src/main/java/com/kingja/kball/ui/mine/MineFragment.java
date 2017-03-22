@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.kingja.kball.ui.mine.answer.MyAnswersActivity;
 import com.kingja.kball.ui.mine.ask.MyQuestionsActivity;
 import com.kingja.kball.ui.mine.attention.MyAttentionsActivity;
 import com.kingja.kball.ui.mine.collection.MyCollectionsActivity;
+import com.kingja.kball.ui.mine.fans.MyFansActivity;
 import com.kingja.kball.ui.mygift.MyGiftActivity;
 import com.kingja.kball.util.GoUtil;
 
@@ -29,10 +31,6 @@ import butterknife.OnClick;
  * Email:kingjavip@gmail.com
  */
 public class MineFragment extends BaseFragment {
-    @BindView(R.id.iv_pushMsg)
-    ImageView ivPushMsg;
-    @BindView(R.id.iv_setting)
-    ImageView ivSetting;
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.tv_level)
@@ -45,14 +43,18 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlQuestion;
     @BindView(R.id.rl_answer)
     RelativeLayout rlAnswer;
-    @BindView(R.id.rl_attention)
-    RelativeLayout rlAttention;
-    @BindView(R.id.rl_collection)
-    RelativeLayout rlCollection;
+    @BindView(R.id.ll_attention)
+    LinearLayout llAttention;
     @BindView(R.id.rl_gift)
     RelativeLayout rlGift;
     @BindView(R.id.rl_footprint)
     RelativeLayout rlFootprint;
+    @BindView(R.id.tv_attentionCount)
+    TextView tvAttentionCount;
+    @BindView(R.id.tv_fansCount)
+    TextView tvFansCount;
+    @BindView(R.id.ll_fans)
+    LinearLayout llFans;
 
     @Override
     protected void initComponent(AppComponent appComponent) {
@@ -74,7 +76,7 @@ public class MineFragment extends BaseFragment {
         return R.layout.fragment_mine;
     }
 
-    @OnClick({R.id.rl_gift, R.id.rl_question, R.id.rl_answer, R.id.rl_attention, R.id.rl_collection})
+    @OnClick({R.id.rl_gift, R.id.rl_question, R.id.rl_answer, R.id.ll_attention, R.id.rl_collection, R.id.ll_fans})
     public void onSwitch(View view) {
         switch (view.getId()) {
             case R.id.rl_gift:
@@ -86,14 +88,25 @@ public class MineFragment extends BaseFragment {
             case R.id.rl_answer:
                 GoUtil.goActivity(getActivity(), MyAnswersActivity.class);
                 break;
-            case R.id.rl_attention:
+            case R.id.ll_attention:
                 GoUtil.goActivity(getActivity(), MyAttentionsActivity.class);
                 break;
             case R.id.rl_collection:
                 GoUtil.goActivity(getActivity(), MyCollectionsActivity.class);
                 break;
+            case R.id.ll_fans:
+                GoUtil.goActivity(getActivity(), MyFansActivity.class);
+                break;
 
         }
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

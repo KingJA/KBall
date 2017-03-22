@@ -53,6 +53,17 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
     }
 
     @Override
+    public void attention(String token, long otherAccountId, int ifAttention) {
+        view.showLoading();
+        api.attention(token,otherAccountId,ifAttention).subscribe(new ResultObserver<SingleInt>(view) {
+            @Override
+            protected void onSuccess(SingleInt singleInt) {
+                view.showAttention(singleInt.getResultInt());
+            }
+        });
+    }
+
+    @Override
     public void praise(String token, long answerId) {
         view.showLoading();
         api.praise(token, answerId).subscribe(new ResultObserver<SingleInt>(view) {

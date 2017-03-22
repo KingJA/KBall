@@ -2,6 +2,7 @@ package com.kingja.kball.ui.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -90,6 +92,8 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     LinearLayout llSofa;
     @BindView(R.id.iv_detail_collect)
     ImageView ivDetailCollect;
+    @BindView(R.id.tv_detail_attention)
+    TextView tvDetailAttention;
     private Question mQuestion;
 
     @Inject
@@ -97,11 +101,14 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     @Inject
     DetailQuestionPresenter detailQuestionPresenter;
     @Inject
-    SharedPreferencesManager sharedPreferencesManager;
+    SharedPreferencesManager mSpManager;
     private int currentPage;
     private boolean hasMore;
     private AnswerAdapter mAnswerAdapter;
     private int isCollected;
+    private int isAttentioned;
+    private boolean scrollToAnswer;
+    private int lastScrollY;
 
 
     @Override
@@ -121,6 +128,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
+
     }
 
 
@@ -128,6 +136,14 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     protected void initViewAndListener() {
         // Init answer imgs RecyclerView,gv type
         detailQuestionPresenter.attachView(this);
+        if (mSpManager.getAccountId() != mQuestion.getAccountId()) {
+            tvDetailAttention.setVisibility(View.VISIBLE);
+            isAttentioned = mQuestion.getIsAttentioned();
+            tvDetailAttention.setText(isAttentioned ==1? "已关注":"关注");
+        }
+
+
+
         if (mQuestion.getAnswerCount() > 0) {
             tvDetailAnswerCount.setVisibility(View.VISIBLE);
             tvDetailAnswerCount.setText(mQuestion.getAnswerCount() + "");
@@ -165,7 +181,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
                 if (!getProgressShow() && hasMore) {
                     Log.e(TAG, "onScrollBottom: " + "加载更多");
                     currentPage++;
-                    detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), currentPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+                    detailQuestionPresenter.getAnswers(mSpManager.getToken(), mQuestion.getQuestionId(), currentPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
                 }
             }
         });
@@ -173,7 +189,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         mAnswerAdapter.setOnPraiseListener(new AnswerAdapter.OnPraiseListener() {
             @Override
             public void onPraise(long answerId, int position) {
-                detailQuestionPresenter.praise(sharedPreferencesManager.getToken(), answerId);
+                detailQuestionPresenter.praise(mSpManager.getToken(), answerId);
                 praisedPosition = position;
             }
         });
@@ -183,7 +199,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
     @Override
     protected void initNet() {
-        detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), currentPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+        detailQuestionPresenter.getAnswers(mSpManager.getToken(), mQuestion.getQuestionId(), currentPage * Constants.PAGE_SIZE, Constants.PAGE_SIZE);
     }
 
     public static void goActivity(Context context, Question question) {
@@ -203,26 +219,25 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         setProgressShow(false);
     }
 
-    @OnClick({R.id.rl_detail_goAnswer, R.id.ll_detail_collect, R.id.ll_detail_share, R.id.tv_detail_answer})
+    @OnClick({R.id.rl_detail_goAnswer, R.id.ll_detail_collect, R.id.ll_detail_share, R.id.tv_detail_answer, R.id.tv_detail_attention})
     public void onSwitch(View view) {
 
         switch (view.getId()) {
             case R.id.rl_detail_goAnswer:
+                Log.e(TAG, "getScrollY: "+svDetailRoot.getScrollY() );
+                if (scrollAble()) {
+                    if (svDetailRoot.getScrollY() < getSupportScrollY()) {//滚动切还没滚动到期望位置
+                        lastScrollY=svDetailRoot.getScrollY();
+                        svDetailRoot.smoothScrollTo(0,getSupportScrollY());
 
-                if (llDetailRoot.getMeasuredHeight() > svDetailRoot.getHeight()) {
-                    if ((llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()) > llDetailQuestion.getMeasuredHeight()) {
-                        svDetailRoot.scrollTo(0, llDetailQuestion.getMeasuredHeight());
-                    } else {
-                        svDetailRoot.scrollTo(0, (llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()));
+                    }else{
+                        svDetailRoot.smoothScrollTo(0,lastScrollY);//滚动到上次位置
                     }
-
-                } else {
-
                 }
 
                 break;
             case R.id.ll_detail_collect:
-                detailQuestionPresenter.collect(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), isCollected);
+                detailQuestionPresenter.collect(mSpManager.getToken(), mQuestion.getQuestionId(), isCollected);
                 break;
             case R.id.ll_detail_share:
 //                ShareDialog shareDialog = new ShareDialog(this);
@@ -256,8 +271,28 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
             case R.id.tv_detail_answer:
                 AnswerActivity.goActivity(this, mQuestion.getQuestionId());
                 break;
+            case R.id.tv_detail_attention:
+                detailQuestionPresenter.attention(mSpManager.getToken(),mQuestion.getAccountId(),isAttentioned);
+                break;
+
         }
 
+    }
+
+    private int getSupportScrollY() {
+        int supportScrollY=0;
+        if (llDetailRoot.getMeasuredHeight() > svDetailRoot.getHeight()) {//滚动条里内容太超过滚动条显示区域
+            if ((llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()) > llDetailQuestion.getMeasuredHeight()) {//如果可以滚动长度超过问题显示的长度
+                supportScrollY= llDetailQuestion.getMeasuredHeight();
+            } else {
+                supportScrollY= (llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight());
+            }
+        }
+        return supportScrollY;
+    }
+
+    private boolean scrollAble() {
+        return llDetailRoot.getMeasuredHeight() > svDetailRoot.getHeight();
     }
 
 
@@ -282,6 +317,13 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     }
 
     @Override
+    public void showAttention(int isAttentioned) {
+        this.isAttentioned = isAttentioned;
+        ToastUtil.showText(this.isAttentioned == 1 ? "关注成功" : "取消关注");
+        tvDetailAttention.setText(this.isAttentioned ==1? "已关注":"关注");
+    }
+
+    @Override
     public void showPraised() {
         mAnswerAdapter.setPaise(praisedPosition);
     }
@@ -290,7 +332,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefreshAnswerEvent(RefreshAnswerEvent event) {
         Log.e(TAG, "刷新: ");
-        detailQuestionPresenter.getAnswers(sharedPreferencesManager.getToken(), mQuestion.getQuestionId(), 0, Constants.PAGE_SIZE);
+        detailQuestionPresenter.getAnswers(mSpManager.getToken(), mQuestion.getQuestionId(), 0, Constants.PAGE_SIZE);
     }
 
 }

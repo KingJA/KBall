@@ -27,19 +27,33 @@ public class Question implements Serializable {
      */
 
     private long questionId;
+    private long accountId;
     private String name;
     private String avatar;
     private String title;
     private String content;
     private String imgUrls;
     private int isCollected;
+    private int isAttentioned;
     private int solved;
     private int answerCount;
     private int experience;
     private int collectCount;
     private int tagId;
     private String createTime;
+    public long getAccountId() {
+        return accountId;
+    }
+    public int getIsAttentioned() {
+        return isAttentioned;
+    }
 
+    public void setIsAttentioned(int isAttentioned) {
+        this.isAttentioned = isAttentioned;
+    }
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
     public int getIsCollected() {
         return isCollected;
     }

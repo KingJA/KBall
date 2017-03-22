@@ -1,6 +1,7 @@
 package com.kingja.kball.ui.login;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -93,6 +94,7 @@ public class LoginActivity extends BaseActivity implements SwitchMultiButton.OnS
     public void onLoginSuccess(Login login) {
         mSharedPreferencesManager.putName(login.getName());
         mSharedPreferencesManager.putToken(login.getToken());
+        mSharedPreferencesManager.putAccountId(login.getAccountId());
         GoUtil.goActivityAndFinish(this, MainActivity.class);
     }
 

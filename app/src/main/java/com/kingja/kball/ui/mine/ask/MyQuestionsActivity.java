@@ -2,21 +2,15 @@ package com.kingja.kball.ui.mine.ask;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
-import com.kingja.kball.adapter.AnswerAdapter;
-import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.adapter.MyQuestionAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseTitleActivity;
 import com.kingja.kball.injector.component.AppComponent;
-import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Question;
-import com.kingja.kball.ui.detail.DetailQuestionPresenter;
-import com.kingja.kball.ui.store.DaggerStoreCompnent;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.kball.widget.PullToBottomRecyclerView;

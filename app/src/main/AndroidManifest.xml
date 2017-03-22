@@ -39,6 +39,7 @@
         <activity android:name=".ui.mine.answer.MyAnswersActivity" /><!--我的回答-->
         <activity android:name=".ui.mine.attention.MyAttentionsActivity" /><!--我的关注-->
         <activity android:name=".ui.mine.collection.MyCollectionsActivity" /><!--我的收藏-->
+        <activity android:name=".ui.mine.fans.MyFansActivity" /><!--我的粉丝-->
     </application>
 
 </manifest>

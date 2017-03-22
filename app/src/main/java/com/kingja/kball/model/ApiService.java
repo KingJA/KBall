@@ -45,6 +45,10 @@ public interface ApiService {
     Observable<HttpResult<SingleInt>> collect(@Field("token") String token, @Field("questionId") long questionId, @Field("ifCollect") int ifCollect);
 
     @FormUrlEncoded
+    @POST("/mobile/question/attention")
+    Observable<HttpResult<SingleInt>> attention(@Field("token") String token, @Field("otherAccountId") long questionId, @Field("ifAttention") int ifAttention);
+
+    @FormUrlEncoded
     @POST("/mobile/question/praise")
     Observable<HttpResult<SingleInt>> praise(@Field("token") String token, @Field("answerId") long answerId);
 
@@ -89,6 +93,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/mobile/mine/getMyAttentions")
     Observable<HttpResult<List<MyAttention>>> getMyAttentions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+    /*我的粉丝*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getMyFans")
+    Observable<HttpResult<List<MyAttention>>> getMyFans(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
 
 }

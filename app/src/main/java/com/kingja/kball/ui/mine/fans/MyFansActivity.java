@@ -1,4 +1,4 @@
-package com.kingja.kball.ui.mine.attention;
+package com.kingja.kball.ui.mine.fans;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,9 +26,9 @@ import javax.inject.Inject;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MyAttentionsActivity extends BaseTitleActivity implements MyAttentionsContract.View,PullToBottomRecyclerView.OnPullToBottomListener,SwipeRefreshLayout.OnRefreshListener{
+public class MyFansActivity extends BaseTitleActivity implements MyFansContract.View,PullToBottomRecyclerView.OnPullToBottomListener,SwipeRefreshLayout.OnRefreshListener{
     @Inject
-    MyAttentionsPresenter mMyAttentionsPresenter;
+    MyFansPresenter mMyFansPresenter;
     @Inject
     SharedPreferencesManager mSpManager;
     private LinearLayout mLlRoot;
@@ -42,7 +42,7 @@ public class MyAttentionsActivity extends BaseTitleActivity implements MyAttenti
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-        DaggerMyAttentionsCompnent.builder()
+        DaggerMyFansCompnent.builder()
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
@@ -50,7 +50,7 @@ public class MyAttentionsActivity extends BaseTitleActivity implements MyAttenti
 
     @Override
     protected String getContentTitle() {
-        return "我的关注";
+        return "我的粉丝";
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MyAttentionsActivity extends BaseTitleActivity implements MyAttenti
 
     @Override
     protected void initView() {
-        mMyAttentionsPresenter.attachView(this);
+        mMyFansPresenter.attachView(this);
 
         mLlRoot = (LinearLayout) findViewById(R.id.ll_root);
         mSrl = (SwipeRefreshLayout) findViewById(R.id.srl);
@@ -77,18 +77,18 @@ public class MyAttentionsActivity extends BaseTitleActivity implements MyAttenti
 
     @Override
     protected void initNet() {
-        mMyAttentionsPresenter.getMyAttentions(mSpManager.getToken(),0, Constants.PAGE_SIZE);
+        mMyFansPresenter.getMyFans(mSpManager.getToken(),0, Constants.PAGE_SIZE);
     }
 
     @Override
-    public void showMyAttentions(List<MyAttention> questions, boolean hasMore) {
+    public void showMyFans(List<MyAttention> questions, boolean hasMore) {
         this.hasMore = hasMore;
         mLlEmpty.setVisibility(questions.size()>0? View.GONE:View.VISIBLE);
         mMyAttentionAdapter.setData(questions);
     }
 
     @Override
-    public void showMoreMyAttentions(List<MyAttention> questions, boolean hasMore) {
+    public void showMoreMyFans(List<MyAttention> questions, boolean hasMore) {
         this.hasMore = hasMore;
         mMyAttentionAdapter.addData(questions);
     }
@@ -110,7 +110,7 @@ public class MyAttentionsActivity extends BaseTitleActivity implements MyAttenti
         }
         if (hasMore ) {
             currentPage++;
-            mMyAttentionsPresenter.getMyAttentions(mSpManager.getToken(),currentPage*Constants.PAGE_SIZE, Constants.PAGE_SIZE);
+            mMyFansPresenter.getMyFans(mSpManager.getToken(),currentPage*Constants.PAGE_SIZE, Constants.PAGE_SIZE);
         }else{
             ToastUtil.showText("到底啦");
         }

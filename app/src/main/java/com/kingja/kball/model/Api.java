@@ -83,6 +83,11 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<HttpResult<SingleInt>> attention(String token, long ohterAccountId, int ifAttention) {
+        return apiService.attention(token, ohterAccountId, ifAttention).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<HttpResult<SingleInt>> praise(String token, long answerId) {
         return apiService.praise(token, answerId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -108,6 +113,7 @@ public class Api {
         return apiService.getMyQuestions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
     public Observable<HttpResult<List<Question>>> getMyCollections(String token, int pageIndex, int pageSize) {
         return apiService.getMyCollections(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -123,4 +129,8 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<HttpResult<List<MyAttention>>> getMyFans(String token, int pageIndex, int pageSize) {
+        return apiService.getMyFans(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
