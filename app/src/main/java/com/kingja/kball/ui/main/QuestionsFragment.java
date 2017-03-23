@@ -5,16 +5,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
-import com.anadeainc.rxbus.BusProvider;
-import com.anadeainc.rxbus.Subscribe;
 import com.kingja.kball.R;
 import com.kingja.kball.adapter.BaseRvAdaper;
-import com.kingja.kball.adapter.DividerItemDecoration;
 import com.kingja.kball.adapter.QuestionAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseFragment;
@@ -22,14 +18,11 @@ import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.Api;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Question;
-import com.kingja.kball.rxbus.RefreshQuestionEvent;
 import com.kingja.kball.ui.detail.DetailQuestionActivity;
 import com.kingja.kball.util.AppUtil;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.orhanobut.logger.Logger;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;

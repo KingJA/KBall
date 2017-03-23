@@ -99,5 +99,9 @@ public interface ApiService {
     @POST("/mobile/mine/getMyFans")
     Observable<HttpResult<List<MyAttention>>> getMyFans(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
+    /*我的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getOtherAnswers")
+    Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(@Field("token") String token,@Field("otherAccountId") long otherAccountId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
 }

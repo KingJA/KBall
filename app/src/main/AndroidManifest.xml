@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,6 +40,7 @@
         <activity android:name=".ui.mine.attention.MyAttentionsActivity" /><!--我的关注-->
         <activity android:name=".ui.mine.collection.MyCollectionsActivity" /><!--我的收藏-->
         <activity android:name=".ui.mine.fans.MyFansActivity" /><!--我的粉丝-->
+        <activity android:name=".ui.other.OtherActivity" /><!--其他用户主页-->
     </application>
 
 </manifest>

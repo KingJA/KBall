@@ -18,11 +18,13 @@ import com.kingja.kball.ui.mine.attention.MyAttentionsActivity;
 import com.kingja.kball.ui.mine.collection.MyCollectionsActivity;
 import com.kingja.kball.ui.mine.fans.MyFansActivity;
 import com.kingja.kball.ui.mygift.MyGiftActivity;
+import com.kingja.kball.ui.other.OtherActivity;
 import com.kingja.kball.util.GoUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Description：TODO
@@ -55,6 +57,9 @@ public class MineFragment extends BaseFragment {
     TextView tvFansCount;
     @BindView(R.id.ll_fans)
     LinearLayout llFans;
+    @BindView(R.id.rl_mine_setting)
+    RelativeLayout rlMineSetting;
+    Unbinder unbinder;
 
     @Override
     protected void initComponent(AppComponent appComponent) {
@@ -76,7 +81,7 @@ public class MineFragment extends BaseFragment {
         return R.layout.fragment_mine;
     }
 
-    @OnClick({R.id.rl_gift, R.id.rl_question, R.id.rl_answer, R.id.ll_attention, R.id.rl_collection, R.id.ll_fans})
+    @OnClick({R.id.rl_gift, R.id.rl_question, R.id.rl_answer, R.id.ll_attention, R.id.rl_collection, R.id.ll_fans, R.id.rl_mine_setting})
     public void onSwitch(View view) {
         switch (view.getId()) {
             case R.id.rl_gift:
@@ -97,6 +102,9 @@ public class MineFragment extends BaseFragment {
             case R.id.ll_fans:
                 GoUtil.goActivity(getActivity(), MyFansActivity.class);
                 break;
+            case R.id.rl_mine_setting:
+                GoUtil.goActivity(getActivity(), OtherActivity.class);
+                break;
 
         }
 
@@ -106,7 +114,13 @@ public class MineFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

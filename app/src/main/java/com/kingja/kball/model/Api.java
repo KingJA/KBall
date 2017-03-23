@@ -133,4 +133,9 @@ public class Api {
         return apiService.getMyFans(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(String token,long otherAccountId, int pageIndex, int pageSize) {
+        return apiService.getOtherAnswers(token,otherAccountId, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
