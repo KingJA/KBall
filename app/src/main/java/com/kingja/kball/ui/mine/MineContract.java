@@ -2,6 +2,7 @@ package com.kingja.kball.ui.mine;
 
 import com.kingja.kball.base.BasePresenter;
 import com.kingja.kball.base.BaseView;
+import com.kingja.kball.model.entiy.Account;
 import com.kingja.kball.model.entiy.HttpResult;
 
 import okhttp3.MultipartBody;
@@ -14,11 +15,10 @@ import okhttp3.MultipartBody;
  */
 public interface MineContract {
     interface View extends BaseView {
-        void onUploadHeadIconSuccess(HttpResult<Object> httpResult);
+        void shoUserInfo(Account account);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void uploadHeadIcon(MultipartBody.Part photo);
-
+        void getUserInfo(String token);
     }
 }

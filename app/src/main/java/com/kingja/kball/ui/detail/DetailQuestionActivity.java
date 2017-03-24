@@ -148,6 +148,10 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
             tvDetailAnswerCount.setVisibility(View.VISIBLE);
             tvDetailAnswerCount.setText(mQuestion.getAnswerCount() + "");
         }
+        tvDetailName.setText(mQuestion.getName());
+        tvDetailLevel.setText(mQuestion.getRankInfo().getTitle());
+
+
         llSofa.setVisibility(mQuestion.getAnswerCount() > 0 ? View.GONE : View.VISIBLE);
         tvDetailTitle.setText(mQuestion.getTitle());
         tvDetailContent.setText(mQuestion.getContent());

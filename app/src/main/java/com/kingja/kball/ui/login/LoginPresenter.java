@@ -3,6 +3,8 @@ package com.kingja.kball.ui.login;
 import android.support.annotation.NonNull;
 
 import com.kingja.kball.model.Api;
+import com.kingja.kball.model.ResultObserver;
+import com.kingja.kball.model.entiy.Account;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.util.ToastUtil;
@@ -32,29 +34,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(String userName, String password) {
         mView.showLoading();
-        mApi.login(userName, password).subscribe(new Observer<HttpResult<Login>>() {
+        mApi.login(userName, password).subscribe(new ResultObserver<Account>(mView) {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(HttpResult<Login> loginHttpResult) {
-                if (loginHttpResult.getResultCode() == 0) {
-                    mView.onLoginSuccess(loginHttpResult.getResultData());
-                } else {
-                    ToastUtil.showText(loginHttpResult.getResultText());
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                ToastUtil.showText(e.toString());
-            }
-
-            @Override
-            public void onComplete() {
-                mView.hideLoading();
+            protected void onSuccess(Account account) {
+                mView.onLoginSuccess(account);
             }
         });
     }

@@ -1,11 +1,13 @@
 package com.kingja.kball.model;
 
+import com.kingja.kball.model.entiy.Account;
 import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.MyAnswer;
 import com.kingja.kball.model.entiy.MyAttention;
+import com.kingja.kball.model.entiy.OtherUser;
 import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.model.entiy.SingleInt;
 
@@ -30,7 +32,7 @@ import retrofit2.http.Part;
 public interface ApiService {
     @FormUrlEncoded
     @POST("/mobile/account/login")
-    Observable<HttpResult<Login>> login(@Field("name") String userName, @Field("password") String userPassword);
+    Observable<HttpResult<Account>> login(@Field("userName") String userName, @Field("password") String userPassword);
 
     @FormUrlEncoded
     @POST("/mobile/question/getQuestions")
@@ -79,6 +81,11 @@ public interface ApiService {
     @POST("/mobile/mine/getMyQuestions")
     Observable<HttpResult<List<Question>>> getMyQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
+    /*其他用户的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getOtherQuestions")
+    Observable<HttpResult<List<Question>>> getOtherQuestions(@Field("token") String token,@Field("otherAccountId") long otherAccountId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
     /*我的收藏*/
     @FormUrlEncoded
     @POST("/mobile/mine/getMyCollections")
@@ -102,6 +109,14 @@ public interface ApiService {
     /*我的提问*/
     @FormUrlEncoded
     @POST("/mobile/mine/getOtherAnswers")
-    Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(@Field("token") String token,@Field("otherAccountId") long otherAccountId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+    Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(@Field("token") String token, @Field("otherAccountId") long otherAccountId, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+    /*我的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getOtherUserInfo")
+    Observable<HttpResult<OtherUser>> getOtherUserInfo(@Field("token") String token, @Field("otherAccountId") long otherAccountId);
+    /*我的提问*/
+    @FormUrlEncoded
+    @POST("/mobile/mine/getUserInfo")
+    Observable<HttpResult<Account>> getUserInfo(@Field("token") String token);
 
 }

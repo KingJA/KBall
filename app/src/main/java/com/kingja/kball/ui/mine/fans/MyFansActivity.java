@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
+import com.kingja.kball.adapter.BaseRvAdaper;
 import com.kingja.kball.adapter.MyAttentionAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseTitleActivity;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.MyAttention;
+import com.kingja.kball.ui.other.OtherActivity;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.kball.widget.PullToBottomRecyclerView;
@@ -26,7 +28,7 @@ import javax.inject.Inject;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MyFansActivity extends BaseTitleActivity implements MyFansContract.View,PullToBottomRecyclerView.OnPullToBottomListener,SwipeRefreshLayout.OnRefreshListener{
+public class MyFansActivity extends BaseTitleActivity implements MyFansContract.View,PullToBottomRecyclerView.OnPullToBottomListener,SwipeRefreshLayout.OnRefreshListener,BaseRvAdaper.OnItemClickListener<MyAttention>{
     @Inject
     MyFansPresenter mMyFansPresenter;
     @Inject
@@ -73,6 +75,7 @@ public class MyFansActivity extends BaseTitleActivity implements MyFansContract.
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.setHasFixedSize(true);
         mRv.setAdapter(mMyAttentionAdapter);
+        mMyAttentionAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -119,5 +122,10 @@ public class MyFansActivity extends BaseTitleActivity implements MyFansContract.
     @Override
     public void onRefresh() {
         initNet();
+    }
+
+    @Override
+    public void onItemClick(MyAttention myAttention, int position) {
+        OtherActivity.goActivity(this,myAttention.getMyAccountId());
     }
 }

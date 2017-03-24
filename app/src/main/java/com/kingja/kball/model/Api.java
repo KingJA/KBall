@@ -2,12 +2,14 @@ package com.kingja.kball.model;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kingja.kball.app.Constants;
+import com.kingja.kball.model.entiy.Account;
 import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.model.entiy.Gift;
 import com.kingja.kball.model.entiy.HttpResult;
 import com.kingja.kball.model.entiy.Login;
 import com.kingja.kball.model.entiy.MyAnswer;
 import com.kingja.kball.model.entiy.MyAttention;
+import com.kingja.kball.model.entiy.OtherUser;
 import com.kingja.kball.model.entiy.Question;
 import com.kingja.kball.model.entiy.SingleInt;
 
@@ -52,8 +54,8 @@ public class Api {
         apiService = retrofit.create(ApiService.class);
     }
 
-    public Observable<HttpResult<Login>> login(String userName, String userPassword) {
-        return apiService.login(userName, userPassword).subscribeOn(Schedulers.io())
+    public Observable<HttpResult<Account>> login(String userName, String password) {
+        return apiService.login(userName, password).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
@@ -114,6 +116,11 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<HttpResult<List<Question>>> getOtherQuestions(String token, long otherAccountId, int pageIndex, int pageSize) {
+        return apiService.getOtherQuestions(token, otherAccountId, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<HttpResult<List<Question>>> getMyCollections(String token, int pageIndex, int pageSize) {
         return apiService.getMyCollections(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -134,8 +141,16 @@ public class Api {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(String token,long otherAccountId, int pageIndex, int pageSize) {
-        return apiService.getOtherAnswers(token,otherAccountId, pageIndex, pageSize).subscribeOn(Schedulers.io())
+    public Observable<HttpResult<List<MyAnswer>>> getOtherAnswers(String token, long otherAccountId, int pageIndex, int pageSize) {
+        return apiService.getOtherAnswers(token, otherAccountId, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+     public Observable<HttpResult<OtherUser>> getOtherUserInfo(String token, long otherAccountId) {
+        return apiService.getOtherUserInfo(token, otherAccountId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+    public Observable<HttpResult<Account>> getUserInfo(String token) {
+        return apiService.getUserInfo(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }

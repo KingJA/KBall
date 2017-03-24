@@ -15,4 +15,9 @@ public class Constants {
     public static final String EXTRA_QUESTION="EXTRA_QUESTION";
     public static final int GRIDVIEW_IMG_COUNT =3;
     public static final int GRIDVIEW_GIFT_COUNT =4;
+
+
+    /*Extra*/
+
+    public static final String EXTRA_OTHER_ACCOUNT_ID="EXTRA_OTHER_ACCOUNT_ID";
 }

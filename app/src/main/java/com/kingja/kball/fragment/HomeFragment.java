@@ -40,9 +40,8 @@ public class HomeFragment extends BaseFragment {
     ViewPager vpHome;
     @BindView(R.id.fab_main)
     FloatingActionButton fabMain;
-    private List<String> mTabList = Arrays.asList("全部", "已解决", "未解决");
     private Fragment mFragmentArr[] = new Fragment[3];
-
+    private String[] items;
     @Override
     protected void initComponent(AppComponent appComponent) {
 
@@ -50,16 +49,17 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initViewAndListener() {
+        items = getResources().getStringArray(R.array.question_items);
         tlHome.setTabMode(TabLayout.MODE_FIXED);
-        tlHome.addTab(tlHome.newTab().setText(mTabList.get(0)));
-        tlHome.addTab(tlHome.newTab().setText(mTabList.get(1)));
-        tlHome.addTab(tlHome.newTab().setText(mTabList.get(2)));
+        tlHome.addTab(tlHome.newTab().setText(items[0]));
+        tlHome.addTab(tlHome.newTab().setText(items[1]));
+        tlHome.addTab(tlHome.newTab().setText(items[2]));
 
         mFragmentArr[0] = AllQuestionFragment.newInstance(-1);
         mFragmentArr[1] = SolvedQuestionFragment.newInstance(1);
         mFragmentArr[2] = UnsolvedQuestionFragment.newInstance(0);
 
-        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getFragmentManager(), mFragmentArr, mTabList);
+        MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getFragmentManager(), mFragmentArr, items);
         vpHome.setAdapter(mainPagerAdapter);
         vpHome.setOffscreenPageLimit(2);
         tlHome.setupWithViewPager(vpHome);

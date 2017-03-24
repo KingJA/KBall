@@ -11,12 +11,21 @@ import java.util.Date;
  */
 public class MyAttention {
     private long attentionId;
+    private long myAccountId;
     private long otherAccountId;
     private String name;
     private String des;
     private int experience;
     private String avatar;
     private RankInfo rankInfo;
+
+    public long getMyAccountId() {
+        return myAccountId;
+    }
+
+    public void setMyAccountId(long myAccountId) {
+        this.myAccountId = myAccountId;
+    }
 
     public RankInfo getRankInfo() {
         return new RankInfo(experience);
@@ -57,6 +66,7 @@ public class MyAttention {
     public void setRankInfo(RankInfo rankInfo) {
         this.rankInfo = rankInfo;
     }
+
     public String getDes() {
         return des;
     }

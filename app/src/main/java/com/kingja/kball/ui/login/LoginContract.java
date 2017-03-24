@@ -2,6 +2,7 @@ package com.kingja.kball.ui.login;
 
 import com.kingja.kball.base.BasePresenter;
 import com.kingja.kball.base.BaseView;
+import com.kingja.kball.model.entiy.Account;
 import com.kingja.kball.model.entiy.Login;
 
 /**
@@ -12,7 +13,7 @@ import com.kingja.kball.model.entiy.Login;
  */
 public interface LoginContract {
     interface View extends BaseView {
-        void onLoginSuccess(Login login);
+        void onLoginSuccess(Account account);
 
         void onRegisterSuccess();
 

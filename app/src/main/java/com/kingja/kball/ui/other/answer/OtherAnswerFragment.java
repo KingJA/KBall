@@ -7,11 +7,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.kingja.kball.R;
+import com.kingja.kball.adapter.BaseRvAdaper;
 import com.kingja.kball.adapter.MyAnswerAdapter;
 import com.kingja.kball.app.Constants;
 import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.model.entiy.MyAnswer;
+import com.kingja.kball.ui.detail.DetailQuestionActivity;
 import com.kingja.kball.util.SharedPreferencesManager;
 import com.kingja.kball.util.ToastUtil;
 import com.kingja.kball.widget.PullToBottomRecyclerView;
@@ -29,7 +31,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class OtherAnswerFragment extends BaseFragment implements PullToBottomRecyclerView.OnPullToBottomListener, OtherAnswerContract.View {
+public class OtherAnswerFragment extends BaseFragment implements PullToBottomRecyclerView.OnPullToBottomListener, OtherAnswerContract.View,BaseRvAdaper.OnItemClickListener<MyAnswer> {
     @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
     @BindView(R.id.rv)
@@ -71,6 +73,7 @@ public class OtherAnswerFragment extends BaseFragment implements PullToBottomRec
         rv.setHasFixedSize(true);
         rv.setAdapter(mMyAnswerAdapter);
         rv.setOnPullToBottomListener(this);
+        mMyAnswerAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -117,4 +120,8 @@ public class OtherAnswerFragment extends BaseFragment implements PullToBottomRec
         pb.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onItemClick(MyAnswer myAnswer, int position) {
+        DetailQuestionActivity.goActivity(getActivity(), myAnswer);
+    }
 }

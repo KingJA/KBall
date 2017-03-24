@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="other_user_items">
+        <item>回答</item>
+        <item>提问</item>
+        <item>勋章墙</item>
+    </string-array>
+    <string-array name="question_items">
+        <item>全部</item>
+        <item>已解决</item>
+        <item>未解决</item>
+    </string-array>
+</resources>

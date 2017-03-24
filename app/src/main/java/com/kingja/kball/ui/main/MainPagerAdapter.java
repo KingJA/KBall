@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class MainPagerAdapter extends FragmentPagerAdapter {
     private Fragment[] fragments;
-    private List<String> titles;
+    private String[] titles;
 
-    public MainPagerAdapter(FragmentManager fm, Fragment[] fragments, List<String> titles) {
+    public MainPagerAdapter(FragmentManager fm, Fragment[] fragments, String[] titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;
@@ -36,6 +36,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        return titles[position];
     }
 }

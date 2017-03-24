@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
+import com.kingja.kball.imgaeloader.IImageLoader;
 import com.kingja.kball.injector.component.AppComponent;
+import com.kingja.kball.model.entiy.Account;
+import com.kingja.kball.ui.detail.DaggerDetailQuestionCompnent;
+import com.kingja.kball.ui.detail.DetailQuestionPresenter;
 import com.kingja.kball.ui.mine.answer.MyAnswersActivity;
 import com.kingja.kball.ui.mine.ask.MyQuestionsActivity;
 import com.kingja.kball.ui.mine.attention.MyAttentionsActivity;
@@ -20,6 +24,9 @@ import com.kingja.kball.ui.mine.fans.MyFansActivity;
 import com.kingja.kball.ui.mygift.MyGiftActivity;
 import com.kingja.kball.ui.other.OtherActivity;
 import com.kingja.kball.util.GoUtil;
+import com.kingja.kball.util.SharedPreferencesManager;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +39,7 @@ import butterknife.Unbinder;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements MineContract.View {
     @BindView(R.id.iv_head)
     ImageView ivHead;
     @BindView(R.id.tv_level)
@@ -60,20 +67,29 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.rl_mine_setting)
     RelativeLayout rlMineSetting;
     Unbinder unbinder;
+    @Inject
+    IImageLoader imageLoader;
+    @Inject
+    MinePresenter mMinePresenter;
+    @Inject
+    SharedPreferencesManager mSpManager;
 
     @Override
     protected void initComponent(AppComponent appComponent) {
-
+        DaggerMineCompnent.builder()
+                .appComponent(appComponent)
+                .build()
+                .inject(this);
     }
 
     @Override
     protected void initViewAndListener() {
-
+        mMinePresenter.attachView(this);
     }
 
     @Override
     protected void initNet() {
-
+        mMinePresenter.getUserInfo(mSpManager.getToken());
     }
 
     @Override
@@ -122,5 +138,24 @@ public class MineFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void shoUserInfo(Account account) {
+        tvUserName.setText(account.getName());
+        tvLevel.setText(account.getRankInfo().getTitle());
+        tvAttentionCount.setText(account.getAttentionCount() + "");
+        tvFansCount.setText(account.getFansCount() + "");
+        imageLoader.loadImage(getActivity(),account.getAvatar(),R.drawable.head,ivHead);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

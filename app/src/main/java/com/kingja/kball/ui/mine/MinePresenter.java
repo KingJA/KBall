@@ -3,6 +3,8 @@ package com.kingja.kball.ui.mine;
 import android.support.annotation.NonNull;
 
 import com.kingja.kball.model.Api;
+import com.kingja.kball.model.ResultObserver;
+import com.kingja.kball.model.entiy.Account;
 
 import javax.inject.Inject;
 
@@ -24,39 +26,22 @@ public class MinePresenter   implements MineContract.Presenter {
     }
 
     @Override
-    public void uploadHeadIcon(MultipartBody.Part photo) {
-
-//        mApi.uploadHeadIcon(photo).subscribe(new ResultObserver<Object>() {
-//            @Override
-//            public void onStart() {
-//                mView.showLoading();
-//            }
-//
-//            @Override
-//            protected void onSuccess(HttpResult<Object> httpResult) {
-//                mView.hideLoading();
-//                mView.onUploadHeadIconSuccess(httpResult);
-//            }
-//
-//            @Override
-//            protected void onError(String errorText) {
-//                mView.hideLoading();
-//                ToastUtil.showText(errorText);
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//                mView.hideLoading();
-//            }
-//        });
-    }
-
-    @Override
     public void attachView(@NonNull MineContract.View view) {
         mView = view;
     }
 
     @Override
     public void detachView() {
+    }
+
+    @Override
+    public void getUserInfo(String token) {
+        mView.showLoading();
+        mApi.getUserInfo(token).subscribe(new ResultObserver<Account>(mView) {
+            @Override
+            protected void onSuccess(Account account) {
+                mView.shoUserInfo(account);
+            }
+        });
     }
 }

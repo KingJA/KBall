@@ -1,10 +1,8 @@
 package com.kingja.kball.ui.main;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,15 +10,8 @@ import android.widget.TextView;
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseActivity;
 import com.kingja.kball.injector.component.AppComponent;
-import com.kingja.kball.rxbus.RefreshQuestionEvent;
-import com.kingja.kball.ui.publish.PublishActivity;
 import com.kingja.kball.util.FragmentUtil;
-import com.kingja.kball.util.GoUtil;
 import com.kingja.kball.util.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
