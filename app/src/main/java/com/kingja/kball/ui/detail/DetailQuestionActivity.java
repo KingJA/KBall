@@ -117,6 +117,8 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         mQuestion = (Question) getIntent().getSerializableExtra(Constants.EXTRA_QUESTION);
     }
 
+
+
     @Override
     public int getContentId() {
         return R.layout.activity_detail_question;
@@ -171,7 +173,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         rvDetailImgs.setHasFixedSize(true);
         rvDetailImgs.setAdapter(mSingleImgAdapter);
         //init answer
-        mAnswerAdapter = new AnswerAdapter(this, new ArrayList<Answer>());
+        mAnswerAdapter = new AnswerAdapter(this, new ArrayList<Answer>(),mSpManager.getAccountId()==mQuestion.getAccountId()&&mQuestion.getSolved()==0);
         rvDetailAnswers.setLayoutManager(new LinearLayoutManager(this));
         rvDetailAnswers.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
@@ -338,5 +340,9 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         Log.e(TAG, "刷新: ");
         detailQuestionPresenter.getAnswers(mSpManager.getToken(), mQuestion.getQuestionId(), 0, Constants.PAGE_SIZE);
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

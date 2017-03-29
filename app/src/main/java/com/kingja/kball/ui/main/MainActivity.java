@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity {
         if (mSelectedPosition == nCurrentPosition) {
             return;
         }
-        mCurrentFragment = FragmentUtil.switchFragment(this, mCurrentFragment, FragmentUtil.getFragment(position));
+        mCurrentFragment = FragmentUtil.switchFragment(getSupportFragmentManager(), mCurrentFragment, FragmentUtil.getFragment(position));
         nCurrentPosition = mSelectedPosition;
         setStatus(position);
     }

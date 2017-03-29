@@ -1,7 +1,10 @@
 package com.kingja.kball.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.injector.component.DaggerAppComponent;
@@ -10,6 +13,7 @@ import com.kingja.kball.injector.module.AppModule;
 import com.kingja.kball.injector.module.SharedPreferencesModule;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -23,7 +27,7 @@ import cn.sharesdk.framework.ShareSDK;
  * 1.创建全局AppComponent
  * 2.对外提供方法获取AppComponent
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static App sInstance;
     private AppComponent appComponent;
     private static SharedPreferences mSharedPreferences;
@@ -32,6 +36,12 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         ShareSDK.initSDK(this);
         this.sInstance = this;
         mSharedPreferences = getSharedPreferences(Constants.APPLICATION_NAME, MODE_PRIVATE);
@@ -62,4 +72,9 @@ public class App extends Application {
         return appModule;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this) ;/*64K说拜拜*/
+    }
 }

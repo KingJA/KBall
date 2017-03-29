@@ -14,6 +14,7 @@ import com.kingja.kball.app.App;
 import com.kingja.kball.injector.component.AppComponent;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created with Android Studio.
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
     protected String TAG=getClass().getSimpleName();
     private ProgressDialog mDialogProgress;
+    protected Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -61,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mRootView = inflater.inflate(getContentId(), container, false);
-        ButterKnife.bind(this, mRootView);
+        unbinder = ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
@@ -72,5 +74,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder.unbind();
     }
 }

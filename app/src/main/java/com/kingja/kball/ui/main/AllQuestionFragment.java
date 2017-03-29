@@ -27,4 +27,10 @@ public class AllQuestionFragment extends QuestionsFragment {
         initNet();
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

@@ -14,6 +14,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.FullScreenNoTitle" parent="AppTheme.NoActionBar" >
+        <item name="android:windowFullscreen">?android:windowNoTitle</item>
+    </style>
+
     <style name="et_white_16">
         <item name="android:textColorHint">@color/font_9</item>
         <item name="android:textSize">16dp</item>

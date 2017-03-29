@@ -4,22 +4,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.kingja.kball.R;
 import com.kingja.kball.base.BaseFragment;
 import com.kingja.kball.injector.component.AppComponent;
 import com.kingja.kball.ui.main.AllQuestionFragment;
-import com.kingja.kball.ui.main.QuestionsFragment;
 import com.kingja.kball.ui.main.MainPagerAdapter;
 import com.kingja.kball.ui.main.SolvedQuestionFragment;
 import com.kingja.kball.ui.main.UnsolvedQuestionFragment;
 import com.kingja.kball.ui.publish.PublishActivity;
 import com.kingja.kball.util.GoUtil;
-
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -76,7 +71,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @OnClick({R.id.fab_main})
-    public void onSwitch(View view) {
+    public void onSwitch() {
         GoUtil.goActivity(getActivity(), PublishActivity.class);
         getActivity().overridePendingTransition(R.anim.translate_up, R.anim.scale_small);
 

@@ -1,12 +1,12 @@
 package com.kingja.kball.util;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.kingja.kball.R;
 import com.kingja.kball.fragment.HomeFragment;
-import com.kingja.kball.fragment.RankFragment;
+import com.kingja.kball.ui.rank.RankFragment;
 import com.kingja.kball.ui.store.StoreFragment;
 import com.kingja.kball.ui.mine.MineFragment;
 
@@ -22,8 +22,8 @@ import java.util.Map;
 public class FragmentUtil {
     private static Map<Integer, Fragment> fragmentMap = new HashMap<>();
 
-    public static Fragment switchFragment(FragmentActivity activity, Fragment currentFragment, Fragment newFragment) {
-        FragmentTransaction mTransaction = activity.getSupportFragmentManager().beginTransaction();
+    public static Fragment switchFragment(FragmentManager fragmentManager, Fragment currentFragment, Fragment newFragment) {
+        FragmentTransaction mTransaction = fragmentManager.beginTransaction();
         if (!newFragment.isAdded()) {
             mTransaction.hide(currentFragment).add(R.id.fl_main, newFragment).commit();
         } else {

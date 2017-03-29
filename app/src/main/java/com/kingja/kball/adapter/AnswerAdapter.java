@@ -24,12 +24,13 @@ import javax.inject.Inject;
  * Email:kingjavip@gmail.com
  */
 public class AnswerAdapter extends BaseRvAdaper<Answer> {
-    @Inject
-    IImageLoader IImageLoader;
     private OnPraiseListener onPraiseListener;
+    private boolean myQuestion;
 
-    public AnswerAdapter(Context context, List<Answer> list) {
+
+    public AnswerAdapter(Context context, List<Answer> list, boolean myQuestion) {
         super(context, list);
+        this.myQuestion = myQuestion;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
                 .placeholder(R.drawable.head)
                 .crossFade()
                 .into(holder.iv_answer_head);
+
         holder.iv_answer_praise.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
@@ -69,6 +71,16 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
                 }
             }
         });
+
+        holder.tv_answer_best.setVisibility(list.get(position).getIsBest()==1?View.VISIBLE:View.GONE);
+        holder.tv_answer_setBest.setVisibility(myQuestion?View.VISIBLE:View.GONE);
+        holder.tv_answer_setBest.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+
+                ToastUtil.showText("最佳答案");
+            }
+        });
     }
 
 
@@ -76,7 +88,9 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
         public TextView tv_answer_name;
         public TextView tv_answer_date;
         public TextView tv_answer_content;
+        public TextView tv_answer_setBest;
         public TextView tv_answer_praiseCount;
+        public TextView tv_answer_best;
         public ImageView iv_answer_head;
         public ImageView iv_answer_praise;
 
@@ -88,6 +102,8 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
             tv_answer_praiseCount = (TextView) itemView.findViewById(R.id.tv_answer_praiseCount);
             iv_answer_head = (ImageView) itemView.findViewById(R.id.iv_answer_head);
             iv_answer_praise = (ImageView) itemView.findViewById(R.id.iv_answer_praise);
+            tv_answer_setBest = (TextView) itemView.findViewById(R.id.tv_answer_setBest);
+            tv_answer_best = (TextView) itemView.findViewById(R.id.tv_answer_best);
         }
     }
 

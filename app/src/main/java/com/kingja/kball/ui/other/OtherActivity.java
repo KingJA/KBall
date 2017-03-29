@@ -57,7 +57,7 @@ public class OtherActivity extends BaseActivity implements OtherContract.View {
     LinearLayout llFans;
     @BindView(R.id.tv_other_des)
     TextView tvOtherDes;
-    private Fragment mFragmentArr[] = new Fragment[3];
+    private Fragment mFragmentArr[] = new Fragment[2];
     private long otherAccountId;
     @Inject
     IImageLoader imageLoader;
@@ -94,11 +94,9 @@ public class OtherActivity extends BaseActivity implements OtherContract.View {
 
         tlHome.addTab(tlHome.newTab().setText(items[0]));
         tlHome.addTab(tlHome.newTab().setText(items[1]));
-        tlHome.addTab(tlHome.newTab().setText(items[2]));
 
         mFragmentArr[0] = OtherAnswerFragment.newInstance(otherAccountId);
         mFragmentArr[1] = OtherQuestionFragment.newInstance(otherAccountId);
-        mFragmentArr[2] = OtherAnswerFragment.newInstance(otherAccountId);
 
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), mFragmentArr, items);
         vpHome.setAdapter(mainPagerAdapter);

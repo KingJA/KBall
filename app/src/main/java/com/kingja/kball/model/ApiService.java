@@ -119,4 +119,10 @@ public interface ApiService {
     @POST("/mobile/mine/getUserInfo")
     Observable<HttpResult<Account>> getUserInfo(@Field("token") String token);
 
+    /*热门提问*/
+    @FormUrlEncoded
+    @POST("/mobile/question/getHotQuestions")
+    Observable<HttpResult<List<Question>>> getHotQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
+
+
 }

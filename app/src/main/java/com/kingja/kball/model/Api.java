@@ -153,4 +153,11 @@ public class Api {
         return apiService.getUserInfo(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+
+
+    public Observable<HttpResult<List<Question>>> getHotQuestions(String token, int pageIndex, int pageSize) {
+        return apiService.getHotQuestions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }
