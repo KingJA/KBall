@@ -124,5 +124,10 @@ public interface ApiService {
     @POST("/mobile/question/getHotQuestions")
     Observable<HttpResult<List<Question>>> getHotQuestions(@Field("token") String token, @Field("pageIndex") int pageIndex, @Field("pageSize") int pageSize);
 
+    /*设为最佳*/
+    @FormUrlEncoded
+    @POST("/mobile/question/setBestAnswer")
+    Observable<HttpResult<Object>> setBestAnswer(@Field("token") String token,@Field("questionId") long questionId,  @Field("answerId") long answerId, @Field("answerAccountId") long answerAccountId);
+
 
 }

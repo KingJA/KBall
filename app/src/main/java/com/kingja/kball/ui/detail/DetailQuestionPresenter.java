@@ -28,7 +28,6 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
 
     @Override
     public void getAnswers(String token, long questionId, final int pageIndex, final int pageSize) {
-        view.showLoading();
         api.getAnswers(token, questionId, pageIndex, pageSize).subscribe(new ResultObserver<List<Answer>>(view) {
             @Override
             protected void onSuccess(List<Answer> list) {
@@ -43,7 +42,6 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
 
     @Override
     public void collect(String token, long questionId, int ifCollect) {
-        view.showLoading();
         api.collect(token, questionId, ifCollect).subscribe(new ResultObserver<SingleInt>(view) {
             @Override
             protected void onSuccess(SingleInt singleInt) {
@@ -54,7 +52,6 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
 
     @Override
     public void attention(String token, long otherAccountId, int ifAttention) {
-        view.showLoading();
         api.attention(token,otherAccountId,ifAttention).subscribe(new ResultObserver<SingleInt>(view) {
             @Override
             protected void onSuccess(SingleInt singleInt) {
@@ -65,11 +62,20 @@ public class DetailQuestionPresenter implements DetailQuestionContract.Presenter
 
     @Override
     public void praise(String token, long answerId) {
-        view.showLoading();
         api.praise(token, answerId).subscribe(new ResultObserver<SingleInt>(view) {
             @Override
             protected void onSuccess(SingleInt singleInt) {
                 view.showPraised();
+            }
+        });
+    }
+
+    @Override
+    public void setBestQuestion(String token,long questionId, long answerId,  long answerAccountId) {
+        api.setBestAnswer(token,answerId,questionId,answerAccountId).subscribe(new ResultObserver<Object>(view) {
+            @Override
+            protected void onSuccess(Object o) {
+                view.showBest();
             }
         });
     }

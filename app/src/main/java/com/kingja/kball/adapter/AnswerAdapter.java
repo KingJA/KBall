@@ -8,14 +8,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kingja.kball.R;
 import com.kingja.kball.app.Constants;
-import com.kingja.kball.imgaeloader.IImageLoader;
 import com.kingja.kball.model.entiy.Answer;
 import com.kingja.kball.util.NoDoubleClickListener;
 import com.kingja.kball.util.ToastUtil;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Description：TODO
@@ -25,12 +22,13 @@ import javax.inject.Inject;
  */
 public class AnswerAdapter extends BaseRvAdaper<Answer> {
     private OnPraiseListener onPraiseListener;
-    private boolean myQuestion;
+    private OnBestAnswerListener onBestAnswerListener;
+    private boolean ifShowSetBest;
 
 
-    public AnswerAdapter(Context context, List<Answer> list, boolean myQuestion) {
+    public AnswerAdapter(Context context, List<Answer> list, boolean ifShowSetBest) {
         super(context, list);
-        this.myQuestion = myQuestion;
+        this.ifShowSetBest = ifShowSetBest;
     }
 
     @Override
@@ -72,13 +70,14 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
             }
         });
 
-        holder.tv_answer_best.setVisibility(list.get(position).getIsBest()==1?View.VISIBLE:View.GONE);
-        holder.tv_answer_setBest.setVisibility(myQuestion?View.VISIBLE:View.GONE);
+        holder.tv_answer_best.setVisibility(list.get(position).getIsBest() == 1 ? View.VISIBLE : View.GONE);
+        holder.tv_answer_setBest.setVisibility(ifShowSetBest ? View.VISIBLE : View.GONE);
         holder.tv_answer_setBest.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
-
-                ToastUtil.showText("最佳答案");
+                if (onBestAnswerListener != null) {
+                    onBestAnswerListener.onBest(list.get(position).getQuestionId(),list.get(position).getAnswerId(),list.get(position).getAccountId(),position);
+                }
             }
         });
     }
@@ -107,9 +106,24 @@ public class AnswerAdapter extends BaseRvAdaper<Answer> {
         }
     }
 
+    public void setBestQuestion(int position) {
+        list.get(position).setIsBest(1);
+        ifShowSetBest=false;
+        notifyDataSetChanged();
+    }
+
     public interface OnPraiseListener {
         void onPraise(long answerId, int position);
     }
+
+    public interface OnBestAnswerListener {
+        void onBest(long questionId,long answerId, long answerAccountId, int bestAnswer);
+    }
+
+    public void setOnBestAnswerListener(OnBestAnswerListener onBestAnswerListener) {
+        this.onBestAnswerListener = onBestAnswerListener;
+    }
+
 
     public void setOnPraiseListener(OnPraiseListener onPraiseListener) {
         this.onPraiseListener = onPraiseListener;

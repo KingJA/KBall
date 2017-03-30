@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,7 +55,7 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class DetailQuestionActivity extends BaseActivity implements DetailQuestionContract.View {
+public class DetailQuestionActivity extends BaseActivity implements DetailQuestionContract.View, AnswerAdapter.OnBestAnswerListener {
     @BindView(R.id.tv_detail_title)
     TextView tvDetailTitle;
     @BindView(R.id.civ_detail_head)
@@ -94,6 +95,8 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     ImageView ivDetailCollect;
     @BindView(R.id.tv_detail_attention)
     TextView tvDetailAttention;
+    @BindView(R.id.tv_detail_hasSolved)
+    TextView tvDetailHasSolved;
     private Question mQuestion;
 
     @Inject
@@ -109,6 +112,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     private int isAttentioned;
     private boolean scrollToAnswer;
     private int lastScrollY;
+    private int bestPosition;
 
 
     @Override
@@ -116,7 +120,6 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         EventBus.getDefault().register(this);
         mQuestion = (Question) getIntent().getSerializableExtra(Constants.EXTRA_QUESTION);
     }
-
 
 
     @Override
@@ -138,12 +141,12 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     protected void initViewAndListener() {
         // Init answer imgs RecyclerView,gv type
         detailQuestionPresenter.attachView(this);
+        tvDetailHasSolved.setVisibility(mQuestion.getSolved() == 1 ? View.VISIBLE : View.GONE);
         if (mSpManager.getAccountId() != mQuestion.getAccountId()) {
             tvDetailAttention.setVisibility(View.VISIBLE);
             isAttentioned = mQuestion.getIsAttentioned();
-            tvDetailAttention.setText(isAttentioned ==1? "已关注":"关注");
+            tvDetailAttention.setText(isAttentioned == 1 ? "已关注" : "关注");
         }
-
 
 
         if (mQuestion.getAnswerCount() > 0) {
@@ -165,15 +168,18 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
         // Init answers RecyclerView,lv type
         List<String> imgsList = Arrays.asList(mQuestion.getImgUrls().split("#"));
-        SingleImgAdapter mSingleImgAdapter = new SingleImgAdapter(this, imgsList);
-        GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_IMG_COUNT);
-        rvDetailImgs.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.HORIZONTAL_LIST));
-        rvDetailImgs.setLayoutManager(mgr);
-        rvDetailImgs.setHasFixedSize(true);
-        rvDetailImgs.setAdapter(mSingleImgAdapter);
+        if (!TextUtils.isEmpty(mQuestion.getImgUrls())&&imgsList.size() > 0) {
+            SingleImgAdapter mSingleImgAdapter = new SingleImgAdapter(this, imgsList);
+            GridLayoutManager mgr = new GridLayoutManager(this, Constants.GRIDVIEW_IMG_COUNT);
+            rvDetailImgs.addItemDecoration(new DividerItemDecoration(this,
+                    DividerItemDecoration.HORIZONTAL_LIST));
+            rvDetailImgs.setLayoutManager(mgr);
+            rvDetailImgs.setHasFixedSize(true);
+            rvDetailImgs.setAdapter(mSingleImgAdapter);
+        }
+
         //init answer
-        mAnswerAdapter = new AnswerAdapter(this, new ArrayList<Answer>(),mSpManager.getAccountId()==mQuestion.getAccountId()&&mQuestion.getSolved()==0);
+        mAnswerAdapter = new AnswerAdapter(this, new ArrayList<Answer>(), mSpManager.getAccountId() == mQuestion.getAccountId() && mQuestion.getSolved() == 0);
         rvDetailAnswers.setLayoutManager(new LinearLayoutManager(this));
         rvDetailAnswers.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
@@ -199,6 +205,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
                 praisedPosition = position;
             }
         });
+        mAnswerAdapter.setOnBestAnswerListener(this);
     }
 
     private int praisedPosition;
@@ -230,14 +237,14 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
 
         switch (view.getId()) {
             case R.id.rl_detail_goAnswer:
-                Log.e(TAG, "getScrollY: "+svDetailRoot.getScrollY() );
+                Log.e(TAG, "getScrollY: " + svDetailRoot.getScrollY());
                 if (scrollAble()) {
                     if (svDetailRoot.getScrollY() < getSupportScrollY()) {//滚动切还没滚动到期望位置
-                        lastScrollY=svDetailRoot.getScrollY();
-                        svDetailRoot.smoothScrollTo(0,getSupportScrollY());
+                        lastScrollY = svDetailRoot.getScrollY();
+                        svDetailRoot.smoothScrollTo(0, getSupportScrollY());
 
-                    }else{
-                        svDetailRoot.smoothScrollTo(0,lastScrollY);//滚动到上次位置
+                    } else {
+                        svDetailRoot.smoothScrollTo(0, lastScrollY);//滚动到上次位置
                     }
                 }
 
@@ -278,7 +285,7 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
                 AnswerActivity.goActivity(this, mQuestion.getQuestionId());
                 break;
             case R.id.tv_detail_attention:
-                detailQuestionPresenter.attention(mSpManager.getToken(),mQuestion.getAccountId(),isAttentioned);
+                detailQuestionPresenter.attention(mSpManager.getToken(), mQuestion.getAccountId(), isAttentioned);
                 break;
 
         }
@@ -286,12 +293,12 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     }
 
     private int getSupportScrollY() {
-        int supportScrollY=0;
+        int supportScrollY = 0;
         if (llDetailRoot.getMeasuredHeight() > svDetailRoot.getHeight()) {//滚动条里内容太超过滚动条显示区域
             if ((llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight()) > llDetailQuestion.getMeasuredHeight()) {//如果可以滚动长度超过问题显示的长度
-                supportScrollY= llDetailQuestion.getMeasuredHeight();
+                supportScrollY = llDetailQuestion.getMeasuredHeight();
             } else {
-                supportScrollY= (llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight());
+                supportScrollY = (llDetailRoot.getMeasuredHeight() - svDetailRoot.getHeight());
             }
         }
         return supportScrollY;
@@ -326,12 +333,18 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
     public void showAttention(int isAttentioned) {
         this.isAttentioned = isAttentioned;
         ToastUtil.showText(this.isAttentioned == 1 ? "关注成功" : "取消关注");
-        tvDetailAttention.setText(this.isAttentioned ==1? "已关注":"关注");
+        tvDetailAttention.setText(this.isAttentioned == 1 ? "已关注" : "关注");
     }
 
     @Override
     public void showPraised() {
         mAnswerAdapter.setPaise(praisedPosition);
+    }
+
+    @Override
+    public void showBest() {
+        ToastUtil.showText("成功设置最佳答案");
+        mAnswerAdapter.setBestQuestion(bestPosition);
     }
 
 
@@ -340,9 +353,23 @@ public class DetailQuestionActivity extends BaseActivity implements DetailQuesti
         Log.e(TAG, "刷新: ");
         detailQuestionPresenter.getAnswers(mSpManager.getToken(), mQuestion.getQuestionId(), 0, Constants.PAGE_SIZE);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBest(long questionId, long answerId, long answerAccountId, int bestAnswer) {
+        this.bestPosition = bestAnswer;
+        detailQuestionPresenter.setBestQuestion(mSpManager.getToken(), questionId, answerId, answerAccountId);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

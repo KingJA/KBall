@@ -7,6 +7,7 @@ import com.orhanobut.logger.Logger;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DefaultObserver;
 
 /**
  * Description：TODO
@@ -14,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public abstract class ResultObserver<T> implements Observer<HttpResult<T>> {
+public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     private BaseView baseView;
 
     public ResultObserver(BaseView baseView) {
@@ -22,8 +23,9 @@ public abstract class ResultObserver<T> implements Observer<HttpResult<T>> {
     }
 
     @Override
-    public void onSubscribe(Disposable d) {
-
+    protected void onStart() {
+        super.onStart();
+        baseView.showLoading();
     }
 
     @Override
@@ -48,5 +50,6 @@ public abstract class ResultObserver<T> implements Observer<HttpResult<T>> {
     @Override
     public void onComplete() {
     }
+
 
 }

@@ -145,19 +145,27 @@ public class Api {
         return apiService.getOtherAnswers(token, otherAccountId, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-     public Observable<HttpResult<OtherUser>> getOtherUserInfo(String token, long otherAccountId) {
+
+    public Observable<HttpResult<OtherUser>> getOtherUserInfo(String token, long otherAccountId) {
         return apiService.getOtherUserInfo(token, otherAccountId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
     public Observable<HttpResult<Account>> getUserInfo(String token) {
         return apiService.getUserInfo(token).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
 
-
     public Observable<HttpResult<List<Question>>> getHotQuestions(String token, int pageIndex, int pageSize) {
         return apiService.getHotQuestions(token, pageIndex, pageSize).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
+    public Observable<HttpResult<Object>> setBestAnswer(String token,long questionId, long answerId,  long answerAccountId) {
+        return apiService.setBestAnswer(token, answerId, questionId,answerAccountId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
 }
